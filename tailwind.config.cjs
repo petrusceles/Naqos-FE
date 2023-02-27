@@ -11,7 +11,10 @@ module.exports = {
       },
       colors: {
         'primary':'#21209C',
-        'secondary':'#E1E0FF'
+        'secondary':'#E1E0FF',
+        'contrary':'#FFBA2C',
+        'contary-secondary':"#FFDEAA"
+
       }},
   },
   plugins: [],

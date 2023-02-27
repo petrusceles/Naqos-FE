@@ -5,7 +5,7 @@ import FaqIcon from "../../assets/faq-icon.svg";
 function WhyUs() {
   return (
     <div className="bg-white">
-      <div className="container px-8 py-6 flex flex-wrap gap-8 pb-96 lg:py-12 lg:gap-10">
+      <div className="container px-8 py-6 flex flex-wrap gap-8 lg:py-12 lg:gap-10">
         <h2 className="font-semibold text-xl lg:text-3xl">
           Kenapa Harus Naqos?
         </h2>

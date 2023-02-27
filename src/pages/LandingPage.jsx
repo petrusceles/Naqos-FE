@@ -3,6 +3,7 @@ import NavbarUnsigned from '../components/Navbar/Unsigned'
 import NavbarSigned from '../components/Navbar/Signed'
 import Hero from '../components/Hero'
 import WhyUs from '../components/WhyUs'
+import KostRecommendation from '../components/KostRecommendation'
 function LandingPage() {
   return (
     <div>
@@ -10,6 +11,7 @@ function LandingPage() {
         {/* <NavbarUnsigned /> */}
         <Hero />
         <WhyUs />
+        <KostRecommendation />
     </div>
   )
 }
