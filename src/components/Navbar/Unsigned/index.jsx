@@ -1,0 +1,48 @@
+import React, { useState } from "react";
+import logoNaqos from "../../../assets/naqos-logo.svg";
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+function NavbarUnsigned() {
+  const [menu, setMenu] = useState(false);
+  return (
+    <div className="shadow-md bg-white">
+      <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 container">
+        <img
+          src={logoNaqos}
+          className="max-w-[120px] lg:max-w-[150px] w-1/3 "
+        />
+        <Bars3Icon
+          className="text-slate-800 cursor-pointer lg:hidden max-w-[30px]"
+          onClick={() => {
+            setMenu((prev) => !prev);
+          }}
+        />
+        <div
+          className={`absolute bg-white drop-shadow-md max-w-xs inset-y-0 w-1/2 right-0 h-full px-5 py-6 text-sm font-semibold transition-all duration-200 ease-in-out ${
+            menu ? " translate-x-[0%]" : " translate-x-[100%] hidden"
+          } lg:static lg:drop-shadow-none lg:translate-x-[0%] lg:px-0 lg:bg-inherit lg:text-base lg:block z-50`}
+        >
+          <div className="flex flex-wrap items-center justify-between mb-6 lg:mb-0  lg:hidden">
+            <h1 className="text-primary text-lg">Menu</h1>
+            <XMarkIcon
+              className="max-w-[30px] cursor-pointer"
+              onClick={() => {
+                setMenu((prev) => !prev);
+              }}
+            />
+          </div>
+          <div className="flex flex-wrap w-full gap-4 lg:justify-end lg:pr-2 lg:gap-7">
+            <button className="w-full py-2 bg-slate-100 rounded-md text-primary lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out">
+              Masuk
+            </button>
+            <button className="w-full py-2 bg-primary text-white rounded-md lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out">
+              Daftar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default NavbarUnsigned;
