@@ -12,7 +12,7 @@ function NavbarSigned() {
       <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 w-full container relative ">
         <img
           src={logoNaqos}
-          className="max-w-[120px] lg:max-w-[150px] w-1/3 "
+          className="max-w-[120px] lg:max-w-[200px] w-1/3 "
         />
         <div className="w-1/2 flex justify-end gap-5  ">
           <BellIcon

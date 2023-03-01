@@ -10,7 +10,7 @@ module.exports = {
         sans: ['Montserrat', 'ui-sans-serif', 'system-ui'],
       },
       colors: {
-        'primary':'#21209C',
+        'primary':'#0A008A',
         'secondary':'#E1E0FF',
         'contrary':'#FFBA2C',
         'contary-secondary':"#FFDEAA"

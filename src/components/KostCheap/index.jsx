@@ -5,7 +5,7 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import KostRecommendationCard from "./card";
+import KostCheapCard from "./card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import "./style.css";
@@ -24,16 +24,17 @@ const Cities = [
   "Semarang",
   "Bogor",
 ];
-function KostRecommendation() {
+function KostCheap() {
   const [place, setPlace] = useState("Bekasi");
   const [isDropdownOpen, setIsDropdownOpen] = useState(true);
   return (
-    <div className="container mx-auto px-8 pb-8 lg:pb-14">
-      <div className="grid grid-cols-1 lg:gap-14 gap-8">
+    <div className="container mx-auto px-8 py-8 lg:pb-16 lg:pt-14">
+      <div className="grid grid-cols-1 gap-8 lg:gap-14">
+        
         {/* Kost Recommendation Title */}
         <div className="flex w-fit gap-4 items-center relative">
           <h2 className="font-semibold text-xl lg:text-3xl">
-            Rekomendasi Kos Bulanan di
+            Kos Bulanan Paling Murah di
           </h2>
           <button
             className="bg-contrary px-3 py-2 rounded-full text-xs font-medium w-fit flex justify-evenly hover:bg-contary-secondary cursor-pointer duration-75 ease-in-out items-center gap-2 max-w-[102px] lg:max-w-none lg:py-3 lg:px-5"
@@ -84,33 +85,28 @@ function KostRecommendation() {
               },
             }}
             centerInsufficientSlides={true}
-            // centeredSlides={true}
-            // centeredSlidesBounds={true}
-            // style={{
-            //   "--swiper-navigation-size": "6vh"
-            // }}
             autoHeight={false}
             modules={[Navigation, Pagination]}
             navigation
             pagination={{ clickable: true }}
           >
             <SwiperSlide>
-              <KostRecommendationCard />
+              <KostCheapCard />
             </SwiperSlide>
             <SwiperSlide>
-              <KostRecommendationCard />
+              <KostCheapCard />
             </SwiperSlide>
             <SwiperSlide>
-              <KostRecommendationCard />
+              <KostCheapCard />
             </SwiperSlide>
             <SwiperSlide>
-              <KostRecommendationCard />
+              <KostCheapCard />
             </SwiperSlide>
             <SwiperSlide>
-              <KostRecommendationCard />
+              <KostCheapCard />
             </SwiperSlide>
             <SwiperSlide>
-              <KostRecommendationCard />
+              <KostCheapCard />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -119,4 +115,4 @@ function KostRecommendation() {
   );
 }
 
-export default KostRecommendation;
+export default KostCheap;
