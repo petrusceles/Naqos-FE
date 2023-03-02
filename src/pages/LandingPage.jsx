@@ -8,6 +8,7 @@ import Banner from '../components/Banner'
 import KostCheap from '../components/KostCheap'
 import Footer from '../components/Footer'
 import CTAuthModal from '../components/CTAuthModal'
+import KostCities from '../components/KostCities'
 function LandingPage() {
   return (
     <div>
@@ -18,6 +19,7 @@ function LandingPage() {
         <KostRecommendation />
         <Banner />
         <KostCheap />
+        <KostCities />
         <Footer />
     </div>
   )

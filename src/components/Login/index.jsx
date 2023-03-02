@@ -8,10 +8,8 @@ import imglogo from "../../assets/naqos-logo-tag.png";
 import iconeyeslash from "../../assets/icon-eye-slash.svg";
 import iconeye from "../../assets/icon-eye.svg";
 import icongoogle from "../../assets/icon-google.svg";
-import Pencari from "../../assets/seeker-icon.svg";
-import Pemilik from "../../assets/owner-icon.svg";
 import CTAuthModal from "../CTAuthModal";
-import ForgotPasswordModal from "../ForgotPasswordModal";
+import ForgotPasswordModal from "../ForgotPassword/ForgotPasswordModal";
 function Login() {
   const navigate = useNavigate();
   const {
