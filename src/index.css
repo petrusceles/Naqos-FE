@@ -33,3 +33,7 @@ body::-webkit-scrollbar-thumb {
   height: 2px;
   @apply rounded-full border-4 border-solid border-white bg-primary;
 }
+
+body {
+  @apply bg-slate-50
+}

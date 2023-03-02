@@ -12,6 +12,7 @@ import ForgotPasswordSuccessPage from './pages/ForgotPasswordSuccessPage';
 import EmailVerifPendingPage from './pages/EmailVerifPendingPage';
 import EmailVerifSuccessPage from './pages/EmailVerifSuccessPage';
 import EmailVerifFailedPage from './pages/EmailVerifFailedPage';
+import FindKostPage from './pages/FindKostPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -35,6 +36,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/verif/pending' element={<EmailVerifPendingPage />} />
         <Route path='/verif/success' element={<EmailVerifSuccessPage />} />
         <Route path='/verif/failed' element={<EmailVerifFailedPage />} />
+
+        {/* Find Kost */} 
+        <Route path='/find' element={<FindKostPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

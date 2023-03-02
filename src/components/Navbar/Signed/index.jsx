@@ -8,8 +8,8 @@ function NavbarSigned() {
   const [menu, setMenu] = useState(false);
   const [notification, setNotification] = useState(false)
   return (
-    <div className=" shadow-md bg-white fixed w-full z-30">
-      <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 w-full container relative ">
+    <div className=" shadow-md bg-white fixed w-full z-30 ">
+      <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 w-full container  ">
         <img
           src={logoNaqos}
           className="max-w-[120px] lg:max-w-[200px] w-1/3 "
@@ -29,7 +29,7 @@ function NavbarSigned() {
         </div>
         <div
           className={`absolute bg-white drop-shadow-md inset-y-0 w-1/2 right-0 px-5 h-[100vh] py-5 text-sm font-semibold transition-all duration-200 ease-in-out max-w-xs ${
-            menu ? " translate-x-[0%]" : " translate-x-[100%] hidden"
+            menu ? " translate-x-[0%]" : " translate-x-[100%]"
           } lg:static lg:drop-shadow-none lg:translate-x-[0%] lg:px-0 lg:bg-inherit lg:text-base lg:justify-end lg:max-w-lg lg:block lg:h-fit z-50`}
         >
           <div className="flex flex-wrap items-center justify-end mb-5 lg:mb-0  lg:hidden">
