@@ -9,6 +9,9 @@ import LoginPage from './pages/LoginPage';
 import ForgotPasswordPendingPage from './pages/ForgotPasswordPendingPage';
 import ForgotPasswordFormPage from './pages/ForgotPasswordFormPage';
 import ForgotPasswordSuccessPage from './pages/ForgotPasswordSuccessPage';
+import EmailVerifPendingPage from './pages/EmailVerifPendingPage';
+import EmailVerifSuccessPage from './pages/EmailVerifSuccessPage';
+import EmailVerifFailedPage from './pages/EmailVerifFailedPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -27,6 +30,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/forgot/pending' element={<ForgotPasswordPendingPage />} />
         <Route path='/forgot/form' element={<ForgotPasswordFormPage />} />
         <Route path='/forgot/success' element={<ForgotPasswordSuccessPage />} />
+
+        {/* Email Verification */}
+        <Route path='/verif/pending' element={<EmailVerifPendingPage />} />
+        <Route path='/verif/success' element={<EmailVerifSuccessPage />} />
+        <Route path='/verif/failed' element={<EmailVerifFailedPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
