@@ -13,17 +13,17 @@ function FindKostCard() {
       <div className="grid grid-cols-1 px-4 py-3 gap-3 w-2/3">
         <div className="flex w-full h-fit items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="text-[9px] font-semibold text-primary border-[1px] flex items-center justify-center rounded-full border-primary px-2 py-1">
+            <div className="text-[9px] font-semibold text-primary border-[1px] flex items-center justify-center rounded-full border-primary px-2 py-1 lg:text-sm">
               Campuran
             </div>
-            <div className="text-[9px] italic text-red-700">sisa 3 kamar</div>
+            <div className="text-[9px] italic text-red-700 lg:text-xs">sisa 3 kamar</div>
           </div>
-          <HeartIcon className="w-5" />
+          <HeartIcon className="w-5 lg:w-7" />
         </div>
         <div className=" bg-slate-100 px-2 py-1 rounded-md w-full">
-          <div className="grid grid-cols-1 h-fit w-11/12 gap-1">
-            <h2 className="text-sm font-semibold">Kos Alamanda</h2>
-            <p className="text-[9px] line-clamp-2 text-justify">
+          <div className="grid grid-cols-1 h-fit w-11/12 gap-1 lg:gap-0">
+            <h2 className="text-sm font-semibold lg:text-lg lg:font-bold">Kos Alamanda</h2>
+            <p className="text-[9px] line-clamp-2 text-justify lg:text-xs">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec
               molestie turpis. Aenean ultricies eu nunc sit amet fermentum.
               Quisque volutpat nibh volutpat hendrerit suscipit. Phasellus vel
@@ -33,32 +33,32 @@ function FindKostCard() {
           </div>
         </div>
         <div className="flex gap-3 items-center">
-          <div className="flex items-center gap-1">
-            <StarIcon className="w-4 text-contrary" />
-            <div className="text-[13px] font-semibold flex items-center gap-1">
+          <div className="flex items-center gap-1 ">
+            <StarIcon className="w-4 text-contrary lg:w-6" />
+            <div className="text-[13px] font-semibold flex items-center gap-1 lg:text-base align-middle">
               4.5{" "}
-              <span className="font-normal text-[9px] italic">(7 reviews)</span>
+              <span className="font-normal text-[9px] italic lg:text-xs">(7 reviews)</span>
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <MapPinIcon className="w-4 text-primary" />
-            <div className="text-[11px]">Yogyakarta</div>
+            <MapPinIcon className="w-4 text-primary lg:w-6" />
+            <div className="text-[11px] lg:text-sm">Yogyakarta</div>
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <div className="flex gap-[6px] w-1/2 flex-wrap items-center">
-            <div className="text-[9px] font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
+          <div className="flex gap-[6px] w-1/2 flex-wrap items-center text-[9px] lg:text-sm lg:gap-2">
+            <div className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
               Listrik
             </div>
-            <div className="text-[9px] font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
+            <div className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
               Wifi
             </div>
-            <div className="text-[9px] font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
+            <div className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
               KM Dalam
             </div>
           </div>
-          <div className="w-1/2 text-sm h-fit font-bold self-end text-end">
-            Rp1.000.000 <span className="text-[9px] font-normal">/bulan</span>
+          <div className="w-1/2 text-sm h-fit font-bold self-end text-end lg:text-lg">
+            Rp1.000.000 <span className="text-[9px] font-normal lg:text-sm">/bulan</span>
           </div>
         </div>
       </div>
