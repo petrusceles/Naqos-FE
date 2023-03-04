@@ -1,0 +1,15 @@
+.swiper {
+    @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-md h-[50%] max-w-[88%] flex items-center z-[100] lg:max-w-[60%]
+}
+
+.swiper-slide {
+    @apply w-full
+}
+
+.swiper-button-prev {
+    @apply translate-x-[10%]
+}
+
+.swiper-button-next {
+    @apply -translate-x-[10%]
+}

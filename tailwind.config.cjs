@@ -13,7 +13,8 @@ module.exports = {
         'primary':'#0A008A',
         'secondary':'#E1E0FF',
         'contrary':'#FFBA2C',
-        'contary-secondary':"#FFDEAA"
+        'contary-secondary':"#FFDEAA",
+        'contrary-tertiary':'#FFDCBD'
 
       }},
   },

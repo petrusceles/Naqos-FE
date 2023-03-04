@@ -6,6 +6,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import FindKostCard from "./card";
+import KostNotFoundIcon from "../../assets/kost-not-found-icon.svg";
 
 function FindKost() {
   const [isFilterShow, setIsFilterShow] = useState(false);
@@ -16,7 +17,7 @@ function FindKost() {
   const [isTogetherFacilitiesShow, setIsTogetherFacilitiesShow] =
     useState(false);
   return (
-    <div className="pt-24 lg:pt-36">
+    <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
       <div className="container flex flex-wrap px-8 gap-2 lg:gap-5">
         <div className="w-full flex flex-wrap gap-2 sticky top-0 lg:gap-5">
           <div className="flex relative w-full gap-3 items-center">
@@ -49,6 +50,20 @@ function FindKost() {
             Filter
           </button>
 
+          {/* <div className="w-full flex flex-wrap gap-1 lg:w-[70%]  justify-center py-12 lg:h-full lg:items-center ">
+            <div className="flex items-center flex-wrap h-fit lg:gap-2">
+              <div className="w-full flex justify-center py-4">
+                <img src={KostNotFoundIcon} className="w-36 lg:w-52" />
+              </div>
+              <h1 className="w-full text-center font-semibold lg:text-xl">
+                Kos yang kamu cari kosong :(
+              </h1>
+              <p className="w-full text-center text-xs lg:text-sm">
+                Silahkan ubah filter untuk mencari kos lain yang tersedia
+              </p>
+            </div>
+          </div> */}
+
           <div className="w-full flex flex-wrap gap-5 lg:w-[70%] lg:gap-8">
             <FindKostCard />
             <FindKostCard />
@@ -65,7 +80,7 @@ function FindKost() {
           <div
             className={`grid grid-cols-1 fixed bg-white shadow-lg w-8/12 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] rounded-lg ${
               !isFilterShow && "scale-0"
-            } duration-150 ease-in-out overflow-hidden origin-top lg:static lg:translate-x-0 lg:translate-y-0 lg:w-[30%] lg:z-0 lg:h-fit lg:p-3`}
+            } duration-150 ease-in-out overflow-hidden origin-top lg:static lg:translate-x-0 lg:translate-y-0 lg:w-[30%] lg:z-0 lg:h-fit lg:p-3 lg:scale-100`}
           >
             <div className="w-full flex justify-between text-primary bg-slate-100 px-4 py-3 lg:hidden">
               <h2 className="font-semibold tracking-wide">Filter</h2>
@@ -332,14 +347,18 @@ function FindKost() {
                       type="checkbox"
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                     />
-                    <span className="label-text text-xs font-medium lg:text-sm">AC</span>
+                    <span className="label-text text-xs font-medium lg:text-sm">
+                      AC
+                    </span>
                   </label>
                   <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
                     <input
                       type="checkbox"
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                     />
-                    <span className="label-text text-xs font-medium lg:text-sm">TV</span>
+                    <span className="label-text text-xs font-medium lg:text-sm">
+                      TV
+                    </span>
                   </label>
                   <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
                     <input
@@ -436,7 +455,9 @@ function FindKost() {
                       type="checkbox"
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                     />
-                    <span className="label-text text-xs font-medium lg:text-sm ">TV</span>
+                    <span className="label-text text-xs font-medium lg:text-sm ">
+                      TV
+                    </span>
                   </label>
                   <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
                     <input

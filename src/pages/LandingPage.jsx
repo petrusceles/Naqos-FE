@@ -11,7 +11,7 @@ import CTAuthModal from '../components/CTAuthModal'
 import KostCities from '../components/KostCities'
 function LandingPage() {
   return (
-    <div>
+    <div className="flex flex-col h-screen justify-between">
         {/* <NavbarSigned /> */}
         <NavbarUnsigned />
         <Hero />

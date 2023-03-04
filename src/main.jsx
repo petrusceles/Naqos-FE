@@ -13,6 +13,7 @@ import EmailVerifPendingPage from './pages/EmailVerifPendingPage';
 import EmailVerifSuccessPage from './pages/EmailVerifSuccessPage';
 import EmailVerifFailedPage from './pages/EmailVerifFailedPage';
 import FindKostPage from './pages/FindKostPage';
+import KostDetailPage from './pages/KostDetailPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -39,6 +40,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         {/* Find Kost */} 
         <Route path='/find' element={<FindKostPage />} />
+
+        {/* Kost Detail */}
+        <Route path='/detail' element={<KostDetailPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

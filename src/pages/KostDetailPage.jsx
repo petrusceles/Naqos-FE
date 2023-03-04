@@ -1,15 +1,15 @@
 import React from "react";
 import NavbarSigned from "../components/Navbar/Signed";
-import FindKost from "../components/FindKost";
 import Footer from "../components/Footer";
-function FindKostPage() {
+import KostDetail from "../components/KostDetail";
+function KostDetailPage() {
   return (
     <div className="flex flex-col h-screen justify-between">
       <NavbarSigned />
-      <FindKost />
+      <KostDetail />
       <Footer />
     </div>
   );
 }
 
-export default FindKostPage;
+export default KostDetailPage;
