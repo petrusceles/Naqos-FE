@@ -8,7 +8,7 @@ function NavbarSigned() {
   const [menu, setMenu] = useState(false);
   const [notification, setNotification] = useState(false)
   return (
-    <div className=" shadow-md bg-white fixed w-full z-30 ">
+    <div className=" shadow-md bg-white fixed w-full z-40">
       <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 w-full container  ">
         <img
           src={logoNaqos}
