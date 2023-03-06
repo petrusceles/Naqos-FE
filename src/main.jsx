@@ -14,6 +14,7 @@ import EmailVerifSuccessPage from './pages/EmailVerifSuccessPage';
 import EmailVerifFailedPage from './pages/EmailVerifFailedPage';
 import FindKostPage from './pages/FindKostPage';
 import KostDetailPage from './pages/KostDetailPage';
+import HistoryKostReservationInfoPage from './pages/HistoryKostReservationInfoPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -43,6 +44,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         {/* Kost Detail */}
         <Route path='/detail' element={<KostDetailPage />} />
+
+        {/* History */}
+        <Route path='/history/reservation-info' element={<HistoryKostReservationInfoPage />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

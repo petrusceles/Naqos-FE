@@ -5,7 +5,7 @@ function ForgotPasswordForm() {
   const [isPasswordShowed, setIsPasswordShowed] = useState(false);
   const [isConfirmPasswordShowed, setIsConfirmPasswordShowed] = useState(false);
   return (
-    <div className="flex flex-wrap w-full  lg:gap-20 gap-16 py-14 container px-8">
+    <div className="flex flex-wrap w-full  gap-12 py-14 container px-8">
       <div className="w-full flex justify-center pb-10 lg:pb-0">
         <img className="lg:w-[360px] w-[200px]" src={Logo} alt="logo" />
       </div>

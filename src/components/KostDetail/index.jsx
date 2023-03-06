@@ -135,7 +135,7 @@ function KostDetail() {
         <div
           className={`justify-self-end w-72 bg-white drop-shadow-xl px-0 py-3 flex flex-wrap gap-3 justify-center rounded-md fixed z-[30] top-[80%] -translate-y-1/2 right-[1%] ${
             isRentBoxShow ? "translate-x-0" : "translate-x-[90%]"
-          } duration-200 ease-in-out lg:translate-x-0 lg:sticky lg:top-32 lg:w-[35%] lg:order-last lg:h-[100%] lg:translate-y-0 lg:rounded-lg`}
+          } duration-200 ease-in-out lg:translate-x-0 lg:sticky lg:top-28 lg:w-[35%] lg:order-last lg:h-[100%] lg:translate-y-0 lg:rounded-lg lg:py-2 xl:w-[28%] lg:drop-shadow-2xl`}
         >
           <div className="w-full flex gap-2 ">
             <div
@@ -148,8 +148,8 @@ function KostDetail() {
                 Sewa sekarang!
               </p>
             </div>
-            <div className="w-auto flex flex-wrap gap-3 justify-center lg:py-4 lg:gap-5">
-              <div className="flex flex-wrap justify-center w-full gap-3 pb-2 lg:gap-8 lg:pb-4">
+            <div className="w-auto flex flex-wrap gap-3 justify-center lg:py-4 lg:gap-3">
+              <div className="flex flex-wrap justify-center w-full gap-3 pb-2 lg:gap-7 lg:pb-4">
                 <h3 className="font-bold text-2xl lg:text-3xl">
                   Rp1.000.000
                   <span className="text-sm font-normal lg:text-lg"> /bulan</span>
@@ -179,7 +179,7 @@ function KostDetail() {
                   </select>
                 </div>
               </div>
-              <div className="border w-[80%] border-dashed" />
+              <div className="border w-[80%] border-dashed mt-1" />
               <div className="w-full flex flex-wrap justify-center">
                 <div className="w-[80%] flex justify-between text-sm font-semibold lg:text-xl lg:font-bold">
                   <div>Total</div>
@@ -193,7 +193,7 @@ function KostDetail() {
           </div>
         </div>
 
-        <div className="w-full flex flex-wrap relative gap-3 lg:w-[62%]">
+        <div className="w-full flex flex-wrap relative gap-3 lg:w-[62%] xl:w-[70%]">
           {/* Kost Front Detail */}
           <div className="w-full flex flex-wrap">
             <div className="w-full flex flex-wrap gap-5 box-content border-b-2 border-slate-200  pb-6">
