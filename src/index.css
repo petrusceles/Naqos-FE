@@ -39,5 +39,5 @@ body {
 }
 
 ul.history-navlink li {
-  @apply border-b-2 pb-2 w-full 
+  @apply border-b-2 pb-2 w-full lg:pb-3
 }
