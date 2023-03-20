@@ -19,7 +19,7 @@ function HistorySidebar() {
           </li>
           <li>
             <NavLink
-              to={"/"}
+              to={"/history/confirmation-list"}
               className={({ isActive }) => isActive && activeLinkClassname}
             >
               Menunggu Konfirmasi

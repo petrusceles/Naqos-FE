@@ -5,9 +5,10 @@ import { MapPinIcon } from "@heroicons/react/24/solid";
 import {
   ArrowRightCircleIcon,
   CheckBadgeIcon,
+  ClockIcon
 } from "@heroicons/react/24/outline";
-// import CheckBadgeIcon from "@heroicons/react/24/outline";
-function HistoryKostReservationList() {
+
+function HistoryKostConfirmationList() {
   return (
     <div className="pt-[88px] lg:pt-32">
       <div className="container px-7 flex flex-wrap w-full gap-5">
@@ -21,14 +22,13 @@ function HistoryKostReservationList() {
               <Link to={"/"}>Riwayat</Link>
             </li>
             <li className="text-primary font-semibold">
-              <Link to={"/history/reservation-info"}>Pemesanan Kos</Link>
+              <Link to={"/history/confirmation-list"}>Menunggu Konfirmasi</Link>
             </li>
           </ul>
         </div>
 
-        <div className="w-full flex gap-8 ">
+        <div className="w-full flex gap-8">
           <HistorySidebar />
-
           <div className="flex flex-wrap w-full py-2 gap-5 lg:w-full lg:gap-6 items-start">
             {/* Kost Brief */}
             <div className="flex w-full gap-3 border-b-2 pb-5 items-center lg:pb-7 lg:gap-6 ">
@@ -38,8 +38,8 @@ function HistoryKostReservationList() {
                   className="object-cover object-center"
                 />
               </div>
-              <div className="flex justify-between w-[64%] gap-2 px-3 rounded-md lg:w-[78%]  lg:h-40 lg:px-6">
-                <div className="flex flex-wrap w-[60%] lg:gap-3">
+              <div className="flex justify-between w-[64%] gap-2  p-3 rounded-md lg:w-[78%] lg:py-0 lg:h-40 lg:px-6">
+                <div className="flex flex-wrap w-[60%] lg:gap-3 lg:w-[55%]">
                   <div className="grid-cols-1 grid w-full gap-1">
                     <h2 className="font-semibold text-sm lg:text-lg  self-end ">
                       Kos Alamanda
@@ -64,26 +64,28 @@ function HistoryKostReservationList() {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap w-[40%]  text-xs justify-end">
+                <div className="flex flex-wrap w-[40%]  text-[10px] justify-end lg:gap-5 gap-2 lg:w-[45%]">
                   <button className="bg-slate-200 box-content py-2 rounded w-full max-w-[180px] self-start text-primary font-semibold hover:scale-105 duration-100 ease-in-out lg:text-base">
-                    Tulis Review
+                    Chat Pemilik Kos
                   </button>
-                  <div className="w-full flex self-end justify-end gap-1 text-green-900 font-semibold text-[11px] lg:text-sm">
-                    <CheckBadgeIcon className="w-4 lg:w-5" />
-                    <p>Completed</p>
+                  <div className="w-full flex self-end justify-end gap-2 text-[#EA9A3D] font-medium text-[9px] lg:text-sm items-center">
+                    <ClockIcon className="w-[14%] lg:w-7 max-w-[20px]" />
+                    <p className="w-[78%] lg:w-auto">Menunggu konfirmasi pembayaran</p>
                   </div>
                 </div>
               </div>
             </div>
+
             {/* Show More Button */}
             <div className="w-full text-center font-semibold text-xs text-gray-500 lg:text-lg mb-6">
               Lihat lebih banyak lagi
             </div>
           </div>
         </div>
+
       </div>
     </div>
-  );
+  )
 }
 
-export default HistoryKostReservationList;
+export default HistoryKostConfirmationList

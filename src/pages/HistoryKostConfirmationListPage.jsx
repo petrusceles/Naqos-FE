@@ -1,16 +1,16 @@
 import React from 'react'
 import NavbarSigned from '../components/Navbar/Signed'
 import Footer from '../components/Footer'
-import HistoryKostReservationPayment from '../components/History/HistoryKostReservationPayment'
+import HistoryKostConfirmationList from '../components/History/HistoryKostConfirmationList'
 
-function HistoryKostReservationPaymentPage() {
+function HistoryKostConfirmationListPage() {
   return (
     <div className="flex flex-col h-screen justify-between">
       <NavbarSigned />
-      <HistoryKostReservationPayment />
+      <HistoryKostConfirmationList />
       <Footer />
     </div>
   )
 }
 
-export default HistoryKostReservationPaymentPage
+export default HistoryKostConfirmationListPage
