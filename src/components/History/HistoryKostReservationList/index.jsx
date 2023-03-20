@@ -64,12 +64,12 @@ function HistoryKostReservationList() {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap w-[40%]  text-xs justify-end">
+                <div className="flex flex-wrap w-[40%]  text-[10px] justify-end lg:gap-5 gap-2 lg:w-[45%]">
                   <button className="bg-slate-200 box-content py-2 rounded w-full max-w-[180px] self-start text-primary font-semibold hover:scale-105 duration-100 ease-in-out lg:text-base">
                     Tulis Review
                   </button>
-                  <div className="w-full flex self-end justify-end gap-1 text-green-900 font-semibold text-[11px] lg:text-sm">
-                    <CheckBadgeIcon className="w-4 lg:w-5" />
+                  <div className="w-full flex self-end justify-end gap-2 text-green-800 font-medium text-[9px] lg:text-sm items-center">
+                    <CheckBadgeIcon className="w-[40%] lg:w-7 max-w-[20px]" />
                     <p>Completed</p>
                   </div>
                 </div>
