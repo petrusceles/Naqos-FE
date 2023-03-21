@@ -27,7 +27,7 @@ function HistorySidebar() {
           </li>
           <li>
             <NavLink
-              to={"/"}
+              to={"/history/payment-list"}
               className={({ isActive }) => isActive && activeLinkClassname}
             >
               Pembayaran
