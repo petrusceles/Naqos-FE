@@ -15,38 +15,38 @@ function ProfileEdit() {
             <li className="text-primary font-semibold">Edit Profil</li>
           </ul>
         </div>
-        <div className="grid grid-cols-1 w-full gap-3">
+        <div className="grid grid-cols-1 w-full gap-3 lg:grid-cols-3">
 
           <div className="items-center grid grid-cols-1 justify-items-center gap-2">
             <div className="relative self-end">
-              <div className="overflow-hidden h-24 w-24 rounded-full self-end">
+              <div className="overflow-hidden h-24 w-24 rounded-full self-end lg:h-40 lg:w-40">
                 <img src="https://res.cloudinary.com/dqzqbgi8e/image/upload/v1677912434/NaqosV2/Owner%20Profile/photo3_z50agx.png" />
               </div>
-              <div className="absolute w-6 h-6 rounded-full bg-gray-400 z-10 right-[5%] top-[75%] flex items-center justify-center">
-                <CameraIcon className="text-white w-3" />
+              <div className="absolute w-6 h-6 rounded-full bg-gray-400 z-10 right-[5%] top-[75%] flex items-center justify-center lg:h-9 lg:w-9">
+                <CameraIcon className="text-white w-3 lg:w-4" />
               </div>
             </div>
-            <p className="text-center text-xs font-bold ">Astolfo</p>
+            <p className="text-center text-xs font-bold lg:text-xl">Astolfo</p>
           </div>
 
-          <div className="flex flex-wrap px-4">
-            <div className="flex justify-between w-full text-xs font-semibold">
+          <div className="flex flex-wrap px-4 col-span-2">
+            <div className="flex justify-between w-full text-xs font-semibold lg:text-lg">
               <h1>Informasi Akun</h1>
             </div>
-            <div className="flex flex-wrap w-full gap-4 px-3 pt-4 pb-7">
-              <div className="w-full flex text-[11px] items-center">
+            <div className="flex flex-wrap w-full gap-4 px-3 pt-4 pb-7 text-[11px] lg:text-base">
+              <div className="w-full flex items-center">
                 <p className="w-[40%] font-medium">Nama Lengkap</p>
-                <input className=" w-full rounded-full py-1 px-2 border align-middle"/>
+                <input className=" w-full rounded-full py-1 px-2 border align-middle lg:py-2 lg:px-4"/>
               </div>
-              <div className="w-full flex text-[11px] items-center">
+              <div className="w-full flex items-center">
                 <p className="w-[40%] font-medium">No HP</p>
-                <input className=" w-full rounded-full py-1 px-2 border align-middle"/>
+                <input className=" w-full rounded-full py-1 px-2 border align-middl lg:py-2 lg:px-4"/>
               </div>
-              <div className="w-full flex text-[11px] items-center">
+              <div className="w-full flex items-center">
                 <p className="w-[40%] font-medium">Email</p>
-                <input className=" w-full rounded-full py-1 px-2 border align-middle"/>
+                <input className=" w-full rounded-full py-1 px-2 border align-middle lg:py-2 lg:px-4"/>
               </div>
-              <div className="w-full flex text-[11px] items-center justify-end pt-3">
+              <div className="w-full flex items-center justify-end pt-3">
                 <button className="w-[71%] bg-primary rounded-full py-2 px-2 text-white font-semibold">Simpan</button>
               </div>
             </div>
