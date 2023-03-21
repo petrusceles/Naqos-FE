@@ -20,6 +20,7 @@ import HistoryKostReservationPaymentPage from './pages/HistoryKostReservationPay
 import HistoryKostConfirmationListPage from './pages/HistoryKostConfirmationListPage';
 import HistoryKostCancellationListPage from './pages/HistoryKostCancellationListPage';
 import HistoryKostPaymentListPage from './pages/HistoryKostPaymentListPage';
+import ProfileWishlistPage from './pages/ProfileWishlistPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -57,6 +58,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/history/confirmation-list' element={<HistoryKostConfirmationListPage />} />
         <Route path='/history/cancellation-list' element={<HistoryKostCancellationListPage />} />
         <Route path='/history/payment-list' element={<HistoryKostPaymentListPage />} />
+
+        {/* Profile & Wishlist */}
+        <Route path='/profile/wishlist' element={<ProfileWishlistPage />} />
 
       </Routes>
     </BrowserRouter>
