@@ -35,7 +35,7 @@ function HistorySidebar() {
           </li>
           <li>
             <NavLink
-              to={"/"}
+              to={"/history/cancellation-list"}
               className={({ isActive }) => isActive && activeLinkClassname}
             >
               Pembatalan
