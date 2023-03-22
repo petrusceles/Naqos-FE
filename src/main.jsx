@@ -23,6 +23,7 @@ import HistoryKostPaymentListPage from './pages/HistoryKostPaymentListPage';
 import ProfileWishlistPage from './pages/ProfileWishlistPage';
 import ProfileDetailPage from './pages/ProfileDetailPage';
 import ProfileEditPage from './pages/ProfileEditPage';
+import ProfileChangePasswordPage from './pages/ProfileChangePasswordPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -65,6 +66,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/profile/wishlist' element={<ProfileWishlistPage />} />
         <Route path='/profile/detail' element={<ProfileDetailPage />} />
         <Route path='/profile/edit' element={<ProfileEditPage />} />
+        <Route path='/profile/change-password' element={<ProfileChangePasswordPage />} />
 
       </Routes>
     </BrowserRouter>
