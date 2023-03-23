@@ -24,6 +24,9 @@ import ProfileWishlistPage from './pages/ProfileWishlistPage';
 import ProfileDetailPage from './pages/ProfileDetailPage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import ProfileChangePasswordPage from './pages/ProfileChangePasswordPage';
+import OwnerDataPage from './pages/OwnerDataPage';
+import OwnerKostPage from './pages/OwnerKostPage';
+import OwnerKostAboutPage from './pages/OwnerKostAboutPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -67,6 +70,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/profile/detail' element={<ProfileDetailPage />} />
         <Route path='/profile/edit' element={<ProfileEditPage />} />
         <Route path='/profile/change-password' element={<ProfileChangePasswordPage />} />
+
+        {/* Owner */}
+        <Route path='/owner/data' element={<OwnerDataPage />} />
+        <Route path='/owner/kost' element={<OwnerKostPage />} />
+        <Route path='/owner/kost-about' element={<OwnerKostAboutPage />} />
 
       </Routes>
     </BrowserRouter>
