@@ -27,6 +27,7 @@ import ProfileChangePasswordPage from './pages/ProfileChangePasswordPage';
 import OwnerDataPage from './pages/OwnerDataPage';
 import OwnerKostPage from './pages/OwnerKostPage';
 import OwnerKostAboutPage from './pages/OwnerKostAboutPage';
+import OwnerKostPhotoPage from './pages/OwnerKostPhotoPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -75,6 +76,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/owner/data' element={<OwnerDataPage />} />
         <Route path='/owner/kost' element={<OwnerKostPage />} />
         <Route path='/owner/kost-about' element={<OwnerKostAboutPage />} />
+        <Route path='/owner/kost-photo' element={<OwnerKostPhotoPage />} />
 
       </Routes>
     </BrowserRouter>

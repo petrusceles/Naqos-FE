@@ -55,7 +55,7 @@ function OwnerInputSidebar() {
               <>
                 <div className="w-1/6 justify-end flex ">
                   <div className={`bg-white w-8 h-8 rounded-full flex justify-center items-center font-bold text-primary ${!isActive && "opacity-50"}`}>
-                    3
+                    4
                   </div>
                 </div>
                 <p className={`w-5/6 text-2xl font-semibold text-white ${!isActive && "opacity-50"}`}>Foto Kos</p>
@@ -69,7 +69,7 @@ function OwnerInputSidebar() {
               <>
                 <div className="w-1/6 justify-end flex ">
                   <div className={`bg-white w-8 h-8 rounded-full flex justify-center items-center font-bold text-primary ${!isActive && "opacity-50"}`}>
-                    3
+                    5
                   </div>
                 </div>
                 <p className={`w-5/6 text-2xl font-semibold text-white ${!isActive && "opacity-50"}`}>Data Kamar</p>
