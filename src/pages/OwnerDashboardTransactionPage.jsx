@@ -1,16 +1,14 @@
 import React from 'react'
+import OwnerDashboardTransaction from '../components/OwnerDashboard/OwnerDashboardTransaction'
 import NavbarOwner from '../components/Navbar/Owner'
-import OwnerDashboardProperty from '../components/OwnerDashboard/OwnerDashboardProperty'
-
-import Footer from '../components/Footer'
-function OwnerDashboardPropertyPage() {
+function OwnerDashboardTransactionPage() {
   return (
     <div className="flex flex-col h-screen justify-between min-w-[1440px] max-w-[1920px]">
       <NavbarOwner />
-      <OwnerDashboardProperty />
+      <OwnerDashboardTransaction />
       {/* <Footer /> */}
     </div>
   )
 }
 
-export default OwnerDashboardPropertyPage
+export default OwnerDashboardTransactionPage

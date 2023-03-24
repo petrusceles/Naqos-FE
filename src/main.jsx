@@ -30,6 +30,7 @@ import OwnerKostAboutPage from './pages/OwnerKostAboutPage';
 import OwnerKostPhotoPage from './pages/OwnerKostPhotoPage';
 import OwnerRoomPage from './pages/OwnerRoomPage';
 import OwnerDashboardPropertyPage from './pages/OwnerDashboardPropertyPage';
+import OwnerDashboardTransactionPage from './pages/OwnerDashboardTransactionPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -83,6 +84,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         {/* Owner Dashboard */}
         <Route path='/owner/dashboard/property' element={<OwnerDashboardPropertyPage />} />
+        <Route path='/owner/dashboard/transaction' element={<OwnerDashboardTransactionPage />} />
 
       </Routes>
     </BrowserRouter>
