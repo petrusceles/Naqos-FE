@@ -32,6 +32,9 @@ import OwnerRoomPage from './pages/OwnerRoomPage';
 import OwnerDashboardPropertyPage from './pages/OwnerDashboardPropertyPage';
 import OwnerDashboardTransactionPage from './pages/OwnerDashboardTransactionPage';
 import OwnerDashboardTransactionDetailPage from './pages/OwnerDashboardTransactionDetailPage';
+import OwnerDashboardProfilePage from './pages/OwnerDashboardProfilePage';
+import OwnerDashboardProfileEditPage from './pages/OwnerDashboardProfileEditPage';
+import OwnerDashboardProfilePasswordPage from './pages/OwnerDashboardProfilePasswordPage';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -87,6 +90,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/owner/dashboard/property' element={<OwnerDashboardPropertyPage />} />
         <Route path='/owner/dashboard/transaction' element={<OwnerDashboardTransactionPage />} />
         <Route path='/owner/dashboard/transaction/detail' element={<OwnerDashboardTransactionDetailPage />} />
+        <Route path='/owner/dashboard/profile' element={<OwnerDashboardProfilePage />} />
+        <Route path='/owner/dashboard/profile/edit' element={<OwnerDashboardProfileEditPage />} />
+        <Route path='/owner/dashboard/profile/password' element={<OwnerDashboardProfilePasswordPage />} />
+
 
       </Routes>
     </BrowserRouter>

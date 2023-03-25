@@ -34,7 +34,7 @@ function OwnerDashboardSidebar() {
         </li>
         <li>
           <NavLink
-            to={"/"}
+            to={"/owner/dashboard/profile"}
             className={({ isActive }) =>
               `flex w-full items-center text-2xl font-semibold px-8 py-5 rounded-md ${
                 isActive
