@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoadingBar from "react-top-loading-bar";
 import { useNavigate, Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import {
+  useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import imglogo from "../../assets/naqos-logo-tag.png";
 import iconeyeslash from "../../assets/icon-eye-slash.svg";
@@ -10,6 +12,7 @@ import iconeye from "../../assets/icon-eye.svg";
 import icongoogle from "../../assets/icon-google.svg";
 import CTAuthModal from "../CTAuthModal";
 import ForgotPasswordModal from "../ForgotPassword/ForgotPasswordModal";
+import { useLoginUser } from "../../queries/auth.js";
 function Login() {
   const navigate = useNavigate();
   const {
@@ -29,28 +32,31 @@ function Login() {
     });
   };
 
-  //   const login = useMutation({
-  //     mutationFn: async (newTodo) => {
-  //       return await axios.post(appConfig.BE_AUTH_URL, newTodo);
-  //     },
-  //   });
+  const queryClient = useQueryClient();
 
-  const onFormSubmitHandler = async (data) => {
+  const userLogin = useLoginUser();
+
+  const onFormSubmitHandler = async ({ email, password }) => {
     setIsDisabled(true);
     setProgressLoading(50);
+    userLogin.mutate(
+      {
+        email,
+        password,
+      },
+      {
+        onSuccess: (res) => {
+          setProgressLoading(100);
+          queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
+          navigate("/");
+        },
+        onError: () => {
+          setProgressLoading(100);
+          toast.error("Email atau Password salah!");
+        },
+      }
+    );
 
-    // login.mutate(data, {
-    //   onSuccess: (res) => {
-    //     setProgressLoading(100);
-    //     localStorage.setItem("AUTH_TOKEN", res?.data?.data.access_token);
-    //     localStorage.setItem("REFRESH_TOKEN", res?.data?.data.refresh_token);
-    //     navigate("/");
-    //   },
-    //   onError: () => {
-    //     setProgressLoading(100);
-    //     toast.error("Username atau Password salah!");
-    //   },
-    // });
     setIsDisabled(false);
   };
   const [isRegisterModalShow, setIsRegisterModalShow] = useState(false);
@@ -83,16 +89,16 @@ function Login() {
           </div>
           <div className="flex flex-col justify-center mx-auto lg:mt-[48px] lg:w-[526px] mt-[18px]">
             <span className="lg:mb-[10px] lg:w-[209px] lg:h-[24px] lg:text-[20px] text-[14px] w-[175px] mb-[10px] text-black text-left font-[600]">
-              Username
+              Email
             </span>
             <input
               className="lg:h-[55px] lg:text-[20px] h-[48px] text-[12px] px-4 
             text-black font-[600] bg-white rounded-[526px] placeholder-[#b9b9bc] 
             border-2 border-[#dadadc] focus:outline-none focus:border-[#0A008A]"
-              type=""
+              type="text"
               placeholder="Ketikkan alamat email"
-              name="username"
-              {...register("username", {
+              name="email"
+              {...register("email", {
                 required: { value: true, message: "Masukkan email" },
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -100,14 +106,14 @@ function Login() {
                 },
               })}
             />
-            {errors.username && errors.username.type === "required" && (
+            {errors.email && errors.email.type === "required" && (
               <span className="text-red-500 text-sm">
-                {errors.username.message}
+                {errors.email.message}
               </span>
             )}
-            {errors.username && errors.username.type === "pattern" && (
+            {errors.email && errors.email.type === "pattern" && (
               <span className="text-red-500 text-sm">
-                {errors.username.message}
+                {errors.email.message}
               </span>
             )}
             <span className="lg:mt-[20px] lg:mb-[10px] lg:w-[209px] lg:h-[24px] lg:text-[20px] text-[14px] w-[175px] mt-[15px] mb-[10px] text-black text-left font-[600]">
@@ -185,7 +191,7 @@ function Login() {
         <div className="flex flex-row justify-center lg:mt-[16px] mt-[5px]">
           <a
             rel="noreferrer"
-            href="https://fsw-backend.up.railway.app/oauth/PENYEWA"
+            href=""
             target="_blank"
           >
             <button

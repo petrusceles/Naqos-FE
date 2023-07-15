@@ -3,12 +3,13 @@ import logoNaqos from "../../../assets/naqos-logo.svg";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import CTAuthModal from "../../CTAuthModal";
+import { Link } from "react-router-dom";
 function NavbarUnsigned() {
   const [menu, setMenu] = useState(false);
   const [isModalShow, setIsModalShow] = useState(false);
   return (
     <>
-      {isModalShow && <CTAuthModal setIsModalShow={setIsModalShow}/>}
+      {isModalShow && <CTAuthModal setIsModalShow={setIsModalShow} />}
       <div className="shadow-md bg-white lg:py-3 fixed w-full z-30">
         <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 w-full container relative ">
           <img
@@ -36,10 +37,18 @@ function NavbarUnsigned() {
               />
             </div>
             <div className="flex flex-wrap w-full gap-4 lg:justify-end lg:pr-2 lg:gap-7">
-              <button className="w-full py-2 bg-slate-100 rounded-md text-primary lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out">
+              <Link
+                to={"login"}
+                className="w-full py-2 bg-slate-100 rounded-md text-primary lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out text-center"
+              >
                 Masuk
-              </button>
-              <button className="w-full py-2 bg-primary text-white rounded-md lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out" onClick={() => {setIsModalShow(true)}}>
+              </Link>
+              <button
+                className="w-full py-2 bg-primary text-white rounded-md lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out"
+                onClick={() => {
+                  setIsModalShow(true);
+                }}
+              >
                 Daftar
               </button>
             </div>

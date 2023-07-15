@@ -41,3 +41,7 @@ body {
 ul.history-navlink li {
   @apply border-b-2 pb-2 w-full lg:pb-3
 }
+
+.swiper {
+  @apply lg:p-11
+}

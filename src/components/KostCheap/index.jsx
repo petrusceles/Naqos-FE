@@ -13,6 +13,7 @@ import "./style.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useAllKost, useAvailableCities } from "../../queries/kost.js";
 
 const Cities = [
   "Jakarta",
@@ -25,12 +26,18 @@ const Cities = [
   "Bogor",
 ];
 function KostCheap() {
-  const [place, setPlace] = useState("Bekasi");
+  const availableCities = useAvailableCities();
+  const [place, setPlace] = useState();
+
+  const allKost = useAllKost({
+    keyword: place,
+    limit: 6,
+    sorted_by: "month_price",
+  });
   const [isDropdownOpen, setIsDropdownOpen] = useState(true);
   return (
-    <div className="container mx-auto px-8 py-8 lg:pb-16 lg:pt-14">
-      <div className="grid grid-cols-1 gap-8 lg:gap-14">
-        
+    <div className="container mx-auto px-8 py-8 lg:pb-8 lg:pt-14">
+      <div className="grid grid-cols-1 lg:gap-3 gap-8">
         {/* Kost Recommendation Title */}
         <div className="flex w-fit gap-4 items-center relative">
           <h2 className="font-semibold text-xl lg:text-3xl">
@@ -42,7 +49,9 @@ function KostCheap() {
               setIsDropdownOpen((prev) => !prev);
             }}
           >
-            <div className="font-semibold truncate lg:text-xl">{place}</div>
+            <div className="font-semibold truncate lg:text-xl">
+              {place || "Pilih Kota/Kabupaten"}
+            </div>
             <ChevronDownIcon className="w-3 lg:w-6" />
           </button>
           <div
@@ -50,7 +59,7 @@ function KostCheap() {
               isDropdownOpen && "hidden"
             }`}
           >
-            {Cities.map((e, i) => {
+            {availableCities?.data?.data?.data?.kost_cities.map((e, i) => {
               return (
                 <div
                   className="w-full text-center py-3 text-sm hover:bg-contary-secondary cursor-pointer duration-75 ease-in-out lg:text-xl"
@@ -68,47 +77,52 @@ function KostCheap() {
         </div>
 
         {/* Kost Recommendation Main Section */}
+
         <div>
-          <Swiper
-            breakpoints={{
-              400: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 50,
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 65,
-              },
-            }}
-            centerInsufficientSlides={true}
-            autoHeight={false}
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-          >
-            <SwiperSlide>
-              <KostCheapCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <KostCheapCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <KostCheapCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <KostCheapCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <KostCheapCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <KostCheapCard />
-            </SwiperSlide>
-          </Swiper>
+          {allKost.isSuccess && (
+            <Swiper
+              breakpoints={{
+                400: {
+                  slidesPerView: 2,
+                  spaceBetween: 30,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 50,
+                },
+                1280: {
+                  slidesPerView: 4,
+                  spaceBetween: 60,
+                },
+              }}
+              centerInsufficientSlides={false}
+              // centeredSlides={true}
+              // centeredSlidesBounds={true}
+              // style={{
+              //   "--swiper-navigation-size": "6vh"
+              // }}
+              autoHeight={false}
+              modules={[Navigation, Pagination]}
+              navigation
+              pagination={{ clickable: true }}
+            >
+              {allKost.data?.data?.data?.kosts.map((kost) => {
+                return (
+                  <SwiperSlide>
+                    <KostCheapCard
+                      address={kost.address}
+                      district={kost.district}
+                      month_price={kost.month_price}
+                      name={kost.name}
+                      outside_photo_url={kost.outside_photos_url[0]}
+                      type={kost.type.name}
+                      key={kost._id}
+                    />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
         </div>
       </div>
     </div>

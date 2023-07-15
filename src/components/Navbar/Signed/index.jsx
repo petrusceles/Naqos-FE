@@ -4,7 +4,9 @@ import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon} from "@heroicons/react/24/solid";
 import { BellIcon } from "@heroicons/react/24/outline";
 import Notification from "../../Notification";
+import { useUser } from "../../../queries/auth.js";
 function NavbarSigned() {
+  const user = useUser()
   const [menu, setMenu] = useState(false);
   const [notification, setNotification] = useState(false)
   return (
@@ -49,7 +51,7 @@ function NavbarSigned() {
                   className="object-cover"
                 />
               </div>
-              <p className="truncate lg:hidden">Petrus Caelestinus Pratama Prihantoro</p>
+              <p className="truncate lg:hidden">{user.data.data.data.name}</p>
             </div>
             <div className="w-full font-medium text-slate-800 lg:w-fit">Wishlist</div>
             <div className="w-full font-medium text-slate-800 lg:w-fit">Riwayat</div>

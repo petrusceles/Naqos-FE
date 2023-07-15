@@ -9,11 +9,18 @@ import KostCheap from '../components/KostCheap'
 import Footer from '../components/Footer'
 import CTAuthModal from '../components/CTAuthModal'
 import KostCities from '../components/KostCities'
+import { useUser, useLoginUser } from '../queries/auth.js'
 function LandingPage() {
+  const user = useUser()
+  // console.log(user.data)
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <>
+      <div className="flex flex-col h-screen justify-between">
+        {/* {userContext.signed ? <NavbarSigned /> : <NavbarUnsigned />} */}
+        {user.isSuccess ? <NavbarSigned /> : <NavbarUnsigned />}
+
         {/* <NavbarSigned /> */}
-        <NavbarUnsigned />
+        {/* <NavbarUnsigned /> */}
         <Hero />
         <WhyUs />
         <KostRecommendation />
@@ -21,8 +28,9 @@ function LandingPage() {
         <KostCheap />
         <KostCities />
         <Footer />
-    </div>
-  )
+      </div>
+    </>
+  );
 }
 
 export default LandingPage
