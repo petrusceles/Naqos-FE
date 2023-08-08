@@ -9,7 +9,7 @@ function KostRecommendationCard({
   outside_photo_url,
 }) {
   return (
-    <div className="grid grid-rows-2 max-w-xs rounded-2xl bg-white overflow-hidden relative shadow-xl lg:max-w-xs lg:min-h-[450px] hover:scale-[102%] ease-in-out duration-75 cursor-pointer">
+    <div className="grid grid-rows-2 max-w-xs rounded-2xl bg-white overflow-hidden relative shadow-xl lg:max-w-xs lg:h-[450px] hover:scale-[102%] ease-in-out duration-75 cursor-pointer">
       <img src={outside_photo_url} className="object-cover h-full" />
       <div className="absolute text-[10px] top-[4%] left-[6%] bg-white px-2 py-1 rounded-full font-medium lg:text-sm lg:px-4 lg:py-2">
         {type}

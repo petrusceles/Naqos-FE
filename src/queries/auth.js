@@ -5,6 +5,7 @@ export const useUser = () => {
   const getUserQuery = useQuery({
     queryFn: AuthAPI.me,
     queryKey: ["auth", "me"],
+    retry:false
   });
   return getUserQuery;
 };

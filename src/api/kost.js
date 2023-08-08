@@ -7,7 +7,7 @@ export const get_kost_cities = async () => {
   });
 };
 
-export const get_all_kosts = async ({keyword,limit,sorted_by}) => {
+export const get_all_kosts = async ({ keyword, limit, sorted_by, search_by }) => {
   return await axios.get(
     config.BASE_URL + "/kost",
     {
@@ -15,8 +15,15 @@ export const get_all_kosts = async ({keyword,limit,sorted_by}) => {
         keyword,
         limit,
         sorted_by,
+        ...search_by,
       },
     },
     { withCredentials: true }
   );
+};
+
+export const get_kost_detail = async ({ id }) => {
+  return await axios.get(`${config.BASE_URL}/kost/${id}`, {
+    withCredentials: true,
+  });
 };

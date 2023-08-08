@@ -33,15 +33,28 @@ import OwnerDashboardTransactionDetailPage from "./pages/OwnerDashboardTransacti
 import OwnerDashboardProfilePage from "./pages/OwnerDashboardProfilePage";
 import OwnerDashboardProfileEditPage from "./pages/OwnerDashboardProfileEditPage";
 import OwnerDashboardProfilePasswordPage from "./pages/OwnerDashboardProfilePasswordPage";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useIsFetching,
+} from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeProvider } from "@material-tailwind/react";
+import Loading from "./components/AddOn/Loading.jsx";
 const App = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   return (
     <>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
             <ToastContainer />
             <Routes>
               {/* Landing Page */}
@@ -80,7 +93,7 @@ const App = () => {
               <Route path="/find" element={<FindKostPage />} />
 
               {/* Kost Detail */}
-              <Route path="/detail" element={<KostDetailPage />} />
+              <Route path="/detail/:id" element={<KostDetailPage />} />
 
               {/* History */}
               <Route
@@ -159,6 +172,7 @@ const App = () => {
                 element={<OwnerDashboardProfilePasswordPage />}
               />
             </Routes>
+          </ThemeProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </>

@@ -1,5 +1,6 @@
 import React from "react";
 import { StarIcon, MapPinIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 function KostCheapCard({
   name,
   address,
@@ -7,9 +8,13 @@ function KostCheapCard({
   month_price,
   type,
   outside_photo_url,
+  id,
 }) {
   return (
-    <div className="grid grid-rows-2 max-w-xs rounded-2xl bg-white overflow-hidden relative shadow-xl lg:max-w-xs lg:min-h-[450px] hover:scale-[102%] ease-in-out duration-75 cursor-pointer">
+    <Link
+      to={`detail/${id}`}
+      className="grid grid-rows-2 max-w-xs rounded-2xl bg-white overflow-hidden relative shadow-xl lg:max-w-xs lg:h-[450px] hover:scale-[102%] ease-in-out duration-75 cursor-pointer"
+    >
       <img src={outside_photo_url} className="object-cover h-full" />
       <div className="absolute text-[10px] top-[4%] left-[6%] bg-white px-2 py-1 rounded-full font-medium lg:text-sm lg:px-4 lg:py-2">
         {type}
@@ -33,12 +38,12 @@ function KostCheapCard({
         </div>
         <div className="text-xs lg:text-base">
           <span className="font-semibold text-sm lg:text-xl">
-            {"Rp"+month_price.toLocaleString('en-US')}
+            {"Rp" + month_price.toLocaleString("en-US")}
           </span>{" "}
           /bulan
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

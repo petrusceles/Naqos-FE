@@ -12,10 +12,13 @@ function NavbarUnsigned() {
       {isModalShow && <CTAuthModal setIsModalShow={setIsModalShow} />}
       <div className="shadow-md bg-white lg:py-3 fixed w-full z-30">
         <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-4 lg:flex-nowrap lg:py-0 w-full container relative ">
-          <img
-            src={logoNaqos}
-            className="max-w-[120px] lg:max-w-[200px] w-1/3 "
-          />
+          <Link to="/" className="w-1/3">
+            <img
+              src={logoNaqos}
+              className="max-w-[120px] lg:max-w-[200px] w-full "
+            />
+          </Link>
+
           <Bars3Icon
             className="text-slate-800 cursor-pointer lg:hidden max-w-[30px]"
             onClick={() => {
@@ -38,7 +41,7 @@ function NavbarUnsigned() {
             </div>
             <div className="flex flex-wrap w-full gap-4 lg:justify-end lg:pr-2 lg:gap-7">
               <Link
-                to={"login"}
+                to={"/login"}
                 className="w-full py-2 bg-slate-100 rounded-md text-primary lg:w-1/3 hover:drop-shadow-md duration-100 ease-in-out text-center"
               >
                 Masuk
