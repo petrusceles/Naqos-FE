@@ -14,9 +14,10 @@ export const useAvailableCities = () => {
   return getAvailableCitiesQuery;
 };
 
-export const useAllKost = ({ keyword, limit, sorted_by, search_by }) => {
+export const useAllKost = ({ keyword, limit, sorted_by, sort, search_by }) => {
   const getAllKostQuery = useQuery({
-    queryFn: () => get_all_kosts({ keyword, limit, sorted_by, search_by }),
+    queryFn: () =>
+      get_all_kosts({ keyword, limit, sorted_by, sort, search_by }),
     queryKey: ["kost", keyword, search_by],
   });
   return getAllKostQuery;

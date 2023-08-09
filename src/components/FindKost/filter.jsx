@@ -2,11 +2,15 @@ import React from "react";
 import { useState } from "react";
 
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useEffect } from "react";
+
+const time = ["Harian", "Bulanan", "Tahunan"];
 function FindKostFilter({
   isFilterShowState,
   kostFacility,
   roomFacility,
   kostType,
+  filterReducer,
 }) {
   const [isTypeKostShow, setIsTypeKostShow] = useState(false);
   const [isRentDurationShow, setIsRentDurationShow] = useState(false);
@@ -15,6 +19,9 @@ function FindKostFilter({
   const [isTogetherFacilitiesShow, setIsTogetherFacilitiesShow] =
     useState(false);
 
+  useEffect(() => {
+    console.log(filterReducer?.filterState);
+  }, [filterReducer?.filterState]);
   // console.log(kostFacility);
   return (
     <>
@@ -33,6 +40,68 @@ function FindKostFilter({
           />
         </div>
         <div className="w-full max-h-[500px] overflow-auto no-scrollbar lg:max-h-none">
+          {/* Urutkan */}
+          <div
+            className={`flex flex-wrap px-4 py-3 duration-200 ease-in-out border-b-2 border-slate-50`}
+          >
+            <div
+              className="text-sm w-full font-semibold text-slate-400 flex justify-between cursor-pointer  lg:py-1"
+              onClick={() => {
+                setIsSortByShow((prev) => !prev);
+              }}
+            >
+              <p className="lg:text-lg">Urutkan</p>
+              <ChevronDownIcon
+                className={`w-4 duration-150 ease-in-out ${
+                  !isSortByShow && "-rotate-90"
+                } lg:w-6`}
+              />
+            </div>
+            <div
+              className={`form-control w-full grid grid-cols-1 px-3 gap-3 overflow-hidden duration-200 ease-in-out transition-all ${
+                isSortByShow ? "max-h-[300px] pt-4" : "max-h-0 opacity-0"
+              } origin-top-left lg:px-6`}
+            >
+              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
+                <input
+                  type="radio"
+                  name="price-sorting-radio"
+                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
+                  value={"asc"}
+                  onChange={(e) => {
+                    filterReducer?.filterDispatch({
+                      type: "sort_price_handle",
+                      payload: {
+                        sort_price: e.target.value,
+                      },
+                    });
+                  }}
+                />
+                <span className="label-text text-xs font-medium lg:text-sm ">
+                  Harga termurah
+                </span>
+              </label>
+              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
+                <input
+                  type="radio"
+                  name="price-sorting-radio"
+                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
+                  value={"desc"}
+                  onChange={(e) => {
+                    filterReducer?.filterDispatch({
+                      type: "sort_price_handle",
+                      payload: {
+                        sort_price: e.target.value,
+                      },
+                    });
+                  }}
+                />
+                <span className="label-text text-xs font-medium lg:text-sm ">
+                  Harga tertinggi
+                </span>
+              </label>
+            </div>
+          </div>
           {/* Tipe Kos */}
           <div
             className={`flex flex-wrap px-4 py-3 duration-200 ease-in-out border-b-2 border-slate-50`}
@@ -59,7 +128,16 @@ function FindKostFilter({
                 <input
                   type="checkbox"
                   className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
-                  name="AllKostType"
+                  name="Semua"
+                  onChange={(e) => {
+                    filterReducer.filterDispatch({
+                      type: "kost_type_select_all_handle",
+                      payload: {
+                        all_kost_types: kostType?.map((type) => type.name),
+                      },
+                    });
+                  }}
+                  checked={filterReducer?.filterState?.is_kost_type_check_all}
                 />
                 <span className="label-text text-xs font-medium lg:text-sm">
                   Semua
@@ -75,6 +153,18 @@ function FindKostFilter({
                       type="checkbox"
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={type?.name + "KostType"}
+                      checked={filterReducer?.filterState?.kost_type?.includes(
+                        type?.name
+                      )}
+                      onChange={(e) => {
+                        filterReducer?.filterDispatch({
+                          type: "kost_type_click_handle",
+                          payload: {
+                            kost_type: type?.name,
+                            checked: e.target.checked,
+                          },
+                        });
+                      }}
                     />
                     <span className="label-text text-xs font-medium lg:text-sm">
                       {type?.name}
@@ -111,83 +201,49 @@ function FindKostFilter({
                 <input
                   type="checkbox"
                   className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
+                  onChange={(e) => {
+                    filterReducer.filterDispatch({
+                      type: "time_select_all_handle",
+                      payload: {
+                        all_times: time,
+                      },
+                    });
+                  }}
+                  checked={filterReducer?.filterState?.is_time_check_all}
                 />
                 <span className="label-text text-xs font-medium lg:text-sm">
                   Semua
                 </span>
               </label>
-              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
-                />
-                <span className="label-text text-xs font-medium lg:text-sm">
-                  Harian
-                </span>
-              </label>
-              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
-                />
-                <span className="label-text text-xs font-medium lg:text-sm">
-                  Bulanan
-                </span>
-              </label>
-              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
-                />
-                <span className="label-text text-xs font-medium lg:text-sm">
-                  Tahunan
-                </span>
-              </label>
-            </div>
-          </div>
-
-          {/* Urutkan */}
-          <div
-            className={`flex flex-wrap px-4 py-3 duration-200 ease-in-out border-b-2 border-slate-50`}
-          >
-            <div
-              className="text-sm w-full font-semibold text-slate-400 flex justify-between cursor-pointer  lg:py-1"
-              onClick={() => {
-                setIsSortByShow((prev) => !prev);
-              }}
-            >
-              <p className="lg:text-lg">Urutkan</p>
-              <ChevronDownIcon
-                className={`w-4 duration-150 ease-in-out ${
-                  !isSortByShow && "-rotate-90"
-                } lg:w-6`}
-              />
-            </div>
-            <div
-              className={`form-control w-full grid grid-cols-1 px-3 gap-3 overflow-hidden duration-200 ease-in-out transition-all ${
-                isSortByShow ? "max-h-[300px] pt-4" : "max-h-0 opacity-0"
-              } origin-top-left lg:px-6`}
-            >
-              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
-                <input
-                  type="radio"
-                  name="rent-duration-radio"
-                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
-                />
-                <span className="label-text text-xs font-medium lg:text-sm ">
-                  Harga termurah
-                </span>
-              </label>
-              <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4">
-                <input
-                  type="radio"
-                  name="rent-duration-radio"
-                  className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
-                />
-                <span className="label-text text-xs font-medium lg:text-sm ">
-                  Harga tertinggi
-                </span>
-              </label>
+              {time?.map((timeValue, index) => {
+                return (
+                  <label
+                    className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4"
+                    key={index}
+                  >
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
+                      name={timeValue}
+                      checked={filterReducer?.filterState?.time?.includes(
+                        timeValue
+                      )}
+                      onChange={(e) => {
+                        filterReducer?.filterDispatch({
+                          type: "time_click_handle",
+                          payload: {
+                            time: timeValue,
+                            checked: e.target.checked,
+                          },
+                        });
+                      }}
+                    />
+                    <span className="label-text text-xs font-medium lg:text-sm">
+                      {timeValue}
+                    </span>
+                  </label>
+                );
+              })}
             </div>
           </div>
 
@@ -220,6 +276,19 @@ function FindKostFilter({
                   type="checkbox"
                   className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                   name="AllRoomFacility"
+                  onChange={(e) => {
+                    filterReducer.filterDispatch({
+                      type: "room_facility_select_all_handle",
+                      payload: {
+                        all_room_facilities: roomFacility?.map(
+                          (facility) => facility.name
+                        ),
+                      },
+                    });
+                  }}
+                  checked={
+                    filterReducer?.filterState?.is_room_facility_check_all
+                  }
                 />
                 <span className="label-text text-xs font-medium lg:text-sm">
                   Semua
@@ -227,11 +296,26 @@ function FindKostFilter({
               </label>
               {roomFacility?.map((facility, index) => {
                 return (
-                  <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4" key={facility?._id}>
+                  <label
+                    className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4"
+                    key={facility?._id}
+                  >
                     <input
                       type="checkbox"
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={facility?.name + "RoomFacility"}
+                      checked={filterReducer?.filterState?.room_facility?.includes(
+                        facility?.name
+                      )}
+                      onChange={(e) => {
+                        filterReducer?.filterDispatch({
+                          type: "room_facility_click_handle",
+                          payload: {
+                            room_facility: facility?.name,
+                            checked: e.target.checked,
+                          },
+                        });
+                      }}
                     />
                     <span className="label-text text-xs font-medium lg:text-sm">
                       {facility?.name}
@@ -271,6 +355,19 @@ function FindKostFilter({
                   type="checkbox"
                   className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                   name="AllKostFacility"
+                  onChange={(e) => {
+                    filterReducer.filterDispatch({
+                      type: "kost_facility_select_all_handle",
+                      payload: {
+                        all_kost_facilities: kostFacility?.map(
+                          (facility) => facility.name
+                        ),
+                      },
+                    });
+                  }}
+                  checked={
+                    filterReducer?.filterState?.is_kost_facility_check_all
+                  }
                 />
                 <span className="label-text text-xs font-medium lg:text-sm ">
                   Semua
@@ -278,11 +375,26 @@ function FindKostFilter({
               </label>
               {kostFacility?.map((facility, index) => {
                 return (
-                  <label className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4" key={facility?._id}>
+                  <label
+                    className="label cursor-pointer flex justify-start gap-2 items-center p-0 lg:gap-4"
+                    key={facility?._id}
+                  >
                     <input
                       type="checkbox"
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={facility?.name + "KostFacility"}
+                      checked={filterReducer?.filterState?.kost_facility?.includes(
+                        facility?.name
+                      )}
+                      onChange={(e) => {
+                        filterReducer?.filterDispatch({
+                          type: "kost_facility_click_handle",
+                          payload: {
+                            kost_facility: facility?.name,
+                            checked: e.target.checked,
+                          },
+                        });
+                      }}
                     />
                     <span className="label-text text-xs font-medium lg:text-sm ">
                       {facility?.name}

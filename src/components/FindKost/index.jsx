@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
@@ -14,12 +14,30 @@ import {
   useRoomFacility,
 } from "../../queries/filter.js";
 
+import FilterReducer from "./reducer/filterReducer.js";
+
 function FindKost() {
   const [isFilterShow, setIsFilterShow] = useState(false);
 
   const kostFacility = useKostFacility();
   const kostType = useKostType();
   const roomFacility = useRoomFacility();
+
+  const [filterState, filterDispatch] = useReducer(FilterReducer, {
+    is_kost_type_check_all: false,
+    kost_type: [],
+    is_time_check_all: false,
+    time: [],
+    is_room_facility_check_all: false,
+    room_facility: [],
+    is_kost_facility_check_all: false,
+    kost_facility: [],
+    sort_price:null,
+  });
+
+
+
+
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
@@ -96,6 +114,7 @@ function FindKost() {
               kostFacility={kostFacility?.data?.data?.data?.kost_facilities}
               roomFacility={roomFacility?.data?.data?.data?.room_facilities}
               kostType={kostType?.data?.data?.data?.kost_types}
+              filterReducer={{filterState,filterDispatch}}
             />
           )}
         </div>

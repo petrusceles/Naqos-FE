@@ -33,6 +33,7 @@ function KostCheap() {
     keyword: place,
     limit: 6,
     sorted_by: "month_price",
+    sort:"asc"
   });
   const [isDropdownOpen, setIsDropdownOpen] = useState(true);
   return (

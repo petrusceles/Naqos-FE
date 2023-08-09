@@ -22,6 +22,7 @@ function KostRecommendation() {
     keyword: place,
     limit: 6,
     sorted_by: "name",
+    sort:"asc"
   });
   // console.log(allKost.data?.data?.data?.kosts);
   const [isDropdownOpen, setIsDropdownOpen] = useState(true);
