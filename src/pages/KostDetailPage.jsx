@@ -7,14 +7,14 @@ import { useUser } from "../queries/auth.js";
 import Loading from "../components/AddOn/Loading.jsx";
 import { useParams } from "react-router-dom";
 import { useAllKost, useKostDetail } from "../queries/kost.js";
-import { useReview } from "../queries/review.js";
+import { useKostReview } from "../queries/review.js";
 function KostDetailPage() {
   const { id } = useParams();
   const user = useUser();
   const kostDetail = useKostDetail({id});
   // console.log(kostDetail?.data?.data?.data?.kost?.user?._id);
   const kostRecommendation = useAllKost({limit:5, sorted_by:'price_month', search_by:{user:kostDetail?.data?.data?.data?.kost?.user?._id}})
-  const kostReview = useReview({ kost: id });
+  const kostReview = useKostReview({kost:id});
   // console.log(kostReview.data?.data?.data);
   return user.isLoading ||
     kostDetail.isLoading ||

@@ -106,9 +106,9 @@ function KostCheap() {
               navigation
               pagination={{ clickable: true }}
             >
-              {allKost.data?.data?.data?.kosts.map((kost) => {
+              {allKost.data?.data?.data?.kosts.map((kost, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <KostCheapCard
                       address={kost.address}
                       district={kost.district}

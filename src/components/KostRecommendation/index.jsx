@@ -96,9 +96,9 @@ function KostRecommendation() {
               pagination={{ clickable: true }}
               
             >
-              {allKost.data?.data?.data?.kosts.map((kost) => {
+              {allKost.data?.data?.data?.kosts.map((kost, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <KostRecommendationCard
                       address={kost.address}
                       district={kost.district}

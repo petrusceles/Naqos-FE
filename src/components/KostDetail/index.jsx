@@ -33,7 +33,6 @@ import DatePicker from "react-date-picker";
 import addDays from "date-fns/addDays";
 import { Rating } from "@material-tailwind/react";
 import KostReview from "./review.jsx";
-import { useReview } from "../../queries/review.js";
 import ReviewCard from "./reviewCard.jsx";
 
 function getCategoryFromURL(url) {
@@ -54,11 +53,21 @@ function KostDetail(props) {
   );
   // console.log(props.kost_recommendation);
 
-  const priceTypeAvailable = {
-    hari: { price: props?.kost?.day_price, days: 1 },
-    bulan: { price: props?.kost?.month_price, days: 30 },
-    tahun: { price: props?.kost?.year_price, days: 365 },
+  let priceTypeAvailable = {};
+
+  priceTypeAvailable.hari = props?.kost?.day_price && {
+    price: props?.kost?.day_price,
+    days: 1,
   };
+  priceTypeAvailable.bulan = props?.kost?.month_price && {
+    price: props?.kost?.month_price,
+    days: 30,
+  };
+  priceTypeAvailable.tahun = props?.kost?.year_price && {
+    price: props?.kost?.year_price,
+    days: 365,
+  };
+  // console.log(priceTypeAvailable);
 
   const [selectedPriceType, setSelectedPriceType] = useState({
     price: props?.kost?.month_price,
@@ -77,17 +86,19 @@ function KostDetail(props) {
 
   const [date, setDate] = useState(new Date());
 
-  console.log(props?.reviews);
+  // console.log(props?.reviews);
 
   const starSum = props?.reviews?.reduce((acc, obj) => acc + obj.star, 0);
-  const starAverage = starSum/props?.reviews?.length
+  const starAverage = starSum / props?.reviews?.length;
   const starCount = props?.reviews?.length;
-  console.log(starCount)
+  // console.log(starCount)
   // console.log(starAverage)
 
   return (
     <>
-    {isReviewShow && <div className="w-full h-full fixed bg-slate-300/40 z-40" />}
+      {isReviewShow && (
+        <div className="w-full h-full fixed bg-slate-300/40 z-40" />
+      )}
       <div className="pt-24 pb-5 lg:pt-36 lg:pb-16">
         <div className="container flex flex-wrap px-8 gap-4 lg:gap-5 lg:justify-between">
           {/* Search bar and breadcrumbs */}
@@ -168,9 +179,9 @@ function KostDetail(props) {
                 pagination={{ clickable: true }}
                 id="swiper-pictures"
               >
-                {photos_url.map((url) => {
+                {photos_url.map((url, index) => {
                   return (
-                    <SwiperSlide key={url}>
+                    <SwiperSlide key={index}>
                       <img
                         src={url}
                         alt={getCategoryFromURL(url)}
@@ -235,10 +246,13 @@ function KostDetail(props) {
                       defaultValue="bulan"
                     >
                       {Object.keys(priceTypeAvailable).map((key, value) => {
+                        console.log(key);
                         return (
-                          <option value={key} key={key}>
-                            {key + "an"}
-                          </option>
+                          priceTypeAvailable[key] && (
+                            <option value={key} key={key}>
+                              {key + "an"}
+                            </option>
+                          )
                         );
                       })}
                       {/* <option value="hari">Harian</option>
@@ -561,9 +575,9 @@ function KostDetail(props) {
                   .filter((val) => {
                     return val?._id !== props?.kost?._id;
                   })
-                  .map((val) => {
+                  .map((val, index) => {
                     return (
-                      <SwiperSlide>
+                      <SwiperSlide key={index}>
                         <KostDetailRecommendationCard kost={val} />
                       </SwiperSlide>
                     );

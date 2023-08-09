@@ -2,11 +2,11 @@ import React from "react";
 import { StarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { useReview } from "../../queries/review.js";
+import { useKostReview } from "../../queries/review.js";
 function KostDetailRecommendationCard(props) {
-  console.log(props?.kost);
-  const reviews = useReview({ kost: props?.kost?._id });
-  console.log(reviews?.data?.data?.data);
+  // console.log(props?.kost);
+  const reviews = useKostReview({ kost: props?.kost?._id });
+  // console.log(reviews?.data?.data?.data);
   const starSum = reviews?.data?.data?.data?.reduce(
     (acc, obj) => acc + obj.star,
     0
@@ -21,10 +21,7 @@ function KostDetailRecommendationCard(props) {
       className="w-full flex flex-wrap rounded-xl overflow-hidden bg-white drop-shadow-md"
     >
       <div className="w-1/3">
-        <img
-          src="https://res.cloudinary.com/dqzqbgi8e/image/upload/v1677522766/NaqosV2/dillon-kydd-XGvwt544g8k-unsplash_fvpq9k.jpg"
-          className="object-cover h-full"
-        />
+        <img src={props?.kost?.outside_photos_url[0]} className="object-cover h-full" />
       </div>
       <div className="grid grid-cols-1 px-4 py-3 gap-3 w-2/3">
         <div className="flex w-full h-fit items-center justify-between">
@@ -88,10 +85,13 @@ function KostDetailRecommendationCard(props) {
         <div className="flex justify-between items-center">
           <div className="flex gap-[6px] flex-wrap items-center text-[9px] lg:text-sm lg:gap-2 ">
             {props?.kost?.room_facilities
-              .filter((item, index) => index < 3)
-              .map((val) => {
+              .filter((_, index) => index < 3)
+              .map((val, indexMap) => {
                 return (
-                  <div className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3">
+                  <div
+                    key={indexMap}
+                    className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3"
+                  >
                     {val.name}
                   </div>
                 );
