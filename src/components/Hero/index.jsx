@@ -1,6 +1,9 @@
 import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 function Hero() {
+  const [keyword,setKeyword] = useState("")
   return (
     <div className="bg-slate-50 bg-cover lg:pt-28 pt-16">
       <div className="px-8 container py-10 grid grid-cols-1 lg:py-28 ">
@@ -16,12 +19,15 @@ function Hero() {
             <input
               placeholder="Mau kos dimana?"
               className="text-xs p-2 rounded-md pl-10 border focus:outline-1 focus:outline-primary lg:text-lg lg:p-3 lg:w-2/3 lg:pl-[10%]"
+              onChange={(e) => setKeyword(e.target.value)}
             />
-            <button
-              className="bg-primary text-white px-4 lg:px-9 text-xs font-semibold rounded-md h-full lg:text-lg scale-95 hover:shadow-lg duration-100 ease-in-out"
+            
+            <Link
+            to={`find?keyword=${keyword}`}
+              className="bg-primary text-white px-4 lg:px-9 text-xs font-semibold rounded-md h-full lg:text-lg scale-95 hover:shadow-lg duration-100 ease-in-out flex items-center"
             >
               Cari
-            </button>
+            </Link>
           </div>
         </div>
       </div>

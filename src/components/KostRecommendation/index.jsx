@@ -108,6 +108,7 @@ function KostRecommendation() {
                       outside_photo_url={kost.outside_photos_url[0]}
                       type={kost.type.name}
                       key={kost._id}
+                      id={kost._id}
                     />
                   </SwiperSlide>
                 );

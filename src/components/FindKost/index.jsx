@@ -6,7 +6,6 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import FindKostCard from "./card";
-import KostNotFoundIcon from "../../assets/kost-not-found-icon.svg";
 import FindKostFilter from "./filter.jsx";
 import {
   useKostFacility,
@@ -15,8 +14,11 @@ import {
 } from "../../queries/filter.js";
 
 import FilterReducer from "./reducer/filterReducer.js";
-
-function FindKost() {
+import { useAllKost } from "../../queries/kost.js";
+import FindKostLoading from "./loading.jsx";
+import { Link } from "react-router-dom";
+import FindKostNotFound from "./notFound.jsx";
+function FindKost(props) {
   const [isFilterShow, setIsFilterShow] = useState(false);
 
   const kostFacility = useKostFacility();
@@ -24,20 +26,31 @@ function FindKost() {
   const roomFacility = useRoomFacility();
 
   const [filterState, filterDispatch] = useReducer(FilterReducer, {
-    is_kost_type_check_all: false,
+    is: {
+      is_kost_type_check_all: false,
+      is_kost_facility_check_all: false,
+      is_room_facility_check_all: false,
+      is_time_check_all: false,
+    },
     kost_type: [],
-    is_time_check_all: false,
     time: [],
-    is_room_facility_check_all: false,
     room_facility: [],
-    is_kost_facility_check_all: false,
     kost_facility: [],
-    sort_price:null,
+    sort_price: null,
   });
 
+  const [keyword, setKeyword] = useState(props.keyword);
 
+  // const [query, setQuery] = useState()
 
+  const kost = useAllKost({
+    sorted_by: filterState?.sort_price && "month_price",
+    sort: filterState?.sort_price,
+    search_by: filterState,
+    keyword,
+  });
 
+  console.log(kost?.data?.data?.data?.kosts);
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
@@ -47,16 +60,15 @@ function FindKost() {
             <MagnifyingGlassIcon className="absolute w-4 left-3 lg:w-5" />
             <input
               placeholder="Mau ngekos dimana?"
-              className="w-10/12 py-2 rounded-[3px] outline outline-2 -outline-offset-1 outline-slate-200 text-sm pr-3 pl-9 focus:outline-primary focus:-outline-offset-2 lg:w-11/12 lg:text-base lg:pl-10 lg:py-3 lg:rounded-md"
+              className="w-full py-2 rounded-[3px] outline outline-2 -outline-offset-1 outline-slate-200 text-sm pr-3 pl-9 focus:outline-primary focus:-outline-offset-2 lg:text-base lg:pl-10 lg:py-3 lg:rounded-md"
+              onChange={(e) => setKeyword(e.target.value)}
+              value={keyword}
             />
-            <button className="w-2/12 text-sm bg-primary text-white rounded-[3px] h-full font-semibold lg:w-1/12 lg:text-base lg:rounded-md">
-              Cari
-            </button>
           </div>
           <div className="text-xs font-medium breadcrumbs flex items-center w-full lg:text-base">
             <ul>
               <li>
-                <a>Home</a>
+                <Link to={"/"}>Home</Link>
               </li>
               <li className="text-primary font-semibold underline">Cari Kos</li>
             </ul>
@@ -73,28 +85,17 @@ function FindKost() {
             Filter
           </button>
 
-          {/* <div className="w-full flex flex-wrap gap-1 lg:w-[70%]  justify-center py-12 lg:h-full lg:items-center ">
-            <div className="flex items-center flex-wrap h-fit lg:gap-2">
-              <div className="w-full flex justify-center py-4">
-                <img src={KostNotFoundIcon} className="w-36 lg:w-52" />
-              </div>
-              <h1 className="w-full text-center font-semibold lg:text-xl">
-                Kos yang kamu cari kosong :(
-              </h1>
-              <p className="w-full text-center text-xs lg:text-sm">
-                Silahkan ubah filter untuk mencari kos lain yang tersedia
-              </p>
+          {kost.isFetching ? (
+            <FindKostLoading />
+          ) : kost?.error?.response?.status == 404 ? (
+            <FindKostNotFound />
+          ) : (
+            <div className="w-full flex flex-wrap gap-5 lg:w-[70%] lg:gap-8  h-fit">
+              {kost?.data?.data?.data?.kosts?.map((kost) => {
+                return <FindKostCard kost={kost} />;
+              })}
             </div>
-          </div> */}
-
-          <div className="w-full flex flex-wrap gap-5 lg:w-[70%] lg:gap-8">
-            <FindKostCard />
-            <FindKostCard />
-            <FindKostCard />
-            <FindKostCard />
-            <FindKostCard />
-            <FindKostCard />
-          </div>
+          )}
 
           {isFilterShow && (
             <>
@@ -114,7 +115,7 @@ function FindKost() {
               kostFacility={kostFacility?.data?.data?.data?.kost_facilities}
               roomFacility={roomFacility?.data?.data?.data?.room_facilities}
               kostType={kostType?.data?.data?.data?.kost_types}
-              filterReducer={{filterState,filterDispatch}}
+              filterReducer={{ filterState, filterDispatch }}
             />
           )}
         </div>

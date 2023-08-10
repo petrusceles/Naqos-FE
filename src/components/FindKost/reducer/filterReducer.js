@@ -30,13 +30,13 @@ const FilterReducer = (state, action) => {
 
     case "kost_type_select_all_handle": {
       let [kost_type, is_kost_type_check_all] = useSelectAllHandle(
-        state?.is_kost_type_check_all,
+        state?.is?.is_kost_type_check_all,
         action.payload?.all_kost_types
       );
       return {
         ...state,
         kost_type,
-        is_kost_type_check_all,
+        is: { ...state.is, is_kost_type_check_all },
       };
     }
 
@@ -53,13 +53,13 @@ const FilterReducer = (state, action) => {
 
     case "time_select_all_handle": {
       let [time, is_time_check_all] = useSelectAllHandle(
-        state?.is_time_check_all,
+        state?.is?.is_time_check_all,
         action?.payload?.all_times
       );
       return {
         ...state,
         time,
-        is_time_check_all,
+        is: {...state.is, is_time_check_all },
       };
     }
 
@@ -76,13 +76,13 @@ const FilterReducer = (state, action) => {
 
     case "room_facility_select_all_handle": {
       let [room_facility, is_room_facility_check_all] = useSelectAllHandle(
-        state?.is_room_facility_check_all,
+        state?.is?.is_room_facility_check_all,
         action?.payload?.all_room_facilities
       );
       return {
         ...state,
         room_facility,
-        is_room_facility_check_all,
+        is: {...state.is, is_room_facility_check_all },
       };
     }
 
@@ -99,21 +99,21 @@ const FilterReducer = (state, action) => {
 
     case "kost_facility_select_all_handle": {
       let [kost_facility, is_kost_facility_check_all] = useSelectAllHandle(
-        state?.is_kost_facility_check_all,
+        state?.is?.is_kost_facility_check_all,
         action?.payload?.all_kost_facilities
       );
       return {
         ...state,
         kost_facility,
-        is_kost_facility_check_all,
+        is: {...state.is, is_kost_facility_check_all },
       };
     }
 
     case "sort_price_handle": {
-        return {
-            ...state,
-            sort_price:action?.payload?.sort_price
-        }
+      return {
+        ...state,
+        sort_price: action?.payload?.sort_price,
+      };
     }
 
     default:

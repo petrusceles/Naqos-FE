@@ -5,6 +5,11 @@ import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 
 const time = ["Harian", "Bulanan", "Tahunan"];
+const timeEnglish = {
+  "Harian":"day",
+  "Bulanan": "month",
+  "Tahunan":"year"
+}
 function FindKostFilter({
   isFilterShowState,
   kostFacility,
@@ -133,11 +138,11 @@ function FindKostFilter({
                     filterReducer.filterDispatch({
                       type: "kost_type_select_all_handle",
                       payload: {
-                        all_kost_types: kostType?.map((type) => type.name),
+                        all_kost_types: kostType?.map((type) => type._id),
                       },
                     });
                   }}
-                  checked={filterReducer?.filterState?.is_kost_type_check_all}
+                  checked={filterReducer?.filterState?.is?.is_kost_type_check_all}
                 />
                 <span className="label-text text-xs font-medium lg:text-sm">
                   Semua
@@ -154,13 +159,13 @@ function FindKostFilter({
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={type?.name + "KostType"}
                       checked={filterReducer?.filterState?.kost_type?.includes(
-                        type?.name
+                        type?._id
                       )}
                       onChange={(e) => {
                         filterReducer?.filterDispatch({
                           type: "kost_type_click_handle",
                           payload: {
-                            kost_type: type?.name,
+                            kost_type: type?._id,
                             checked: e.target.checked,
                           },
                         });
@@ -205,11 +210,11 @@ function FindKostFilter({
                     filterReducer.filterDispatch({
                       type: "time_select_all_handle",
                       payload: {
-                        all_times: time,
+                        all_times: time?.map((timeValue) => timeEnglish[timeValue]),
                       },
                     });
                   }}
-                  checked={filterReducer?.filterState?.is_time_check_all}
+                  checked={filterReducer?.filterState?.is?.is_time_check_all}
                 />
                 <span className="label-text text-xs font-medium lg:text-sm">
                   Semua
@@ -226,13 +231,13 @@ function FindKostFilter({
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={timeValue}
                       checked={filterReducer?.filterState?.time?.includes(
-                        timeValue
+                        timeEnglish[timeValue]
                       )}
                       onChange={(e) => {
                         filterReducer?.filterDispatch({
                           type: "time_click_handle",
                           payload: {
-                            time: timeValue,
+                            time: timeEnglish[timeValue],
                             checked: e.target.checked,
                           },
                         });
@@ -281,7 +286,7 @@ function FindKostFilter({
                       type: "room_facility_select_all_handle",
                       payload: {
                         all_room_facilities: roomFacility?.map(
-                          (facility) => facility.name
+                          (facility) => facility._id
                         ),
                       },
                     });
@@ -305,13 +310,13 @@ function FindKostFilter({
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={facility?.name + "RoomFacility"}
                       checked={filterReducer?.filterState?.room_facility?.includes(
-                        facility?.name
+                        facility?._id
                       )}
                       onChange={(e) => {
                         filterReducer?.filterDispatch({
                           type: "room_facility_click_handle",
                           payload: {
-                            room_facility: facility?.name,
+                            room_facility: facility?._id,
                             checked: e.target.checked,
                           },
                         });
@@ -360,7 +365,7 @@ function FindKostFilter({
                       type: "kost_facility_select_all_handle",
                       payload: {
                         all_kost_facilities: kostFacility?.map(
-                          (facility) => facility.name
+                          (facility) => facility._id
                         ),
                       },
                     });
@@ -384,13 +389,13 @@ function FindKostFilter({
                       className="w-4 h-4 checked:accent-primary cursor-pointer lg:w-5 lg:h-5"
                       name={facility?.name + "KostFacility"}
                       checked={filterReducer?.filterState?.kost_facility?.includes(
-                        facility?.name
+                        facility?._id
                       )}
                       onChange={(e) => {
                         filterReducer?.filterDispatch({
                           type: "kost_facility_click_handle",
                           payload: {
-                            kost_facility: facility?.name,
+                            kost_facility: facility?._id,
                             checked: e.target.checked,
                           },
                         });
@@ -405,11 +410,11 @@ function FindKostFilter({
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap w-full justify-center py-3 ">
+        {/* <div className="flex flex-wrap w-full justify-center py-3 ">
           <button className="bg-primary text-white text-sm w-11/12 py-2 rounded-md font-semibold lg:text-lg">
             Terapkan Filter
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

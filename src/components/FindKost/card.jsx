@@ -18,7 +18,7 @@ function FindKostCard(props) {
   return (
     <Link
       to={`/detail/${props?.kost?._id}`}
-      className="w-full flex flex-wrap rounded-xl overflow-hidden bg-white drop-shadow-md"
+      className="w-full flex flex-wrap rounded-xl overflow-hidden bg-white drop-shadow-md max-h-60"
     >
       <div className="w-1/3">
         <img
