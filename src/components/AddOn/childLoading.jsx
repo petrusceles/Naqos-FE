@@ -1,10 +1,10 @@
 import React from "react";
 
-function FindKostLoading() {
+function ChildLoading(props) {
   return (
     <>
-      <div className="w-full flex flex-wrap gap-1 lg:w-[70%]  justify-center py-12 lg:h-full lg:items-center ">
-        <div className="flex items-center flex-wrap h-fit lg:gap-2 w-1/4">
+      <div className={props?.className}>
+        <div className="flex items-center flex-wrap h-fit lg:gap-2">
           <h1 className="w-full text-center font-semibold lg:text-xl">
             Loading...
           </h1>
@@ -19,4 +19,4 @@ function FindKostLoading() {
   );
 }
 
-export default FindKostLoading;
+export default ChildLoading;

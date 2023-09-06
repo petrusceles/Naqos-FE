@@ -15,7 +15,7 @@ import {
 
 import FilterReducer from "./reducer/filterReducer.js";
 import { useAllKost } from "../../queries/kost.js";
-import FindKostLoading from "./loading.jsx";
+import ChildLoading from "../AddOn/childLoading.jsx";
 import { Link } from "react-router-dom";
 import FindKostNotFound from "./notFound.jsx";
 function FindKost(props) {
@@ -50,7 +50,6 @@ function FindKost(props) {
     keyword,
   });
 
-  console.log(kost?.data?.data?.data?.kosts);
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
@@ -86,7 +85,9 @@ function FindKost(props) {
           </button>
 
           {kost.isFetching ? (
-            <FindKostLoading />
+            <div className="w-full flex flex-wrap gap-1 lg:w-[70%]  justify-center py-12 lg:h-full lg:items-center ">
+            <ChildLoading className="w-1/4" />
+            </div>
           ) : kost?.error?.response?.status == 404 ? (
             <FindKostNotFound />
           ) : (

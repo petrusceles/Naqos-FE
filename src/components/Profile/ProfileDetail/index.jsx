@@ -4,7 +4,7 @@ import LogoutModal from "./logoutModal";
 function ProfileDetail() {
   return (
     <>
-      <LogoutModal />
+      {/* <LogoutModal /> */}
       <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
         <div className="container flex flex-wrap px-8 gap-4">
           <div className="text-xs font-medium breadcrumbs flex items-center w-full lg:text-base">

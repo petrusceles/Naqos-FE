@@ -3,6 +3,7 @@ import {
   get_all_kosts,
   get_kost_cities,
   get_kost_detail,
+  get_all_kost_type,
 } from "../api/kost.js";
 
 export const useAvailableCities = () => {
@@ -15,10 +16,9 @@ export const useAvailableCities = () => {
 };
 
 export const useAllKost = ({ keyword, limit, sorted_by, sort, search_by }) => {
-  const newSearchBy = {...search_by}
+  const newSearchBy = { ...search_by };
   delete newSearchBy?.is;
   // delete search_by?.sort_price;
-  console.log(sorted_by);
   const getAllKostQuery = useQuery({
     queryFn: () =>
       get_all_kosts({
@@ -40,4 +40,12 @@ export const useKostDetail = ({ id }) => {
     queryKey: ["kost", "detail", id],
   });
   return getKostDetail;
+};
+
+export const useAllKostType = () => {
+  const getAllKostType = useQuery({
+    queryFn: () => get_all_kost_type(),
+    queryKey: ["kost-type"],
+  });
+  return getAllKostType;
 };

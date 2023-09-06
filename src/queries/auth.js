@@ -1,19 +1,33 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import AuthAPI from "../api/auth.js";
+import { login, me, edit_profile, update_password } from "../api/auth.js";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
-export const useUser = () => {
+export const useUser = (isNavigate=false) => {
+  const navigate = useNavigate();
   const getUserQuery = useQuery({
-    queryFn: AuthAPI.me,
+    queryFn: me,
     queryKey: ["auth", "me"],
-    retry:false
+    retry: false,
+    onError:() => {
+      isNavigate && navigate("/");
+    }
   });
   return getUserQuery;
 };
 
 export const useLoginUser = () => {
   const loginUserMutation = useMutation({
-    mutationFn: AuthAPI.login,
-    mutationKey: ["auth", "login"],
+    mutationFn: login,
+    mutationKey: ["auth", "login"]
   });
   return loginUserMutation;
+};
+
+export const useEditUserProfile = () => {
+  const editProfileUserMutaton = useMutation({
+    mutationFn: edit_profile,
+    mutationKey: ["auth", "edit", "profile"],
+  });
+  return editProfileUserMutaton;
 };

@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 function OwnerDashboardSidebar() {
   return (
-    <div className="col-span-1 bg-primary grid grid-cols-1 justify-items-center content-start gap-14 pb-16 pt-40">
-      <ul className="w-full px-9 grid grid-cols-1 gap-y-6 owner-input-navlink">
+    <div className="col-span-1 bg-primary grid grid-cols-1 justify-items-center content-start gap-14 pb-16 relative">
+      <ul className="w-full px-9 grid grid-cols-1 gap-y-6 owner-input-navlink sticky top-40">
         <li>
           <NavLink
             to={"/owner/dashboard/property"}

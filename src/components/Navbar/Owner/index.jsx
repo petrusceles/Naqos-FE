@@ -4,12 +4,13 @@ import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { BellIcon } from "@heroicons/react/24/outline";
 import Notification from "../../Notification";
-function NavbarOwner() {
+function NavbarOwner(props) {
+  console.log(props?.user)
   const [menu, setMenu] = useState(false);
   const [notification, setNotification] = useState(false);
   return (
-    <div className=" shadow-md bg-white fixed w-full z-40">
-      <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-0 lg:flex-nowrap lg:py-0 w-full ">
+    <div className=" shadow-md bg-white fixed w-full z-40 min-h-[100px] items-center flex">
+      <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-0 lg:flex-nowrap lg:py-0 w-full">
         <div className="lg:w-1/4 w-1/2 flex justify-center items-center">
           <img
             src={logoNaqos}
@@ -47,13 +48,11 @@ function NavbarOwner() {
             <div className="flex bg-slate-100 p-2 w-full rounded-xl  items-center gap-3 lg:w-fit lg:order-last ">
               <div className="rounded-full max-w-[40px] overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/dqzqbgi8e/image/upload/v1675255775/locxgwxeh00q8nvx3tr5.png"
+                  src={props?.user?.avatar_url}
                   className="object-cover"
                 />
               </div>
-              <p className="truncate lg:hidden">
-                Petrus Caelestinus Pratama Prihantoro
-              </p>
+              <p className="truncate lg:hidden">{props?.user?.name}</p>
             </div>
             <div className="w-full font-medium text-slate-800 lg:w-fit">
               Pusat Bantuan

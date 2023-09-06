@@ -13,7 +13,6 @@ function FindKostCard(props) {
   );
   const starAverage = starSum / reviews?.data?.data?.data?.length;
   const starCount = reviews?.data?.data?.data?.length;
-  // console.log(starAverage);
 
   return (
     <Link

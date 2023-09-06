@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoadingBar from "react-top-loading-bar";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import imglogo from "../../assets/naqos-logo-tag.png";
 import iconeyeslash from "../../assets/icon-eye-slash.svg";
@@ -48,7 +46,11 @@ function Login() {
         onSuccess: (res) => {
           setProgressLoading(100);
           queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
-          navigate("/");
+          if (res?.data?.data?.user?.role === "tenant") {
+            navigate("/owner/dashboard/property");
+          } else {
+            navigate("/");
+          }
         },
         onError: () => {
           setProgressLoading(100);
@@ -189,11 +191,7 @@ function Login() {
           <hr className="lg:mt-3 lg:w-[195px] w-[130px] mt-3 bg-[#999999] border-1 border-[#999999]" />
         </div>
         <div className="flex flex-row justify-center lg:mt-[16px] mt-[5px]">
-          <a
-            rel="noreferrer"
-            href=""
-            target="_blank"
-          >
+          <a rel="noreferrer" href="" target="_blank">
             <button
               className="lg:w-[481px] lg:h-[44.96px] lg:text-[16px] w-[302px] h-[36px] text-[14px] outline-none rounded-[150px] font-[600] focus:outline-none
             bg-white border-2 border-[#b9b9bc] text-[#B9B9BC] hover:bg-[#0A008A] active:bg-[#0A008A] active:text-black 

@@ -246,7 +246,6 @@ function KostDetail(props) {
                       defaultValue="bulan"
                     >
                       {Object.keys(priceTypeAvailable).map((key, value) => {
-                        console.log(key);
                         return (
                           priceTypeAvailable[key] && (
                             <option value={key} key={key}>

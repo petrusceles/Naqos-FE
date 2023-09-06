@@ -42,6 +42,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@material-tailwind/react";
 import Loading from "./components/AddOn/Loading.jsx";
+import { OwnerFormContextLayout, OwnerFormProvider } from "./components/Owner/ownerContext.jsx";
 const App = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -52,21 +53,20 @@ const App = () => {
   });
   return (
     <>
+      <OwnerFormProvider>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
             <ToastContainer />
+
             <Routes>
               {/* Landing Page */}
               <Route path="/" element={<LandingPage />} />
-
               {/* Login */}
               <Route path="/login" element={<LoginPage />} />
-
               {/* SignUp */}
               <Route path="/register/seeker" element={<SignUpSeekerPage />} />
               <Route path="/register/owner" element={<SignUpOwnerPage />} />
-
               {/* Forgot Password */}
               <Route
                 path="/forgot/pending"
@@ -77,7 +77,6 @@ const App = () => {
                 path="/forgot/success"
                 element={<ForgotPasswordSuccessPage />}
               />
-
               {/* Email Verification */}
               <Route
                 path="/verif/pending"
@@ -88,13 +87,10 @@ const App = () => {
                 element={<EmailVerifSuccessPage />}
               />
               <Route path="/verif/failed" element={<EmailVerifFailedPage />} />
-
               {/* Find Kost */}
               <Route path="/find" element={<FindKostPage />} />
-
               {/* Kost Detail */}
               <Route path="/detail/:id" element={<KostDetailPage />} />
-
               {/* History */}
               <Route
                 path="/history/reservation-info"
@@ -120,7 +116,6 @@ const App = () => {
                 path="/history/payment-list"
                 element={<HistoryKostPaymentListPage />}
               />
-
               {/* Profile & Wishlist */}
               <Route
                 path="/profile/wishlist"
@@ -133,19 +128,20 @@ const App = () => {
                 element={<ProfileChangePasswordPage />}
               />
 
-              {/* Owner */}
-              <Route path="/owner/data" element={<OwnerDataPage />} />
-              <Route path="/owner/kost" element={<OwnerKostPage />} />
-              <Route
-                path="/owner/kost-about"
-                element={<OwnerKostAboutPage />}
-              />
-              <Route
-                path="/owner/kost-photo"
-                element={<OwnerKostPhotoPage />}
-              />
-              <Route path="/owner/room" element={<OwnerRoomPage />} />
-
+              {/* <Route element={<OwnerFormContextLayout />}> */}
+                {/* Owner */}
+                <Route path="/owner/data" element={<OwnerDataPage />} />
+                <Route path="/owner/kost" element={<OwnerKostPage />} />
+                <Route
+                  path="/owner/kost-about"
+                  element={<OwnerKostAboutPage />}
+                />
+                <Route
+                  path="/owner/kost-photo"
+                  element={<OwnerKostPhotoPage />}
+                />
+                <Route path="/owner/room" element={<OwnerRoomPage />} />
+              {/* </Route> */}
               {/* Owner Dashboard */}
               <Route
                 path="/owner/dashboard/property"
@@ -175,6 +171,7 @@ const App = () => {
           </ThemeProvider>
         </QueryClientProvider>
       </BrowserRouter>
+      </OwnerFormProvider>
     </>
   );
 };

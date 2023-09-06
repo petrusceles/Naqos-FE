@@ -2,7 +2,11 @@ import React from "react";
 import OwnerInputSidebar from "../ownerInputSidebar";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import BlankImage from "../../../assets/blank-image-card.svg";
+import { useOwnerForm, useOwnerFormDispatch } from "../ownerContext.jsx";
 function OwnerKostPhoto() {
+  const ownerFormDispatch=  useOwnerFormDispatch
+  const ownerForm = useOwnerForm();
+  console.log("KOST-PHOTO", ownerForm);
   return (
     <div className="flex gap-4 min-w-[1280px] max-w-[1920px]">
       <OwnerInputSidebar />

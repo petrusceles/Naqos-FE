@@ -6,7 +6,7 @@ import ProfileDetail from "../components/Profile/ProfileDetail";
 function ProfileDetailPage() {
   return (
     <div className="flex flex-col h-screen justify-between">
-      <NavbarSigned />
+      {/* <NavbarSigned /> */}
       <ProfileDetail />
       <Footer />
     </div>
