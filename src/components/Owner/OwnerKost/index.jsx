@@ -103,7 +103,7 @@ function OwnerKost() {
                 </div>
                 <Field
                   type="text"
-                  className="border-2 w-3/4 py-3 px-6 rounded-full font-medium"
+                  className="border-2 w-3/4 py-3 px-6 rounded-lg font-medium"
                   placeholder="Ketikkan nama kos beserta tipe kamar disini"
                   name="name"
                 />
@@ -122,7 +122,7 @@ function OwnerKost() {
                   </p>
                 </div>
                 <Field
-                  className="border-2 w-3/4 py-3 px-6 rounded-md font-medium min-h-[180px]"
+                  className="border-2 w-3/4 py-3 px-6 rounded-lg font-medium min-h-[180px]"
                   as="textarea"
                   placeholder="Tulis alamat kos hingga rincian patokan tertentu (misal: 300 meter dari UGM)"
                   type="text"
@@ -248,7 +248,7 @@ function OwnerKost() {
                           className="sr-only peer"
                         />
                         <label
-                          className="border-2 peer-checked:border-primary w-36 h-36 rounded-md grid items-center justify-items-center content-center gap-2 cursor-pointer"
+                          className="border-2 peer-checked:border-primary w-36 h-36 rounded-lg grid items-center justify-items-center content-center gap-2 cursor-pointer"
                           htmlFor={type?.name}
                         >
                           <img src={type?.icon_url} className="w-20" />

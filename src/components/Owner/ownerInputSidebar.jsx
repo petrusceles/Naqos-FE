@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 function OwnerInputSidebar() {
   return (
-    <div className="w-1/4 bg-primary relative h-full">
+    <div className="w-1/4 bg-primary sticky top-0 h-screen">
       <div className="w-full grid grid-cols-1 justify-items-center content-start sticky gap-14 py-16 top-0">
         <img src={NaqosWhiteLogo} className="w-80" />
         <ul className="w-full px-5 grid grid-cols-1 gap-y-12 owner-input-navlink">
