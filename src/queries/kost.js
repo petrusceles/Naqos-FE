@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   get_all_kosts,
   get_kost_cities,
   get_kost_detail,
   get_all_kost_type,
+  create_kost,
 } from "../api/kost.js";
 
 export const useAvailableCities = () => {
@@ -48,4 +49,12 @@ export const useAllKostType = () => {
     queryKey: ["kost-type"],
   });
   return getAllKostType;
+};
+
+export const useCreateKost = () => {
+  const createKost = useMutation({
+    mutationFn: create_kost,
+    mutationKey: ["kost","create"]
+  });
+  return createKost
 };

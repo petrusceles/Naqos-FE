@@ -40,3 +40,22 @@ export const get_all_kost_type = async () => {
     withCredentials: true,
   });
 };
+
+export const create_kost = async (data) => {
+  const form = new FormData();
+  console.log(data);
+  for (const data_key in data) {
+    if (Array.isArray(data[data_key])) {
+      for (const data_inside of data[data_key]) {
+        form.append(data_key, data_inside);
+      }
+    } else {
+      form.append(data_key, data[data_key]);
+    }
+  }
+  
+        console.log("FINAL FORM", form);
+  return await axios.post(`${config.BASE_URL}/kost`, form, {
+    withCredentials: true,
+  });
+};

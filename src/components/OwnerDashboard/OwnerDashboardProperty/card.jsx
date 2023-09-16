@@ -1,6 +1,11 @@
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
 function OwnerDashboardCard(props) {
   return (
     <>
@@ -11,16 +16,23 @@ function OwnerDashboardCard(props) {
               {props?.kost?.type?.name}
             </div>
             <div className="grid">
-              <h3 className="text-xl font-bold">{props?.kost?.name}</h3>
-              <p className="leading-tight text-sm">{props?.kost?.address}</p>
+              <h3 className="text-xl font-bold line-clamp-2">
+                {props?.kost?.name}
+              </h3>
+              <p className="leading-tight text-sm line-clamp-2">
+                {props?.kost?.address}
+              </p>
             </div>
             <div className="flex gap-1 h-fit self-end">
               <MapPinIcon className="w-6" />
-              <p className="text-lg">{props?.kost?.province}</p>
+              <p className="text-lg capitalize">{ props?.kost?.province?.toLowerCase()}</p>
             </div>
           </div>
           <div className="overflow-hidden rounded-xl max-w-60 flex items-center justify-self-end">
-            <img src={props?.kost?.outside_photos_url[0]} className="object-cover w-full h-full" />
+            <img
+              src={props?.kost?.outside_photos_url[0]}
+              className="object-cover w-full h-full"
+            />
           </div>
           <button className="border-[3px] font-semibold text-primary py-2 box-border rounded-md border-primary">
             Hapus Kos

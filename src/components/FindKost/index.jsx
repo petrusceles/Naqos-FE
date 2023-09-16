@@ -50,7 +50,6 @@ function FindKost(props) {
     keyword,
   });
 
-
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
       <div className="container flex flex-wrap px-8 gap-2 lg:gap-5">
@@ -86,7 +85,7 @@ function FindKost(props) {
 
           {kost.isFetching ? (
             <div className="w-full flex flex-wrap gap-1 lg:w-[70%]  justify-center py-12 lg:h-full lg:items-center ">
-            <ChildLoading className="w-1/4" />
+              <ChildLoading className="w-1/4" />
             </div>
           ) : kost?.error?.response?.status == 404 ? (
             <FindKostNotFound />

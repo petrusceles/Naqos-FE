@@ -59,7 +59,7 @@ const FilterReducer = (state, action) => {
       return {
         ...state,
         time,
-        is: {...state.is, is_time_check_all },
+        is: { ...state.is, is_time_check_all },
       };
     }
 
@@ -82,7 +82,7 @@ const FilterReducer = (state, action) => {
       return {
         ...state,
         room_facility,
-        is: {...state.is, is_room_facility_check_all },
+        is: { ...state.is, is_room_facility_check_all },
       };
     }
 

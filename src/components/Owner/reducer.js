@@ -1,5 +1,4 @@
 export const ownerFormReducer = (state, action) => {
-  console.log(action)
   switch (action.type) {
     case "kost_added":
       return {

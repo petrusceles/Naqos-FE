@@ -4,12 +4,12 @@ import { useState } from "react";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 
-const time = ["Harian", "Bulanan", "Tahunan"];
+const time = ["Mingguan", "Bulanan", "Tahunan"];
 const timeEnglish = {
-  "Harian":"day",
-  "Bulanan": "month",
-  "Tahunan":"year"
-}
+  Mingguan: "week",
+  Bulanan: "month",
+  Tahunan: "year",
+};
 function FindKostFilter({
   isFilterShowState,
   kostFacility,
@@ -142,7 +142,9 @@ function FindKostFilter({
                       },
                     });
                   }}
-                  checked={filterReducer?.filterState?.is?.is_kost_type_check_all}
+                  checked={
+                    filterReducer?.filterState?.is?.is_kost_type_check_all
+                  }
                 />
                 <span className="label-text text-xs font-medium lg:text-sm">
                   Semua
@@ -210,7 +212,9 @@ function FindKostFilter({
                     filterReducer.filterDispatch({
                       type: "time_select_all_handle",
                       payload: {
-                        all_times: time?.map((timeValue) => timeEnglish[timeValue]),
+                        all_times: time?.map(
+                          (timeValue) => timeEnglish[timeValue]
+                        ),
                       },
                     });
                   }}

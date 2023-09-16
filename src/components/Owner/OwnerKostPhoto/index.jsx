@@ -19,7 +19,6 @@ function OwnerKostPhoto() {
     register,
     control,
     handleSubmit,
-    reset,
     watch,
     setValue,
     formState: { errors },
@@ -122,19 +121,20 @@ function OwnerKostPhoto() {
                 >
                   <div className="w-full flex items-start justify-between gap-4">
                     <input
-                      {...register(`outside_photos.${index}`)}
+                      {...register(`outside_photos.${index}`, {
+                        onChange: (e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            setValue(
+                              `outside_photos.${index}`,
+                              e.target.files[0]
+                            );
+                          }
+                          trigger("outside_photos")
+                        },
+                      })}
                       type="file"
                       className="file-input file-input-sm hidden"
                       id={`outside_photo_${index}`}
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setValue(
-                            `outside_photos.${index}`,
-                            e.target.files[0]
-                          );
-                        }
-                        trigger("outside_photos");
-                      }}
                     />
 
                     {watchOutsidePhotos[index] !== "" ? (
@@ -194,15 +194,21 @@ function OwnerKostPhoto() {
                 >
                   <div className="w-full flex items-start justify-between gap-4">
                     <input
+                      {...register(`inside_photos.${index}`, {
+                        onChange: (e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            setValue(
+                              `inside_photos.${index}`,
+                              e.target.files[0]
+                            );
+                          }
+                          
+                          trigger("inside_photos");
+                        },
+                      })}
                       type="file"
                       className="file-input file-input-sm hidden"
                       id={`inside_photo_${index}`}
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setValue(`inside_photos.${index}`, e.target.files[0]);
-                        }
-                        trigger("inside_photos");
-                      }}
                     />
 
                     {watchInsidePhotos[index] !== "" ? (

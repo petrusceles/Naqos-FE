@@ -5,7 +5,6 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { BellIcon } from "@heroicons/react/24/outline";
 import Notification from "../../Notification";
 function NavbarOwner(props) {
-  console.log(props?.user)
   const [menu, setMenu] = useState(false);
   const [notification, setNotification] = useState(false);
   return (

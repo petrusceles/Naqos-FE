@@ -30,7 +30,7 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 
 import DatePicker from "react-date-picker";
-import addDays from "date-fns/addDays";
+import addweeks from "date-fns/addweeks";
 import { Rating } from "@material-tailwind/react";
 import KostReview from "./review.jsx";
 import ReviewCard from "./reviewCard.jsx";
@@ -55,31 +55,31 @@ function KostDetail(props) {
 
   let priceTypeAvailable = {};
 
-  priceTypeAvailable.hari = props?.kost?.day_price && {
-    price: props?.kost?.day_price,
-    days: 1,
+  priceTypeAvailable.minggu = props?.kost?.week_price && {
+    price: props?.kost?.week_price,
+    weeks: 1,
   };
   priceTypeAvailable.bulan = props?.kost?.month_price && {
     price: props?.kost?.month_price,
-    days: 30,
+    weeks: 30,
   };
   priceTypeAvailable.tahun = props?.kost?.year_price && {
     price: props?.kost?.year_price,
-    days: 365,
+    weeks: 365,
   };
   // console.log(priceTypeAvailable);
 
   const [selectedPriceType, setSelectedPriceType] = useState({
     price: props?.kost?.month_price,
     type: "bulan",
-    days: 30,
+    weeks: 30,
   });
 
   const setSelectedPriceTypeOption = (event) => {
     setSelectedPriceType({
       type: event.target.value,
       price: priceTypeAvailable[event.target.value].price,
-      days: priceTypeAvailable[event.target.value].days,
+      weeks: priceTypeAvailable[event.target.value].weeks,
     });
   };
   // console.log(priceTypeAvailable);
@@ -254,7 +254,7 @@ function KostDetail(props) {
                           )
                         );
                       })}
-                      {/* <option value="hari">Harian</option>
+                      {/* <option value="minggu">mingguan</option>
                     <option value="minggu">Mingguan</option>
                     <option value="bulan">Bulanan</option> */}
                     </select>
@@ -266,9 +266,9 @@ function KostDetail(props) {
                     <div>Checkout</div>
                     <div>
                       {" "}
-                      {addDays(
+                      {addweeks(
                         date,
-                        selectedPriceType.days
+                        selectedPriceType.weeks
                       ).toLocaleDateString()}
                     </div>
                   </div>
@@ -437,7 +437,7 @@ function KostDetail(props) {
                 Fasilitas Bersama
               </h3>
               <div className="grid-rows-2 grid-flow-col grid w-full gap-y-3 gap-x-12 place-content-start">
-                {props.kost.facilities.map((value, index) => {
+                {props.kost.kost_facilities.map((value, index) => {
                   return (
                     <div className="flex gap-3 items-center" key={index}>
                       <div className="bg-contrary-tertiary rounded-full w-5 h-5 flex justify-center items-center">

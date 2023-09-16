@@ -45,10 +45,8 @@ function OwnerData() {
     },
     mode: "all",
   });
-  console.log("ERROR BANK", errors?.other_bank?.message);
   const watchBank = watch("bank");
   const onSubmit = async (data) => {
-    console.log(data)
     setProgressLoading(50);
     await editProfile.mutateAsync(
       {
