@@ -40,8 +40,8 @@ function KostRecommendation() {
               setIsDropdownOpen((prev) => !prev);
             }}
           >
-            <div className="font-semibold truncate lg:text-xl">
-              {place || "Pilih Kota/Kabupaten"}
+            <div className="font-semibold truncate lg:text-xl capitalize">
+              {place?.toLowerCase() || "Pilih Kota/Kabupaten"}
             </div>
             <ChevronDownIcon className="w-3 lg:w-6" />
           </button>
@@ -53,14 +53,14 @@ function KostRecommendation() {
             {availableCities?.data?.data?.data?.kost_cities.map((e, i) => {
               return (
                 <div
-                  className="w-full text-center py-3 text-sm hover:bg-contary-secondary cursor-pointer duration-75 ease-in-out lg:text-xl"
+                  className="w-full text-center py-3 text-sm hover:bg-contary-secondary cursor-pointer duration-75 ease-in-out lg:text-xl capitalize"
                   onClick={() => {
                     setPlace(e);
                     setIsDropdownOpen((prev) => !prev);
                   }}
                   key={i}
                 >
-                  {e}
+                  {e?.toLowerCase()}
                 </div>
               );
             })}

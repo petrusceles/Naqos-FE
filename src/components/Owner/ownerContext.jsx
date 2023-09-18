@@ -5,7 +5,7 @@ const OwnerFormContext = createContext(null);
 const OwnerFormDispatchContext = createContext(null);
 
 export const OwnerFormProvider = ({ children }) => {
-  const [ownerForm, dispatch] = useReducer(ownerFormReducer);
+  const [ownerForm, dispatch] = useReducer(ownerFormReducer,{});
 
   return (
     <>

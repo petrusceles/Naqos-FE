@@ -3,7 +3,6 @@ import React from "react";
 function ChildLoading(props) {
   return (
     <>
-      <div className={props?.className}>
         <div className="flex items-center flex-wrap h-fit lg:gap-2">
           <h1 className="w-full text-center font-semibold lg:text-xl">
             Loading...
@@ -14,7 +13,6 @@ function ChildLoading(props) {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 }

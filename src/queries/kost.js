@@ -5,6 +5,7 @@ import {
   get_kost_detail,
   get_all_kost_type,
   create_kost,
+  update_kost,
 } from "../api/kost.js";
 
 export const useAvailableCities = () => {
@@ -54,7 +55,23 @@ export const useAllKostType = () => {
 export const useCreateKost = () => {
   const createKost = useMutation({
     mutationFn: create_kost,
-    mutationKey: ["kost","create"]
+    mutationKey: ["kost", "create"],
   });
-  return createKost
+  return createKost;
+};
+
+export const useKostDetailMutate = () => {
+  const getKostDetail = useMutation({
+    mutationFn: get_kost_detail,
+    mutationKey: ["kost", "detail", "mutate"],
+  });
+  return getKostDetail;
+};
+
+export const useUpdateKost = () => {
+  const updateKost = useMutation({
+    mutationFn: update_kost,
+    mutationKey: ["kost", "update"],
+  });
+  return updateKost;
 };

@@ -47,7 +47,9 @@ function OwnerDashboardProfileEdit(props) {
         <OwnerDashboardSidebar />
         {props.user.isLoading ? (
           <div className="col-span-3 grid justify-items-center items-center ">
-            <ChildLoading className="w-1/4" />
+            <div className="w-1/4">
+              <ChildLoading />
+            </div>
           </div>
         ) : (
           <div className="col-span-3 grid pt-44 justify-items-center px-14 content-start gap-6 pb-20">

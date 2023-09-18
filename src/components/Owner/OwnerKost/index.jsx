@@ -6,11 +6,13 @@ import {
   useProvince,
   useSubdistrict,
 } from "../../../queries/region.js";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useAllKostType } from "../../../queries/kost.js";
+import { useAllKostType, useKostDetailMutate } from "../../../queries/kost.js";
 import { useEffect } from "react";
 import { useOwnerForm, useOwnerFormDispatch } from "../ownerContext.jsx";
 import { useForm, useFieldArray } from "react-hook-form";
+import { useLocation } from "react-router-dom";
+import ChildLoading from "../../AddOn/childLoading.jsx";
+import { convertObjectKost } from "../../../utils/kost.js";
 function OwnerKost() {
   const provinceState = useProvince();
   const kostTypes = useAllKostType();
@@ -27,15 +29,15 @@ function OwnerKost() {
     formState: { errors },
     setValue,
   } = useForm({
-    // defaultValues: {
-    //   name: "",
-    //   address: "",
-    //   province: "Pilih Provinsi",
-    //   district: "Pilih Kabupaten/Kota",
-    //   subdistrict: "Pilih Kecamatan",
-    //   type: "",
-    // },
     defaultValues: {
+      name: "",
+      address: "",
+      province: "" ?? "Pilih Provinsi",
+      district: "" ?? "Pilih Kabupaten/Kota",
+      subdistrict: "" ?? "Pilih Kecamatan",
+      type: "",
+    },
+    values: {
       name: ownerForm?.name,
       address: ownerForm?.address,
       province: ownerForm?.province ?? "Pilih Provinsi",
@@ -46,13 +48,22 @@ function OwnerKost() {
     mode: "all",
   });
 
+  const { search } = useLocation();
+  const stateParams = new URLSearchParams(search);
+  const pageState = stateParams.get("state");
+
+  const pageKostId = stateParams.get("kost_id");
+
+  const kostDetailMutate = useKostDetailMutate();
+
   useEffect(() => {
     const fetchData = async () => {
-      if (!!ownerForm?.province) {
+      if (ownerForm?.province) {
         const provinceData = provinceState?.data?.data;
         const selectedProvince = provinceData?.find(
           (province) => province?.name == ownerForm?.province
         )?.id;
+
         if (!!selectedProvince) {
           const districtMutate = await districtState.mutateAsync({
             province: selectedProvince,
@@ -63,12 +74,35 @@ function OwnerKost() {
           )?.id;
           if (!!selectedDistrict) {
             subdistrictState.mutate({ district: selectedDistrict });
+            console.log("UPDATE-SUBDISTRICT", selectedDistrict);
           }
         }
       }
     };
+
+    const fetchKostUpdate = async () => {
+      try {
+        const updateKostData = await kostDetailMutate.mutateAsync({
+          id: pageKostId,
+        });
+        console.log(updateKostData?.data?.data?.kost);
+        const data = convertObjectKost(updateKostData?.data?.data?.kost);
+        ownerFormDispatch({
+          type: "kost_added",
+          kost_data: { ...data },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchData();
-  }, []);
+
+    if (pageState == "update" && Object.keys(ownerForm).length === 0) {
+      fetchKostUpdate();
+    }
+  }, [ownerForm, provinceState.isLoading]);
+
   const watchDistrict = watch("district");
 
   const onSubmit = (data) => {
@@ -76,147 +110,100 @@ function OwnerKost() {
       type: "kost_added",
       kost_data: { ...data },
     });
-    navigate("/owner/kost-about");
+    navigate("/owner/kost-about" + search);
   };
 
   return (
-    <div className="flex gap-4 min-w-[1280px] max-w-[1920px]">
-      <OwnerInputSidebar />
-      <div className="grid grid-cols-1 w-3/4 content-start py-20 px-8 gap-14">
-        <div className="grid grid-cols-1 gap-3 w-[60%]">
-          <h1 className="font-bold text-4xl ">Silahkan Lengkapi Data Kos</h1>
-          <p className="leading-tight font-medium">
-            Bantu calon penyewa mengetahui kosanmu!
-          </p>
-        </div>
-
-        <form
-          className="grid grid-cols-1 font-bold gap-9"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="grid gap-3">
-            <div className="grid gap-1">
-              <p>Apa Nama Kos yang dikelola?</p>
-              <p className="font-normal">
-                Ketik Kos (spasi) Nama Kos tanpa perlu ketik alamat atau nama
-                daerah
+    <>
+      <div className="flex gap-4 min-w-[1280px] max-w-[1920px]">
+        <OwnerInputSidebar />
+        {kostDetailMutate.isLoading ||
+        (Object.keys(ownerForm).length === 0 && pageState === "update") ||
+        provinceState.isLoading ||
+        districtState.isLoading ||
+        subdistrictState.isLoading ? (
+          <div className="grow flex items-center justify-center">
+            <div className="w-1/4">
+              <ChildLoading />
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 w-3/4 content-start py-20 px-8 gap-14">
+            <div className="grid grid-cols-1 gap-3 w-[60%]">
+              <h1 className="font-bold text-4xl ">
+                Silahkan Lengkapi Data Kos
+              </h1>
+              <p className="leading-tight font-medium">
+                Bantu calon penyewa mengetahui kosanmu!
               </p>
             </div>
-            <input
-              {...register("name", {
-                required: "Required",
-              })}
-              type="text"
-              className="border-2 w-3/4 py-3 px-6 rounded-lg font-medium"
-              placeholder="Ketikkan nama kos beserta tipe kamar disini"
-            />
-            <p className="text-red-600 font-bold">{errors?.name?.message}</p>
-          </div>
 
-          <div className="grid gap-3">
-            <div className="grid gap-1">
-              <p>Kos Ada di mana?</p>
-              <p className="font-normal">Tuliskan alamat kos secara rinci</p>
-            </div>
-            <textarea
-              {...register("address", {
-                required: "Required",
-              })}
-              className="border-2 w-3/4 py-3 px-6 rounded-lg font-medium min-h-[180px]"
-              placeholder="Tulis alamat kos hingga rincian patokan tertentu (misal: 300 meter dari UGM)"
-              type="text"
-            />
-            <p className="text-red-600 font-bold">{errors?.address?.message}</p>
-          </div>
-
-          <div className="grid gap-3">
-            <p>Provinsi</p>
-            <select
-              {...register("province", {
-                required: "Required",
-                validate: (fieldValue) => {
-                  if (fieldValue == "Pilih Provinsi") {
-                    return "Required";
-                  }
-                },
-                onChange: (e) => {
-                  const id = e.target.options[e.target.selectedIndex]?.id;
-                  districtState.mutate({ province: id });
-                  setValue("district", "Pilih Kabupaten/Kota");
-                },
-              })}
-              type="text"
-              className="select w-full max-w-xs"
+            <form
+              className="grid grid-cols-1 font-bold gap-9"
+              onSubmit={handleSubmit(onSubmit)}
             >
-              <option disabled>Pilih Provinsi</option>
-              {provinceState?.data?.data?.map((value) => {
-                return (
-                  <option key={value?.id} id={value?.id} value={value?.name}>
-                    {value?.name}
-                  </option>
-                );
-              })}
-            </select>
-
-            <p className="text-red-600 font-bold">
-              {errors?.province?.message}
-            </p>
-          </div>
-
-          {districtState?.isSuccess && (
-            <div className="grid gap-3">
-              <p>Kabupaten/Kota</p>
-              <select
-                {...register("district", {
-                  required: "Required",
-                  validate: (fieldValue) => {
-                    if (fieldValue == "Pilih Kabupaten/Kota") {
-                      return "Required";
-                    }
-                  },
-                  onChange: (e) => {
-                    const id = e.target.options[e.target.selectedIndex]?.id;
-                    subdistrictState.mutate({ district: id });
-                    setValue("subdistrict", "Pilih Kecamatan");
-                  },
-                })}
-                className="select w-full max-w-xs"
-                type="text"
-              >
-                <option disabled>Pilih Kabupaten/Kota</option>
-                {districtState?.data?.data?.map((value) => {
-                  return (
-                    <option key={value?.id} id={value?.id} value={value?.name}>
-                      {value?.name}
-                    </option>
-                  );
-                })}
-              </select>
-
-              <p className="text-red-600 font-bold">
-                {errors?.district?.message}
-              </p>
-            </div>
-          )}
-
-          {subdistrictState?.isSuccess &&
-            watchDistrict != "Pilih Kabupaten/Kota" && (
               <div className="grid gap-3">
-                <p>Kecamatan</p>
+                <div className="grid gap-1">
+                  <p>Apa Nama Kos yang dikelola?</p>
+                  <p className="font-normal">
+                    Ketik Kos (spasi) Nama Kos tanpa perlu ketik alamat atau
+                    nama daerah
+                  </p>
+                </div>
+                <input
+                  {...register("name", {
+                    required: "Required",
+                  })}
+                  type="text"
+                  className="border-2 w-3/4 py-3 px-6 rounded-lg font-medium"
+                  placeholder="Ketikkan nama kos beserta tipe kamar disini"
+                />
+                <p className="text-red-600 font-bold">
+                  {errors?.name?.message}
+                </p>
+              </div>
+
+              <div className="grid gap-3">
+                <div className="grid gap-1">
+                  <p>Kos Ada di mana?</p>
+                  <p className="font-normal">
+                    Tuliskan alamat kos secara rinci
+                  </p>
+                </div>
+                <textarea
+                  {...register("address", {
+                    required: "Required",
+                  })}
+                  className="border-2 w-3/4 py-3 px-6 rounded-lg font-medium min-h-[180px]"
+                  placeholder="Tulis alamat kos hingga rincian patokan tertentu (misal: 300 meter dari UGM)"
+                  type="text"
+                />
+                <p className="text-red-600 font-bold">
+                  {errors?.address?.message}
+                </p>
+              </div>
+
+              <div className="grid gap-3">
+                <p>Provinsi</p>
                 <select
-                  {...register("subdistrict", {
+                  {...register("province", {
                     required: "Required",
                     validate: (fieldValue) => {
-                      if (fieldValue == "Pilih Kecamatan") {
+                      if (fieldValue == "Pilih Provinsi") {
                         return "Required";
                       }
                     },
+                    onChange: (e) => {
+                      const id = e.target.options[e.target.selectedIndex]?.id;
+                      districtState.mutate({ province: id });
+                      setValue("district", "Pilih Kabupaten/Kota");
+                    },
                   })}
-                  className="select w-full max-w-xs"
                   type="text"
+                  className="select w-full max-w-xs"
                 >
-                  <option disabled>Pilih Kecamatan</option>
-                  {subdistrictState?.data?.data?.map((value) => {
+                  <option disabled>Pilih Provinsi</option>
+                  {provinceState?.data?.data?.map((value) => {
                     return (
                       <option
                         key={value?.id}
@@ -230,56 +217,135 @@ function OwnerKost() {
                 </select>
 
                 <p className="text-red-600 font-bold">
-                  {errors?.subdistrict?.message}
+                  {errors?.province?.message}
                 </p>
               </div>
-            )}
 
-          <div className="grid gap-3">
-            <div>
-              <p>Jenis Kos disewakan untuk?</p>
-              <p className="font-normal">Pilih jenis kos yang sesuai</p>
-            </div>
-            <div className="flex gap-5">
-              {kostTypes?.data?.data?.data?.kost_types?.map((type) => {
-                return (
-                  <div className="flex" key={type?._id}>
-                    <input
-                      {...register("type", {
+              {districtState?.isSuccess && (
+                <div className="grid gap-3">
+                  <p>Kabupaten/Kota</p>
+                  <select
+                    {...register("district", {
+                      required: "Required",
+                      validate: (fieldValue) => {
+                        if (fieldValue == "Pilih Kabupaten/Kota") {
+                          return "Required";
+                        }
+                      },
+                      onChange: (e) => {
+                        const id = e.target.options[e.target.selectedIndex]?.id;
+                        subdistrictState.mutate({ district: id });
+                        setValue("subdistrict", "Pilih Kecamatan");
+                      },
+                    })}
+                    className="select w-full max-w-xs"
+                    type="text"
+                  >
+                    <option disabled>Pilih Kabupaten/Kota</option>
+                    {districtState?.data?.data?.map((value) => {
+                      return (
+                        <option
+                          key={value?.id}
+                          id={value?.id}
+                          value={value?.name}
+                        >
+                          {value?.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+
+                  <p className="text-red-600 font-bold">
+                    {errors?.district?.message}
+                  </p>
+                </div>
+              )}
+
+              {subdistrictState?.isSuccess &&
+                watchDistrict != "Pilih Kabupaten/Kota" && (
+                  <div className="grid gap-3">
+                    <p>Kecamatan</p>
+                    <select
+                      {...register("subdistrict", {
                         required: "Required",
+                        validate: (fieldValue) => {
+                          if (fieldValue == "Pilih Kecamatan") {
+                            return "Required";
+                          }
+                        },
                       })}
-                      type="radio"
-                      value={type?._id}
-                      id={type?._id}
-                      className="sr-only peer"
-                    />
-                    <label
-                      className="border-2 peer-checked:border-primary w-36 h-36 rounded-lg grid items-center justify-items-center content-center gap-2 cursor-pointer"
-                      htmlFor={type?._id}
+                      className="select w-full max-w-xs"
+                      type="text"
                     >
-                      <img src={type?.icon_url} className="w-20" />
-                      <p>{type?.name}</p>
-                    </label>
+                      <option disabled>Pilih Kecamatan</option>
+                      {subdistrictState?.data?.data?.map((value) => {
+                        return (
+                          <option
+                            key={value?.id}
+                            id={value?.id}
+                            value={value?.name}
+                          >
+                            {value?.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+
+                    <p className="text-red-600 font-bold">
+                      {errors?.subdistrict?.message}
+                    </p>
                   </div>
-                );
-              })}
-            </div>
-            <p className="text-red-600 font-bold">{errors?.type?.message}</p>
+                )}
+
+              <div className="grid gap-3">
+                <div>
+                  <p>Jenis Kos disewakan untuk?</p>
+                  <p className="font-normal">Pilih jenis kos yang sesuai</p>
+                </div>
+                <div className="flex gap-5">
+                  {kostTypes?.data?.data?.data?.kost_types?.map((type) => {
+                    return (
+                      <div className="flex" key={type?._id}>
+                        <input
+                          {...register("type", {
+                            required: "Required",
+                          })}
+                          type="radio"
+                          value={type?._id}
+                          id={type?._id}
+                          className="sr-only peer"
+                        />
+                        <label
+                          className="border-2 peer-checked:border-primary w-36 h-36 rounded-lg grid items-center justify-items-center content-center gap-2 cursor-pointer"
+                          htmlFor={type?._id}
+                        >
+                          <img src={type?.icon_url} className="w-20" />
+                          <p>{type?.name}</p>
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-red-600 font-bold">
+                  {errors?.type?.message}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 pt-10">
+                <button className="border-2 border-primary w-fit rounded py-2 px-7 text-primary">
+                  Kembali
+                </button>
+                <button
+                  type="submit"
+                  className="border-2 border-primary w-fit rounded py-2 px-7 bg-primary  text-white justify-self-end"
+                >
+                  Simpan & Lanjut
+                </button>
+              </div>
+            </form>
           </div>
-          <div className="grid grid-cols-2 pt-10">
-            <button className="border-2 border-primary w-fit rounded py-2 px-7 text-primary">
-              Kembali
-            </button>
-            <button
-              type="submit"
-              className="border-2 border-primary w-fit rounded py-2 px-7 bg-primary  text-white justify-self-end"
-            >
-              Simpan & Lanjut
-            </button>
-          </div>
-        </form>
+        )}
       </div>
-    </div>
+    </>
   );
 }
 

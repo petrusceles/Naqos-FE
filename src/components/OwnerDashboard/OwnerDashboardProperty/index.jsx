@@ -6,6 +6,11 @@ import { useAllKost } from "../../../queries/kost.js";
 import OwnerDashboardCard from "./card.jsx";
 import OwnerDashboardNotFound from "./notFound.jsx";
 import { Link } from "react-router-dom";
+import {
+  useOwnerForm,
+  useOwnerFormDispatch,
+} from "../../Owner/ownerContext.jsx";
+import { useEffect } from "react";
 function OwnerDashboardProperty(props) {
   const [keyword, setKeyword] = useState("");
   const kost = useAllKost({
@@ -15,6 +20,14 @@ function OwnerDashboardProperty(props) {
     keyword: keyword,
   });
 
+  const ownerForm = useOwnerForm();
+  const ownerFormDispatch = useOwnerFormDispatch();
+
+  useEffect(() => {
+    ownerFormDispatch({
+      type: "kost_deleted",
+    });
+  }, []);
   return (
     <div className="h-full w-full grid grid-cols-4">
       <OwnerDashboardSidebar />
@@ -38,7 +51,9 @@ function OwnerDashboardProperty(props) {
         </div>
         {kost?.isLoading ? (
           <div className="w-full flex items-center justify-center h-full absolute">
-            <ChildLoading className="w-1/4" />
+            <div className="w-1/4">
+              <ChildLoading />
+            </div>
           </div>
         ) : kost?.isError ? (
           <div className="flex justify-center left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 absolute">

@@ -1,12 +1,26 @@
 import React from "react";
 import { MapPinIcon } from "@heroicons/react/24/solid";
-
+import { createSearchParams, useNavigate } from "react-router-dom";
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+const useNavigateSearch = () => {
+  const navigate = useNavigate();
+  return (pathname, params) =>
+    navigate({ pathname, search: `?${createSearchParams(params)}` });
+};
 
 function OwnerDashboardCard(props) {
+  const navigateSearch = useNavigateSearch()
+  const onEditClick = (e) => {
+    e?.preventDefault();
+    console.log("MASUK")
+    navigateSearch(`/owner/data`, {
+      state: "update",
+      kost_id: props?.kost?._id,
+    });
+  };
   return (
     <>
       <div className="grid gap-3 w-full">
@@ -25,7 +39,9 @@ function OwnerDashboardCard(props) {
             </div>
             <div className="flex gap-1 h-fit self-end">
               <MapPinIcon className="w-6" />
-              <p className="text-lg capitalize">{ props?.kost?.province?.toLowerCase()}</p>
+              <p className="text-lg capitalize">
+                {props?.kost?.province?.toLowerCase()}
+              </p>
             </div>
           </div>
           <div className="overflow-hidden rounded-xl max-w-60 flex items-center justify-self-end">
@@ -37,7 +53,10 @@ function OwnerDashboardCard(props) {
           <button className="border-[3px] font-semibold text-primary py-2 box-border rounded-md border-primary">
             Hapus Kos
           </button>
-          <button className="bg-primary text-white rounded-md py-2 font-semibold">
+          <button
+            className="bg-primary text-white rounded-md py-2 font-semibold"
+            onClick={(e) => {onEditClick(e)}}
+          >
             Edit Kos
           </button>
         </div>

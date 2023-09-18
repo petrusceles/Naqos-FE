@@ -7,15 +7,53 @@ import LoadingBar from "react-top-loading-bar";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useKostDetail, useKostDetailMutate } from "../../../queries/kost.js";
+import { useEffect } from "react";
+import { useOwnerForm, useOwnerFormDispatch } from "../ownerContext.jsx";
+import { convertObjectKost } from "../../../utils/kost.js";
 const bankAvailable = ["BCA", "Mandiri", "BNI", "BRI", "BTN"];
+
 function OwnerData() {
   const user = useUser(true);
   const navigate = useNavigate();
   const editProfile = useEditUserProfile();
   const [progressLoading, setProgressLoading] = useState(0);
   const queryClient = useQueryClient();
+
+  const { search } = useLocation();
+  const stateParams = new URLSearchParams(search);
+  const pageState = stateParams.get("state");
+
+  const pageKostId = stateParams.get("kost_id");
+
+  const kostDetailMutate = useKostDetailMutate();
+
+  const ownerForm = useOwnerForm();
+  const ownerFormDispatch = useOwnerFormDispatch();
+
+  useEffect(() => {
+    const fetchKostUpdate = async () => {
+      try {
+        const updateKostData = await kostDetailMutate.mutateAsync({
+          id: pageKostId,
+        });
+        // const updateKostDataResponse = updateKostData?.data?.data?.kost;
+        const data = convertObjectKost(updateKostData?.data?.data?.kost);
+        console.log("KOST-DETAIL", data);
+        ownerFormDispatch({
+          type: "kost_added",
+          kost_data: { ...data },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (pageState == "update" && Object.keys(ownerForm).length === 0) {
+      fetchKostUpdate();
+    }
+  }, []);
 
   const {
     register,
@@ -63,7 +101,7 @@ function OwnerData() {
             queryKey: ["auth", "me"],
           });
 
-          navigate("/owner/kost");
+          navigate("/owner/kost" + search);
         },
         onError: (error) => {
           toast.error(error?.response?.data?.message, {
@@ -86,9 +124,11 @@ function OwnerData() {
       />
       <div className="flex gap-4 min-w-[1280px] ">
         <OwnerInputSidebar />
-        {user?.isLoading ? (
+        {user?.isLoading && kostDetailMutate.isLoading ? (
           <div className="grow flex items-center justify-center">
-            <ChildLoading className="w-1/4 " />
+            <div className="w-1/4">
+              <ChildLoading />
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 w-3/4 content-start py-20 px-8 gap-10">

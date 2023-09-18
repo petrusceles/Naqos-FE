@@ -17,7 +17,9 @@ function OwnerDashboardProfilePassword() {
       <OwnerDashboardSidebar />
       {user?.isLoading ? (
         <div className="col-span-3 flex items-center justify-center">
-          <ChildLoading className='w-1/4'/>
+          <div className="w-1/4">
+            <ChildLoading />
+          </div>
         </div>
       ) : (
         <div className="col-span-3 grid pt-44  px-14 content-start gap-6 pb-20">

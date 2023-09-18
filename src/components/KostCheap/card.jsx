@@ -34,7 +34,7 @@ function KostCheapCard({
         </div>
         <div className="flex gap-2 items-center">
           <MapPinIcon className="w-4 text-primary lg:w-6" />
-          <p className="text-xs font-semibold lg:text-xl">{district}</p>
+          <p className="text-xs font-semibold lg:text-xl capitalize">{district?.toLowerCase()}</p>
         </div>
         <div className="text-xs lg:text-base">
           <span className="font-semibold text-sm lg:text-xl">

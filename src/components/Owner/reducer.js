@@ -20,6 +20,8 @@ export const ownerFormReducer = (state, action) => {
         ...state,
         ...action.room_data,
       };
+    case "kost_deleted":
+      return {};
     default:
       throw Error("Unknown action: " + action.type);
   }
