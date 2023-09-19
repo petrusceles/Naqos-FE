@@ -1,12 +1,13 @@
 export const convertObjectKost = (data) => {
   data["available_price"] = [];
   for (const data_key in data) {
+    if (data[data_key] == null) continue;
     if (Array.isArray(data[data_key])) {
       data[data_key] = data[data_key].map(
         (data_inside) => data_inside?._id ?? data_inside
       );
     } else if (typeof data[data_key] == "object") {
-      console.log("DATA-KEY",data_key);
+      console.log("DATA-KEY", data_key);
       data[data_key] = data[data_key]._id;
     }
 

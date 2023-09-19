@@ -128,17 +128,15 @@ function OwnerRoom() {
           finalData
         );
         console.log("UPDATED-DATA", updatedData);
-        await updateKost.mutateAsync({...updatedData, kost_id:pageKostId});
+        await updateKost.mutateAsync({ ...updatedData, kost_id: pageKostId });
       } else {
         await createKost.mutateAsync(finalData);
       }
-      setProgressLoading(100);
-      // ownerFormDispatch({
-      //   type: "kost_deleted",
-      // });
       navigate("/owner/dashboard/property");
     } catch (error) {
       toast.error(error?.response?.data?.message);
+    } finally {
+      setProgressLoading(100);
     }
   };
 
@@ -191,14 +189,15 @@ function OwnerRoom() {
         progress={progressLoading}
         height="5px"
       />
-      {createKost?.isLoading && (
+      {(createKost?.isLoading || updateKost?.isLoading) && (
         <div className="w-full h-full fixed bg-slate-400/50 z-50" />
       )}
       {
         <div className="flex gap-4 min-w-[1280px] max-w-[1920px]">
           <OwnerInputSidebar />
           {kostDetailMutate.isLoading ||
-          (Object.keys(ownerForm).length === 0 && pageState === "update") ? (
+          (Object.keys(ownerForm).length === 0 && pageState === "update") &&
+          !updateKost?.isLoading ? (
             <div className="grow flex items-center justify-center">
               <div className="w-1/4">
                 <ChildLoading />

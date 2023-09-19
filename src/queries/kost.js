@@ -20,7 +20,6 @@ export const useAvailableCities = () => {
 export const useAllKost = ({ keyword, limit, sorted_by, sort, search_by }) => {
   const newSearchBy = { ...search_by };
   delete newSearchBy?.is;
-  // delete search_by?.sort_price;
   const getAllKostQuery = useQuery({
     queryFn: () =>
       get_all_kosts({
