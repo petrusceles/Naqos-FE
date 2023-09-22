@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function HistorySidebar() {
@@ -8,9 +8,7 @@ function HistorySidebar() {
     <>
       {/* NavLink */}
       <div
-        className={`w-[50%] font-medium text-slate-400 flex flex-wrap fixed bg-white  rounded-xl overflow-hidden drop-shadow-xl top-56 left-0 -translate-y-1/2 ${
-          isOpen ? "-translate-x-[90%]" : "-translate-x-0"
-        } duration-200 ease-in-out max-w-[270px] lg:static lg:w-[30%] lg:translate-x-0 lg:translate-y-0 lg:text-xl lg:rounded-b-none lg:max-w-none lg:px-4 lg:bg-transparent lg:drop-shadow-none`}
+        className={`w-[50%] font-medium text-slate-400 flex flex-wrap fixed bg-white  rounded-xl overflow-hidden drop-shadow-xl top-56 left-0 -translate-y-1/2 duration-200 ease-in-out max-w-[270px] lg:static lg:w-[30%] lg:translate-x-0 lg:translate-y-0 lg:text-xl lg:rounded-b-none lg:max-w-none lg:px-4 lg:bg-transparent lg:drop-shadow-none ` + (isOpen && "-translate-x-[90%]") }
       >
         <ul className="flex flex-wrap gap-3 history-navlink content-start w-[90%] px-3 py-4 lg:w-full">
           <li>

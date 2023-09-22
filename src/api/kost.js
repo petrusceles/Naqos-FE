@@ -10,9 +10,10 @@ export const get_kost_cities = async () => {
 export const get_all_kosts = async ({
   keyword,
   limit,
-  sorted_by,
-  sort,
+  sorted_by='name',
+  sort='asc',
   search_by,
+  pageParam,
 }) => {
   return await axios.get(
     config.BASE_URL + "/kost",
@@ -22,6 +23,7 @@ export const get_all_kosts = async ({
         limit,
         sorted_by,
         sort,
+        skip: pageParam,
         ...search_by,
       },
     },
@@ -115,10 +117,14 @@ export const update_kost = async (data) => {
 };
 
 export const create_booking = async (data) => {
-  console.log(data)
-  return await axios.post(
-    config.BASE_URL + "/booking",
-      data,
-    { withCredentials: true }
-  );
+  console.log(data);
+  return await axios.post(config.BASE_URL + "/booking", data, {
+    withCredentials: true,
+  });
+};
+
+export const get_booking = async ({ id }) => {
+  return await axios.get(config.BASE_URL + "/booking/" + id, {
+    withCredentials: true,
+  });
 };

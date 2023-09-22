@@ -34,7 +34,8 @@ import addDays from "date-fns/addDays";
 import { Rating } from "@material-tailwind/react";
 import KostReview from "./review.jsx";
 import ReviewCard from "./reviewCard.jsx";
-
+import { useNavigate } from "react-router-dom";
+import { useUser, useUserMutate } from "../../queries/auth.js";
 function getCategoryFromURL(url) {
   const splitBy = "/v";
   const categoryStartIndex = url.lastIndexOf(splitBy) + splitBy.length;
@@ -93,6 +94,24 @@ function KostDetail(props) {
   const starCount = props?.reviews?.length;
   // console.log(starCount)
   // console.log(starAverage)
+  const user = useUserMutate();
+  const navigate = useNavigate();
+  const onSewa = async (e) => {
+    e.preventDefault();
+    try {
+      await user.mutateAsync();
+      navigate(
+        "/history/reservation/info" +
+          `?days=${selectedPriceType?.days}&type=${
+            selectedPriceType?.type
+          }&price=${selectedPriceType?.price}&kost_id=${
+            props?.kost?._id
+          }&date=${date.toString()}`
+      );
+    } catch (error) {
+      navigate("/login");
+    }
+  };
 
   return (
     <>
@@ -265,15 +284,12 @@ function KostDetail(props) {
                     </div>
                   </div>
                 </div>
-                <Link
-                  to={
-                    "/history/reservation/info" +
-                    `?days=${selectedPriceType?.days}&type=${selectedPriceType?.type}&price=${selectedPriceType?.price}&kost_id=${props?.kost?._id}&date=${date.toString()}`
-                  }
+                <button
+                  onClick={onSewa}
                   className="text-xs bg-primary w-[80%] text-white py-[6px] rounded font-semibold lg:text-lg lg:py-2 lg:rounded-md hover:bg-secondary hover:text-primary duration-100 ease-in-out text-center"
                 >
                   Sewa
-                </Link>
+                </button>
               </div>
             </div>
           </div>

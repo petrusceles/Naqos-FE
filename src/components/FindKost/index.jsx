@@ -14,7 +14,7 @@ import {
 } from "../../queries/filter.js";
 
 import FilterReducer from "./reducer/filterReducer.js";
-import { useAllKost } from "../../queries/kost.js";
+import { useAllKost, useAllKostInfinite } from "../../queries/kost.js";
 import ChildLoading from "../AddOn/childLoading.jsx";
 import { Link } from "react-router-dom";
 import FindKostNotFound from "./notFound.jsx";
@@ -43,12 +43,27 @@ function FindKost(props) {
 
   // const [query, setQuery] = useState()
 
-  const kost = useAllKost({
+  // const kost = useAllKost({
+  //   sorted_by: filterState?.sort_price && "month_price",
+  //   sort: filterState?.sort_price,
+  //   search_by: filterState,
+  //   keyword,
+  // });
+
+  const kostInfinite = useAllKostInfinite({
     sorted_by: filterState?.sort_price && "month_price",
     sort: filterState?.sort_price,
     search_by: filterState,
     keyword,
+    limit: 4,
   });
+
+  const onLoadMoreClick = (e) => {
+    e.preventDefault();
+    kostInfinite?.fetchNextPage();
+  };
+
+  console.log(kostInfinite?.data?.pages);
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
@@ -83,19 +98,38 @@ function FindKost(props) {
             Filter
           </button>
 
-          {kost.isFetching ? (
+          {kostInfinite.isLoading ? (
             <div className="w-full flex flex-wrap gap-1 lg:w-[70%]  justify-center py-12 lg:h-full lg:items-center ">
               <div className="w-1/4">
                 <ChildLoading />
               </div>
             </div>
-          ) : kost?.error?.response?.status == 404 ? (
+          ) : kostInfinite?.error?.response?.status == 404 ? (
             <FindKostNotFound />
           ) : (
-            <div className="w-full flex flex-wrap gap-5 lg:w-[70%] lg:gap-8  h-fit">
-              {kost?.data?.data?.data?.kosts?.map((kost) => {
-                return <FindKostCard kost={kost} />;
+            <div className="w-full flex flex-wrap gap-5 lg:w-[70%] lg:gap-8  h-fit justify-center">
+              {kostInfinite?.data?.pages?.map((pages, i) => {
+                return (
+                  <React.Fragment key={i}>
+                    {pages?.data?.data?.kosts?.map((kost) => {
+                      return <FindKostCard kost={kost} key={kost?._id} />;
+                    })}
+                  </React.Fragment>
+                );
               })}
+              <button
+                onClick={onLoadMoreClick}
+                className="font-semibold text-xl text-slate-400"
+                disabled={
+                  !kostInfinite?.hasNextPage || kostInfinite?.isFetchingNextPage
+                }
+              >
+                {kostInfinite?.isFetchingNextPage
+                  ? `Loading...`
+                  : kostInfinite?.hasNextPage
+                  ? `Lihat lebih banyak lagi`
+                  : `Tidak ada kost lagi`}
+              </button>
             </div>
           )}
 

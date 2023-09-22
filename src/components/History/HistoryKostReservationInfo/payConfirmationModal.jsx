@@ -16,8 +16,8 @@ function PayConfirmationModal({ IsPaymentInitiatedState, bookingInfoState }) {
       const response = await createBooking.mutateAsync(
         bookingInfoState?.bookingInfo
       );
-      const bookingId = response?.data?.data?.create_booking?._id
-      console.log(bookingId);
+      const bookingId = response?.data?.data?.created_booking?._id
+      navigate(`/history/reservation/payment?booking_id=${bookingId}`);
     } catch (error) {
       console.log(error);
       toast(error?.message);

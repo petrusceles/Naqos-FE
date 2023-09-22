@@ -61,7 +61,7 @@ function KostCities() {
       <div className="w-full grid lg:grid-cols-4 lg:py-8 lg:gap-y-7 lg:gap-x-5 grid-cols-2 py-8 gap-y-3 gap-x-3">
         {popularCities.map((e, i) => {
           return (
-            <Link to={`/homepage?city=${e.name}`} key={i}>
+            <Link to={`/find?keyword=${e.name}`} key={i}>
               <div
                 key={i}
                 className="w-full lg:h-[221px] h-[100px] overflow-hidden rounded-lg flex items-center relative object-cover hover:scale-[98%] transition duration-200 ease-in-out cursor-pointer"

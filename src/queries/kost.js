@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   get_all_kosts,
   get_kost_cities,
@@ -7,6 +7,7 @@ import {
   create_kost,
   update_kost,
   create_booking,
+  get_booking,
 } from "../api/kost.js";
 
 export const useAvailableCities = () => {
@@ -34,6 +35,38 @@ export const useAllKost = ({ keyword, limit, sorted_by, sort, search_by }) => {
     retry: false,
   });
   return getAllKostQuery;
+};
+
+export const useAllKostInfinite = ({
+  keyword,
+  limit,
+  sorted_by,
+  sort,
+  search_by,
+}) => {
+  const newSearchBy = { ...search_by };
+  delete newSearchBy?.is;
+
+  const getAllKostInfiniteQuery = useInfiniteQuery({
+    queryKey: ["kost", "infinite", keyword, newSearchBy],
+    queryFn:({pageParam = 0}) => get_all_kosts({
+      keyword,
+      limit,
+      sorted_by,
+      sort,
+      search_by: newSearchBy,
+      pageParam
+
+    }),
+    getNextPageParam: (response) => {
+      const nextLimit = response?.data?.data?.next_limit;
+      const nextSkip = response?.data?.data?.next_skip;
+      if (nextSkip > nextLimit) return undefined;
+      return response?.data?.data?.next_skip;
+    }
+  });
+
+  return getAllKostInfiniteQuery
 };
 
 export const useKostDetail = ({ id }) => {
@@ -79,7 +112,16 @@ export const useUpdateKost = () => {
 export const useCreateBooking = () => {
   const createBooking = useMutation({
     mutationFn: create_booking,
-    mutationKey:["booking"]
+    mutationKey: ["booking"],
   });
   return createBooking;
-}
+};
+
+export const useBooking = ({ id }) => {
+  const getBooking = useQuery({
+    queryFn: () => get_booking({ id }),
+    queryKey: ["booking", id],
+    retry: false,
+  });
+  return getBooking;
+};

@@ -22,6 +22,15 @@ export const useUser = (isNavigate = false) => {
   return getUserQuery;
 };
 
+export const useUserMutate = () => {
+  const getUserMutation = useMutation({
+    mutationFn: me,
+    queryKey: ["auth", "me", "mutation"],
+    retry: false,
+  });
+  return getUserMutation;
+}
+
 export const useLoginUser = () => {
   const loginUserMutation = useMutation({
     mutationFn: login,
