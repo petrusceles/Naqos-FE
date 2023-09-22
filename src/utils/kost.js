@@ -34,3 +34,21 @@ export const convertObjectKost = (data) => {
   }
   return data;
 };
+
+export const getDifferentProperties = ({compare, main}) => {
+   const diffObject = {};
+
+   for (const key in main) {
+     if (main.hasOwnProperty(key) && main[key] !== compare[key]) {
+       diffObject[key] = main[key];
+     }
+   }
+
+   return diffObject;
+ };
+
+export const bahasaToEnglish = {
+  bulan:"month",
+  minggu:"week",
+  hari:"day"
+}

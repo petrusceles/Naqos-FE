@@ -6,6 +6,7 @@ import {
   get_all_kost_type,
   create_kost,
   update_kost,
+  create_booking,
 } from "../api/kost.js";
 
 export const useAvailableCities = () => {
@@ -74,3 +75,11 @@ export const useUpdateKost = () => {
   });
   return updateKost;
 };
+
+export const useCreateBooking = () => {
+  const createBooking = useMutation({
+    mutationFn: create_booking,
+    mutationKey:["booking"]
+  });
+  return createBooking;
+}

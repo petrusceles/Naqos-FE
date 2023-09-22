@@ -30,7 +30,7 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 
 import DatePicker from "react-date-picker";
-import addweeks from "date-fns/addweeks";
+import addDays from "date-fns/addDays";
 import { Rating } from "@material-tailwind/react";
 import KostReview from "./review.jsx";
 import ReviewCard from "./reviewCard.jsx";
@@ -57,29 +57,29 @@ function KostDetail(props) {
 
   priceTypeAvailable.minggu = props?.kost?.week_price && {
     price: props?.kost?.week_price,
-    weeks: 1,
+    days: 7,
   };
   priceTypeAvailable.bulan = props?.kost?.month_price && {
     price: props?.kost?.month_price,
-    weeks: 30,
+    days: 30,
   };
   priceTypeAvailable.tahun = props?.kost?.year_price && {
     price: props?.kost?.year_price,
-    weeks: 365,
+    days: 365,
   };
   // console.log(priceTypeAvailable);
 
   const [selectedPriceType, setSelectedPriceType] = useState({
     price: props?.kost?.month_price,
     type: "bulan",
-    weeks: 30,
+    days: 30,
   });
 
   const setSelectedPriceTypeOption = (event) => {
     setSelectedPriceType({
       type: event.target.value,
       price: priceTypeAvailable[event.target.value].price,
-      weeks: priceTypeAvailable[event.target.value].weeks,
+      days: priceTypeAvailable[event.target.value].days,
     });
   };
   // console.log(priceTypeAvailable);
@@ -226,18 +226,6 @@ function KostDetail(props) {
                         value={date}
                         className=" outline-none w-full rounded border-2 border-primary text-sm lg:text-base font-bold px-1 lg:p-2"
                       />
-                      {/* <input
-                      type="text"
-                      className="text-xs w-full border-2 border-primary rounded px-2 py-[5px] focus:py-1 lg:text-base lg:px-3 lg:align-middle lg:py-3 lg:focus:py-[11px]"
-                      placeholder="Check-In"
-                      onFocus={(e) => {
-                        e.target.type = "date";
-                      }}
-                      onBlur={(e) => {
-                        e.target.type = "text";
-                      }}
-                    />
-                    <CalendarIcon className="absolute w-4 right-[9%] top-[48%] -translate-y-1/2 lg:w-[22px] lg:right-[4%]" /> */}
                     </div>
                     <select
                       name="rent_time"
@@ -254,9 +242,6 @@ function KostDetail(props) {
                           )
                         );
                       })}
-                      {/* <option value="minggu">mingguan</option>
-                    <option value="minggu">Mingguan</option>
-                    <option value="bulan">Bulanan</option> */}
                     </select>
                   </div>
                 </div>
@@ -266,9 +251,9 @@ function KostDetail(props) {
                     <div>Checkout</div>
                     <div>
                       {" "}
-                      {addweeks(
+                      {addDays(
                         date,
-                        selectedPriceType.weeks
+                        selectedPriceType.days
                       ).toLocaleDateString()}
                     </div>
                   </div>
@@ -280,9 +265,15 @@ function KostDetail(props) {
                     </div>
                   </div>
                 </div>
-                <button className="text-xs bg-primary w-[80%] text-white py-[6px] rounded font-semibold lg:text-lg lg:py-2 lg:rounded-md hover:bg-secondary hover:text-primary duration-100 ease-in-out">
+                <Link
+                  to={
+                    "/history/reservation/info" +
+                    `?days=${selectedPriceType?.days}&type=${selectedPriceType?.type}&price=${selectedPriceType?.price}&kost_id=${props?.kost?._id}&date=${date.toString()}`
+                  }
+                  className="text-xs bg-primary w-[80%] text-white py-[6px] rounded font-semibold lg:text-lg lg:py-2 lg:rounded-md hover:bg-secondary hover:text-primary duration-100 ease-in-out text-center"
+                >
                   Sewa
-                </button>
+                </Link>
               </div>
             </div>
           </div>

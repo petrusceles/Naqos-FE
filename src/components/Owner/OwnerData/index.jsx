@@ -39,7 +39,6 @@ function OwnerData() {
         const updateKostData = await kostDetailMutate.mutateAsync({
           id: pageKostId,
         });
-        // const updateKostDataResponse = updateKostData?.data?.data?.kost;
         const data = convertObjectKost(updateKostData?.data?.data?.kost);
         console.log("KOST-DETAIL", data);
         ownerFormDispatch({

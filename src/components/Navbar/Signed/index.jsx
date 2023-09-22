@@ -46,13 +46,16 @@ function NavbarSigned(props) {
           </div>
           <div className="flex flex-wrap w-full gap-6 lg:justify-items-end lg:gap-7 text-slate-800 lg:grid lg:grid-cols-4 lg:items-center ">
             <div className="flex bg-slate-100 p-2 w-full rounded-xl  items-center gap-3 lg:w-fit lg:order-last ">
-              <div className="rounded-full w-[40px] h-[40px] overflow-hidden">
+              <Link
+                to={"/profile/detail"}
+                className="rounded-full w-[40px] h-[40px] overflow-hidden"
+              >
                 <img
                   src={props?.user?.avatar_url}
                   className="object-cover h-full w-full"
                 />
-              </div>
-              <p className="truncate lg:hidden">{props.user.name}</p>
+              </Link>
+              <p className="truncate lg:hidden">{props?.user?.name}</p>
             </div>
             <div className="w-full font-medium text-slate-800 lg:w-fit">
               Wishlist

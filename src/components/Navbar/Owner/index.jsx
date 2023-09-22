@@ -4,6 +4,7 @@ import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { BellIcon } from "@heroicons/react/24/outline";
 import Notification from "../../Notification";
+import { Link } from "react-router-dom";
 function NavbarOwner(props) {
   const [menu, setMenu] = useState(false);
   const [notification, setNotification] = useState(false);
@@ -45,12 +46,15 @@ function NavbarOwner(props) {
           </div>
           <div className="flex flex-wrap w-full gap-6 lg:justify-end lg:gap-24 text-slate-800 lg:flex-nowrap lg:items-center">
             <div className="flex bg-slate-100 p-2 w-full rounded-xl  items-center gap-3 lg:w-fit lg:order-last ">
-              <div className="rounded-full max-w-[40px] overflow-hidden">
+              <Link
+                to={"/owner/dashboard/profile"}
+                className="rounded-full w-[40px] h-[40px] overflow-hidden"
+              >
                 <img
                   src={props?.user?.avatar_url}
-                  className="object-cover"
+                  className="object-cover h-full w-full"
                 />
-              </div>
+              </Link>
               <p className="truncate lg:hidden">{props?.user?.name}</p>
             </div>
             <div className="w-full font-medium text-slate-800 lg:w-fit">

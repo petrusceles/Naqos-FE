@@ -17,7 +17,10 @@ import {
 import ChildLoading from "../../AddOn/childLoading.jsx";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import { convertObjectKost } from "../../../utils/kost.js";
+import {
+  convertObjectKost,
+  getDifferentProperties,
+} from "../../../utils/kost.js";
 function OwnerRoom() {
   const ownerFormDispatch = useOwnerFormDispatch();
   const ownerForm = useOwnerForm();
@@ -86,18 +89,6 @@ function OwnerRoom() {
 
   const createKost = useCreateKost();
 
-  const getDifferentProperties = (object1, object2) => {
-    const diffObject = {};
-
-    for (const key in object2) {
-      if (object2.hasOwnProperty(key) && object2[key] !== object1[key]) {
-        diffObject[key] = object2[key];
-      }
-    }
-
-    return diffObject;
-  };
-
   const updateKost = useUpdateKost();
 
   const onSubmit = async (data, e) => {
@@ -123,10 +114,10 @@ function OwnerRoom() {
         );
         console.log("UPDATE-DATA-CONVERTED", updateKostDataConverted);
         console.log("FINAL-DATA", finalData);
-        const updatedData = getDifferentProperties(
-          updateKostDataConverted,
-          finalData
-        );
+        const updatedData = getDifferentProperties({
+          compare: updateKostDataConverted,
+          main: finalData,
+        });
         console.log("UPDATED-DATA", updatedData);
         await updateKost.mutateAsync({ ...updatedData, kost_id: pageKostId });
       } else {
@@ -196,8 +187,9 @@ function OwnerRoom() {
         <div className="flex gap-4 min-w-[1280px] max-w-[1920px]">
           <OwnerInputSidebar />
           {kostDetailMutate.isLoading ||
-          (Object.keys(ownerForm).length === 0 && pageState === "update") &&
-          !updateKost?.isLoading ? (
+          (Object.keys(ownerForm).length === 0 &&
+            pageState === "update" &&
+            !updateKost?.isLoading) ? (
             <div className="grow flex items-center justify-center">
               <div className="w-1/4">
                 <ChildLoading />

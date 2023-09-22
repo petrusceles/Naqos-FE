@@ -44,3 +44,9 @@ export const update_password = async ({ update }) => {
     old_password: update?.old_password,
   });
 };
+
+export const logout = async () => {
+  return await axios.delete(`${config.BASE_URL}/auth/logout`, {
+    withCredentials: true,
+  });
+};

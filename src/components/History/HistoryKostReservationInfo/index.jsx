@@ -1,14 +1,46 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 import HistorySidebar from "../historySidebar";
 import PayConfirmationModal from "./payConfirmationModal";
 import CancelReservationModal from "./cancelReservationModal";
+import addDays from "date-fns/addDays";
+import { useKostDetail } from "../../../queries/kost.js";
+import { bahasaToEnglish } from "../../../utils/kost.js";
 function HistoryKostReservationInfo() {
   const [isPaymentInitiated, setIsPaymentInitiated] = useState(false);
   const [isCancelReservationInitiated, setIsCancelReservationInitiated] =
     useState(false);
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const [reservationInfo, setReservationInfo] = useState({
+    days: queryParams.get("days"),
+    type: queryParams.get("type"),
+    price: queryParams.get("price"),
+    kost_id: queryParams.get("kost_id"),
+    date: new Date(queryParams.get("date")),
+  });
+  const kost = useKostDetail({ id: reservationInfo.kost_id });
+  const reservationStartSplitted = reservationInfo?.date?.toString().split(" ");
+  const reservationEndSplitted = addDays(
+    reservationInfo?.date,
+    reservationInfo?.days
+  )
+    .toString()
+    .split(" ");
+
+  const reservationStart = new Date(queryParams.get("date"));
+  const reservationEnd = addDays(reservationInfo?.date, reservationInfo?.days);
+  // console.log(queryParams.get("type"));
+  const [bookingInfo, setBookingInfo] = useState({
+    kost_id: queryParams.get("kost_id"),
+    in_date: reservationStart.toLocaleString().split(",")[0],
+    out_date: reservationEnd.toLocaleString().split(",")[0],
+    time: bahasaToEnglish[queryParams.get("type")],
+    price: parseInt(queryParams.get("price")),
+  });
+  // console.log(kost?.data?.data?.data?.kost);
   return (
     <div className="pt-[88px] lg:pt-32">
       <div className="container px-7 flex flex-wrap w-full gap-5">
@@ -17,8 +49,17 @@ function HistoryKostReservationInfo() {
             isPaymentInitiated,
             setIsPaymentInitiated,
           }}
+          bookingInfoState={{
+            bookingInfo,
+            setBookingInfo,
+          }}
         />
-        <CancelReservationModal IsCancelReservationInitiatedState={{isCancelReservationInitiated, setIsCancelReservationInitiated}} />
+        <CancelReservationModal
+          IsCancelReservationInitiatedState={{
+            isCancelReservationInitiated,
+            setIsCancelReservationInitiated,
+          }}
+        />
         {/* Breadcrumbs */}
         <div className="text-xs font-medium breadcrumbs flex items-center w-full lg:text-base">
           <ul>
@@ -41,32 +82,36 @@ function HistoryKostReservationInfo() {
           <div className="flex flex-wrap w-full py-2 gap-3 lg:w-full lg:gap-6 ">
             {/* Kost Brief */}
             <div className="flex w-full gap-5 flex-wrap border-b-2 pb-5 items-center lg:pb-7">
-              <div className="w-[40%] overflow-hidden h-28 rounded flex items-center lg:w-[30%] lg:h-36">
+              <div className="w-[40%] overflow-hidden h-28 rounded-lg flex items-center lg:w-[30%] lg:h-36">
                 <img
-                  src="https://res.cloudinary.com/dqzqbgi8e/image/upload/v1678116364/NaqosV2/Kost/matt-reames-aFk1RLZgJTs-unsplash_j7dsh2.jpg"
+                  src={kost?.data?.data?.data?.kost?.outside_photos_url[0]}
                   className="object-cover object-center"
                 />
               </div>
-              <div className="flex justify-between w-[55%] gap-2 items-start flex-wrap">
-                <div className="grid-cols-1 grid gap-1 w-full">
+              <div className="grid grid-cols-1 gap-3">
+                <div className="grid  rounded gap-1">
                   <h2 className="font-semibold text-sm lg:text-lg">
-                    Kos Alamanda
+                    {kost?.data?.data?.data?.kost?.name}
                   </h2>
-                  <div className="flex text-xs gap-1 items-center lg:text-base">
+                  <div className="flex text-xs gap-1 items-center lg:text-base rounded ">
                     <MapPinIcon className="w-3 lg:w-5" />
-                    <p>Yogyakarta</p>
+                    <p>{kost?.data?.data?.data?.kost?.province}</p>
                   </div>
-                  <p className="text-xs lg:text-base">Booking ID : 00000000</p>
                 </div>
-                <div className="flex flex-wrap gap-2 w-full">
-                  <div className="grid grid-cols-1 justify-items-center">
-                    <p className="text-[8px] lg:text-xs">Check in</p>
-                    <p className="text-[11px] lg:text-sm">Jan 17, 23</p>
-                  </div>
-                  <ArrowRightCircleIcon className="w-4 lg:w-6" />
-                  <div className="grid grid-cols-1 justify-items-center">
-                    <p className="text-[8px] lg:text-xs">Check out</p>
-                    <p className="text-[11px] lg:text-sm">Jan 24, 23</p>
+                <div className="grid w-fit gap-1 justify-items-center bg-secondary px-2 py-1 rounded">
+                  <p className="text-xs lg:text-base font-semibold text-primary">
+                    Periode Sewa
+                  </p>
+                  <div className="flex flex-wrap gap-2 w-fit">
+                    <div className="grid grid-cols-1 justify-items-center">
+                      <p className="text-[8px] lg:text-xs">Check in</p>
+                      <p className="text-[11px] lg:text-sm">{`${reservationStartSplitted[1]} ${reservationStartSplitted[2]}, ${reservationStartSplitted[3]}`}</p>
+                    </div>
+                    <ArrowRightCircleIcon className="w-4 lg:w-6" />
+                    <div className="grid grid-cols-1 justify-items-center">
+                      <p className="text-[8px] lg:text-xs">Check out</p>
+                      <p className="text-[11px] lg:text-sm">{`${reservationEndSplitted[1]} ${reservationEndSplitted[2]}, ${reservationEndSplitted[3]}`}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -78,25 +123,25 @@ function HistoryKostReservationInfo() {
                 <h1 className=" font-semibold lg:text-2xl">
                   Rincian Pembayaran
                 </h1>
-                <div className="w-full flex flex-wrap py-5 px-4 bg-secondary rounded-lg gap-3 lg:px-8 lg:gap-5">
+                <div className="w-full flex flex-wrap py-5 px-4 bg-contrary-tertiary rounded-lg gap-3 lg:px-8 lg:gap-5">
                   <div className="text-sm w-full gap-3 flex flex-wrap border-b-2 pb-3 border-primary font-medium lg:text-lg lg:gap-5 lg:pb-5">
                     <div className="w-full flex justify-between">
                       <p>Harga kos</p>
                       <p className="font-bold">
-                        Rp300.000
+                        {`Rp${bookingInfo?.price.toLocaleString("en-US")}`}
                         <span className="text-[11px] font-normal lg:text-sm">
-                          /minggu
+                          {`/${reservationInfo?.type}`}
                         </span>
                       </p>
                     </div>
                     <div className="w-full flex justify-between">
                       <p>Waktu sewa</p>
-                      <p>1 minggu</p>
+                      <p>{`1 ${reservationInfo?.type}`}</p>
                     </div>
                   </div>
                   <div className="w-full flex justify-between text-sm font-semibold lg:text-lg">
                     <p>Total Pembayaran</p>
-                    <p>Rp300.000</p>
+                    <p>{`Rp${bookingInfo?.price.toLocaleString("en-US")}`}</p>
                   </div>
                 </div>
               </div>

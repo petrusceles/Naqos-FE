@@ -63,17 +63,17 @@ export const create_kost = async (data) => {
 
 export const update_kost = async (data) => {
   console.log("KOST_ID", data);
-  const roomPhotos = data["room_photos"]
-  data["room_photos"] = []
+  const roomPhotos = data["room_photos"];
+  data["room_photos"] = [];
   data["room_photos_onhold_url"] = [];
   for (const photo of roomPhotos) {
-    if (typeof photo == 'string') {
+    if (typeof photo == "string") {
       data["room_photos_onhold_url"].push(photo);
     } else {
       data["room_photos"].push(photo);
     }
   }
-  
+
   const outsidePhotos = data["outside_photos"];
   data["outside_photos"] = [];
   data["outside_photos_onhold_url"] = [];
@@ -95,8 +95,8 @@ export const update_kost = async (data) => {
       data["inside_photos"].push(photo);
     }
   }
-  console.log("FINAL DATA TO BE SENT",data);
-  const form = new FormData()
+  console.log("FINAL DATA TO BE SENT", data);
+  const form = new FormData();
   for (const data_key in data) {
     if (data[data_key] == undefined) {
       continue;
@@ -112,4 +112,13 @@ export const update_kost = async (data) => {
   return await axios.put(`${config.BASE_URL}/kost/${data?.kost_id}`, form, {
     withCredentials: true,
   });
-}
+};
+
+export const create_booking = async (data) => {
+  console.log(data)
+  return await axios.post(
+    config.BASE_URL + "/booking",
+      data,
+    { withCredentials: true }
+  );
+};
