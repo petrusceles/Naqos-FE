@@ -63,7 +63,7 @@ function FindKost(props) {
     kostInfinite?.fetchNextPage();
   };
 
-  console.log(kostInfinite?.data?.pages);
+  // console.log(kostInfinite?.data);
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">

@@ -1,22 +1,28 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import HistorySidebar from "../historySidebar";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import {
   ArrowRightCircleIcon,
   CreditCardIcon,
+  ArrowUpTrayIcon,
+  PhotoIcon,
+  XMarkIcon
 } from "@heroicons/react/24/outline";
 import BRIIcon from "../../../assets/bank-logo-bri.png";
 import { useBooking } from "../../../queries/kost.js";
 // import Loading from "../components/AddOn/Loading.jsx";
 import Loading from "../../AddOn/Loading.jsx";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useUpdateBooking } from "../../../queries/booking.js";
+import LoadingBar from "react-top-loading-bar";
+import { toast } from "react-toastify";
 function HistoryKostReservationPayment() {
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const [bookingId, setBookingId] = useState(queryParams?.get("booking_id"));
 
-  console.log("BOOKING", bookingId);
 
   const booking = useBooking({ id: bookingId });
 
@@ -27,9 +33,51 @@ function HistoryKostReservationPayment() {
 
   const reservationStartSplitted = reservationStart.toString().split(" ");
   const reservationEndSplitted = reservationEnd.toString().split(" ");
-  console.log(booking?.data?.data?.data?.booking);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    control,
+    trigger,
+    setValue,
+  } = useForm({
+    defaultValues: {
+      proof_photo: null,
+    },
+    mode: "all",
+  });
+
+  const updateBooking = useUpdateBooking()
+
+  const watchProofPhoto = watch("proof_photo");
+  const navigate = useNavigate()
+  const [progressLoading, setProgressLoading] = useState(0)
+  const onSubmit = async (data,e) => {
+    e.preventDefault()
+    console.log(data?.proof_photo[0]);
+    try {
+      setProgressLoading(50);
+      await updateBooking.mutateAsync({
+        booking_id: booking?.data?.data?.data?.booking?._id,
+        proof_photo:data?.proof_photo[0],
+        phase:"payment"
+      });
+      setProgressLoading(100);
+      navigate("/history/confirmation/list");
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
   return (
     <>
+      <LoadingBar
+        waitingTime={50}
+        color="#0A008A"
+        progress={progressLoading}
+        height="5px"
+      />
       {booking?.isLoading && <Loading />}
       <div className="pt-[88px] lg:pt-32">
         <div className="container px-7 flex flex-wrap w-full gap-5">
@@ -63,7 +111,7 @@ function HistoryKostReservationPayment() {
                 </div>
                 <div className="flex justify-between w-[55%] gap-2 items-start flex-wrap">
                   <div className="grid-cols-1 grid gap-1 w-full">
-                    <h2 className="font-semibold text-sm lg:text-lg">
+                    <h2 className="font-semibold text-sm lg:text-lg line-clamp-1">
                       {booking?.data?.data?.data?.booking?.kost?.name}
                     </h2>
                     <div className="flex text-xs gap-1 items-center lg:text-base">
@@ -127,7 +175,7 @@ function HistoryKostReservationPayment() {
                     <div className="w-8/12 flex flex-wrap align-middle items-center">
                       <p className="font-medium  text-xs w-full lg:text-base">
                         ke rekening
-                        <span className="font-semibold text-primary text-lg">
+                        <span className="font-semibold text-primary text-base lg:text-lg">
                           {` Bank ${booking?.data?.data?.data?.booking?.kost?.user?.bank}`}
                         </span>{" "}
                         berikut
@@ -144,10 +192,45 @@ function HistoryKostReservationPayment() {
                     </div>
                   </div>
 
-                  <div>
-                    <button></button>
-                    <button></button>
-                  </div>
+                  <form
+                    className="flex gap-4"
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <input
+                      className="hidden"
+                      id="proof_photo"
+                      type="file"
+                      {...register("proof_photo")}
+                    />
+                    <label
+                      htmlFor="proof_photo"
+                      className="flex flex-wrap gap-2 items-center rounded-md px-3 py-2 border-2 border-primary text-sm font-semibold cursor-pointer max-w-[150px] lg:max-w-[180px] lg:text-base lg:border-[3]"
+                    >
+                      {watchProofPhoto == null && (
+                        <ArrowUpTrayIcon className="h-5 w-5" />
+                      )}
+                      {watchProofPhoto != null && (
+                        <PhotoIcon className="h-5 w-5 lg:h-7 lg:w-7 text-red-600" />
+                      )}
+                      {watchProofPhoto == null && <div>Upload Bukti</div>}
+                      {watchProofPhoto != null && (
+                        <div className="line-clamp-1 break-words shrink max-w-[75%]">
+                          {watchProofPhoto[0]?.name}
+                        </div>
+                      )}
+                    </label>
+                    <button
+                      disabled={watchProofPhoto == null}
+                      className={
+                        (watchProofPhoto == null
+                          ? "bg-slate-300 text-slate-600 "
+                          : "bg-primary text-slate-50 ") +
+                        "px-4 py-2 text-sm font-semibold rounded-md lg:text-base"
+                      }
+                    >
+                      Sudah Bayar
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

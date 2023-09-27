@@ -46,6 +46,7 @@ export const useAllKostInfinite = ({
 }) => {
   const newSearchBy = { ...search_by };
   delete newSearchBy?.is;
+  console.log(newSearchBy);
 
   const getAllKostInfiniteQuery = useInfiniteQuery({
     queryKey: ["kost", "infinite", keyword, newSearchBy],

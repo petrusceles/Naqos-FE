@@ -60,9 +60,12 @@ function NavbarSigned(props) {
             <div className="w-full font-medium text-slate-800 lg:w-fit">
               Wishlist
             </div>
-            <div className="w-full font-medium text-slate-800 lg:w-fit">
+            <Link
+              to={"/history/reservation/list"}
+              className="w-full font-medium text-slate-800 lg:w-fit"
+            >
               Riwayat
-            </div>
+            </Link>
             <div
               className="w-full font-medium text-slate-800 lg:w-fit hidden lg:block cursor-pointer"
               onClick={() => setNotification((prev) => !prev)}
