@@ -41,15 +41,6 @@ function FindKost(props) {
 
   const [keyword, setKeyword] = useState(props.keyword);
 
-  // const [query, setQuery] = useState()
-
-  // const kost = useAllKost({
-  //   sorted_by: filterState?.sort_price && "month_price",
-  //   sort: filterState?.sort_price,
-  //   search_by: filterState,
-  //   keyword,
-  // });
-
   const kostInfinite = useAllKostInfinite({
     sorted_by: filterState?.sort_price && "month_price",
     sort: filterState?.sort_price,
@@ -62,8 +53,6 @@ function FindKost(props) {
     e.preventDefault();
     kostInfinite?.fetchNextPage();
   };
-
-  // console.log(kostInfinite?.data);
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">

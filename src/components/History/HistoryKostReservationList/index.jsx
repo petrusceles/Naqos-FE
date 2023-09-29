@@ -16,11 +16,12 @@ function HistoryKostReservationList() {
     },
     limit: 2,
   });
+  
   const onLoadMoreClick = (e) => {
     e.preventDefault();
     bookingInfinite?.fetchNextPage();
   };
-  console.log(bookingInfinite?.data);
+
   return (
     <>
       <div className="pt-[88px] lg:pt-32">

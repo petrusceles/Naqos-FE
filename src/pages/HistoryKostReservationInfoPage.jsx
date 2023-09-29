@@ -5,9 +5,9 @@ import HistoryKostReservationInfo from '../components/History/HistoryKostReserva
 import { useUser } from '../queries/auth.js';
 
 function HistoryKostReservationInfoPage() {
-  
   const user = useUser();
   console.log(user?.data)
+  
   return (
     <div className="flex flex-col h-screen justify-between">
       <NavbarSigned user={user?.data?.data?.data} />
