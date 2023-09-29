@@ -16,7 +16,7 @@ function HistoryKostReservationList() {
     },
     limit: 2,
   });
-  
+
   const onLoadMoreClick = (e) => {
     e.preventDefault();
     bookingInfinite?.fetchNextPage();
@@ -33,7 +33,7 @@ function HistoryKostReservationList() {
                 <Link to={"/"}>Home</Link>
               </li>
               <li>
-                <Link to={"/"}>Riwayat</Link>
+                <Link to={"/history/reservation/list"}>Riwayat</Link>
               </li>
               <li className="text-primary font-semibold">
                 <Link to={"/history/reservation-info"}>Pemesanan Kos</Link>

@@ -27,7 +27,7 @@ function HistoryKostPaymentList() {
               <Link to={"/"}>Home</Link>
             </li>
             <li>
-              <Link to={"/"}>Riwayat</Link>
+              <Link to={"/history/reservation/list"}>Riwayat</Link>
             </li>
             <li className="text-primary font-semibold">
               <Link to={"/history/reservation-info"}>Pemesanan Kos</Link>
@@ -38,7 +38,7 @@ function HistoryKostPaymentList() {
         <div className="w-full flex gap-8">
           <HistorySidebar />
 
-          <div className="flex flex-wrap w-full py-2 gap-3 lg:w-full lg:gap-0 items-start">
+          <div className="flex flex-wrap w-full py-2 gap-3 lg:w-full lg:gap-3 items-start">
             {/* Kost Brief */}
 
             {bookingInfinite?.data?.pages?.map((page, i) => {

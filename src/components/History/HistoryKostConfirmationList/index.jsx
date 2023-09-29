@@ -27,7 +27,7 @@ function HistoryKostConfirmationList() {
               <Link to={"/"}>Home</Link>
             </li>
             <li>
-              <Link to={"/"}>Riwayat</Link>
+              <Link to={"/history/reservation/list"}>Riwayat</Link>
             </li>
             <li className="text-primary font-semibold">
               <Link to={"/history/confirmation-list"}>Menunggu Konfirmasi</Link>
