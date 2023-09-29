@@ -13,8 +13,10 @@ function HistoryKostPaymentList() {
       user: [user?.data?.data?.data?._id],
       phase: ["payment", "confirmation"],
     },
-    limit: 2,
+    limit: 3,
   });
+
+  console.log(bookingInfinite);
   return (
     <div className="pt-[88px] lg:pt-32">
       <div className="container px-7 flex flex-wrap w-full gap-5">

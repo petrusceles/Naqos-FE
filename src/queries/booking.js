@@ -19,6 +19,7 @@ export const useAllBookingInfinite = ({
         pageParam,
       }),
     getNextPageParam: (response) => {
+      console.log("REPONSE", response);
       const nextLimit = response?.data?.data?.next_limit;
       const nextSkip = response?.data?.data?.next_skip;
       console.log("nextLimit", nextLimit);
