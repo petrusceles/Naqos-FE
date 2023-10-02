@@ -8,6 +8,7 @@ import {
 } from "../api/auth.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { get_user_roles,sign_up } from "../api/auth.js";
 
 export const useUser = (isNavigate = false) => {
   const navigate = useNavigate();
@@ -54,3 +55,19 @@ export const useLogout = () => {
   });
   return logoutQuery;
 };
+
+export const useUserRole = () => {
+  const getUserRoleQuery = useQuery({
+    queryFn: get_user_roles,
+    queryKey: ["roles"]
+  });
+  return getUserRoleQuery
+}
+
+export const useSignUp = () => {
+  const signUpQuery = useMutation({
+    mutationFn: sign_up,
+    mutationKey: ["sign-up"]
+  });
+  return signUpQuery;
+}

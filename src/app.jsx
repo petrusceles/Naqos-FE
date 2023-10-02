@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import "./index.css";
-import SignUpSeekerPage from "./pages/SignUpSeekerPage";
+import SignUp from "./components/SignUp/index.jsx";
 import SignUpOwnerPage from "./pages/SignUpOwnerPage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPendingPage from "./pages/ForgotPasswordPendingPage";
@@ -67,8 +67,7 @@ const App = () => {
                 {/* Login */}
                 <Route path="/login" element={<LoginPage />} />
                 {/* SignUp */}
-                <Route path="/register/seeker" element={<SignUpSeekerPage />} />
-                <Route path="/register/owner" element={<SignUpOwnerPage />} />
+                <Route path="/register" element={<SignUp />} />
                 {/* Forgot Password */}
                 <Route
                   path="/forgot/pending"

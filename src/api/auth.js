@@ -50,3 +50,11 @@ export const logout = async () => {
     withCredentials: true,
   });
 };
+
+export const get_user_roles = async () => {
+  return await axios.get(`${config.BASE_URL}/role`);
+};
+
+export const sign_up = async ({ data }) => {
+  return await axios.post(`${config.BASE_URL}/user`, data);
+};

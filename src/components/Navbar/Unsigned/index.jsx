@@ -6,7 +6,7 @@ import CTAuthModal from "../../CTAuthModal";
 import { Link } from "react-router-dom";
 function NavbarUnsigned() {
   const [menu, setMenu] = useState(false);
-  const [isModalShow, setIsModalShow] = useState(false);
+  const [isModalShow, setIsModalShow] = useState(true);
   return (
     <>
       {isModalShow && <CTAuthModal setIsModalShow={setIsModalShow} />}

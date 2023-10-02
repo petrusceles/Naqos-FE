@@ -11,12 +11,15 @@ function NavbarOwner(props) {
   return (
     <div className=" shadow-md bg-white fixed w-full z-40 min-h-[100px] items-center flex">
       <div className="flex flex-wrap py-4 px-5 justify-between items-center lg:px-0 lg:flex-nowrap lg:py-0 w-full">
-        <div className="lg:w-1/4 w-1/2 flex justify-center items-center">
+        <Link
+          to={"/owner/dashboard/property"}
+          className="lg:w-1/4 w-1/2 flex justify-center items-center"
+        >
           <img
             src={logoNaqos}
             className="max-w-[120px] lg:max-w-[210px] w-full"
           />
-        </div>
+        </Link>
         <div className="w-1/2 flex justify-end gap-5 lg:w-0">
           <BellIcon
             className="max-w-[25px] text-slate-800 cursor-pointer lg:hidden"
