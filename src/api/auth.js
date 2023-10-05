@@ -58,3 +58,13 @@ export const get_user_roles = async () => {
 export const sign_up = async ({ data }) => {
   return await axios.post(`${config.BASE_URL}/user`, data);
 };
+
+export const send_verif = async ({ data }) => {
+  return await axios.post(`${config.BASE_URL}/auth/verif`, data, {
+    withCredentials: true,
+  });
+};
+
+export const verif = async ({ data }) => {
+  return await axios.get(`${config.BASE_URL}/auth/verif`, { params: data });
+};

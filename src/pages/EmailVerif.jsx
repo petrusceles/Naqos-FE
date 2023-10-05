@@ -1,14 +1,14 @@
 import React from "react";
 import Footer from "../components/Footer";
-import EmailVerifSuccess from "../components/EmailVerif/EmailVerifSuccess";
+import EmailVerif from "../components/EmailVerif/EmailVerifProcess";
 
-function EmailVerifSuccessPage() {
+function EmailVerifPage() {
   return (
     <div className="flex flex-col h-screen justify-between">
-      <EmailVerifSuccess />
+      <EmailVerif />
       <Footer />
     </div>
   );
 }
 
-export default EmailVerifSuccessPage;
+export default EmailVerifPage;

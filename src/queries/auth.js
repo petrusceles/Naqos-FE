@@ -5,10 +5,12 @@ import {
   edit_profile,
   update_password,
   logout,
+  send_verif,
+  verif,
 } from "../api/auth.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { get_user_roles,sign_up } from "../api/auth.js";
+import { get_user_roles, sign_up } from "../api/auth.js";
 
 export const useUser = (isNavigate = false) => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ export const useUserMutate = () => {
     retry: false,
   });
   return getUserMutation;
-}
+};
 
 export const useLoginUser = () => {
   const loginUserMutation = useMutation({
@@ -59,15 +61,32 @@ export const useLogout = () => {
 export const useUserRole = () => {
   const getUserRoleQuery = useQuery({
     queryFn: get_user_roles,
-    queryKey: ["roles"]
+    queryKey: ["roles"],
   });
-  return getUserRoleQuery
-}
+  return getUserRoleQuery;
+};
 
 export const useSignUp = () => {
   const signUpQuery = useMutation({
     mutationFn: sign_up,
-    mutationKey: ["sign-up"]
+    mutationKey: ["sign-up"],
   });
   return signUpQuery;
-}
+};
+
+export const useSendVerif = () => {
+  const sendVerifQuery = useMutation({
+    mutationFn: send_verif,
+    mutationKey: ["send", "verif"],
+  });
+  return sendVerifQuery;
+};
+
+export const useVerif = ({ data }) => {
+  console.log(data);
+  const verifQuery = useQuery({
+    queryFn: () => verif({ data }),
+    queryKey: ["verif"],
+  });
+  return verifQuery;
+};

@@ -8,7 +8,7 @@ import ForgotPasswordPendingPage from "./pages/ForgotPasswordPendingPage";
 import ForgotPasswordFormPage from "./pages/ForgotPasswordFormPage";
 import ForgotPasswordSuccessPage from "./pages/ForgotPasswordSuccessPage";
 import EmailVerifPendingPage from "./pages/EmailVerifPendingPage";
-import EmailVerifSuccessPage from "./pages/EmailVerifSuccessPage";
+import EmailVerif from "./pages/EmailVerif";
 import EmailVerifFailedPage from "./pages/EmailVerifFailedPage";
 import FindKostPage from "./pages/FindKostPage";
 import KostDetailPage from "./pages/KostDetailPage";
@@ -87,8 +87,8 @@ const App = () => {
                   element={<EmailVerifPendingPage />}
                 />
                 <Route
-                  path="/verif/success"
-                  element={<EmailVerifSuccessPage />}
+                  path="/verif"
+                  element={<EmailVerif />}
                 />
                 <Route
                   path="/verif/failed"
