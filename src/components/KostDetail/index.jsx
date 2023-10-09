@@ -99,15 +99,20 @@ function KostDetail(props) {
   const onSewa = async (e) => {
     e.preventDefault();
     try {
-      await user.mutateAsync();
-      navigate(
-        "/history/reservation/info" +
-          `?days=${selectedPriceType?.days}&type=${
-            selectedPriceType?.type
-          }&price=${selectedPriceType?.price}&kost_id=${
-            props?.kost?._id
-          }&date=${date.toString()}`
-      );
+      const userResponse = await user.mutateAsync();
+
+      if (user?.data?.data?.is_verified) {
+        navigate(
+          "/history/reservation/info" +
+            `?days=${selectedPriceType?.days}&type=${
+              selectedPriceType?.type
+            }&price=${selectedPriceType?.price}&kost_id=${
+              props?.kost?._id
+            }&date=${date.toString()}`
+        );
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       navigate("/login");
     }
