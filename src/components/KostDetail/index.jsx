@@ -52,7 +52,7 @@ function KostDetail(props) {
     props.kost.inside_photos_url,
     props.kost.outside_photos_url
   );
-  // console.log(props.kost_recommendation);
+  console.log(DatePicker)
 
   let priceTypeAvailable = {};
 
@@ -96,10 +96,14 @@ function KostDetail(props) {
   // console.log(starAverage)
   const user = useUserMutate();
   const navigate = useNavigate();
+
+  const endDatePicker = addDays(new Date(), 40); 
+  const startDatePicker = addDays(new Date(), 5);
+
   const onSewa = async (e) => {
     e.preventDefault();
     try {
-      const userResponse = await user.mutateAsync();
+      await user.mutateAsync();
 
       if (user?.data?.data?.is_verified) {
         navigate(
@@ -244,11 +248,13 @@ function KostDetail(props) {
                     </span>
                   </h3>
                   <div className="w-full flex justify-center flex-wrap gap-2 lg:gap-4">
-                    <div className="flex relative w-[70%]">
+                    <div className="flex relative w-[70%] border-2 border-primary rounded px-1 lg:p-2">
                       <DatePicker
                         onChange={setDate}
+                        maxDate={endDatePicker}
+                        minDate={startDatePicker}
                         value={date}
-                        className=" outline-none w-full rounded border-2 border-primary text-sm lg:text-base font-bold px-1 lg:p-2"
+                        className="w-full rounded text-sm lg:text-base font-bold border-none"
                       />
                     </div>
                     <select

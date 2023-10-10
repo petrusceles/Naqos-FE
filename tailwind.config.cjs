@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 const withMT = require("@material-tailwind/react/utils/withMT");
+// import "@fontsource/roboto/300.css";
+// import "@fontsource/roboto/400.css";
+// import "@fontsource/roboto/500.css";
+// import "@fontsource/roboto/700.css";
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {

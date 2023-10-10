@@ -32,11 +32,11 @@ function NavbarSignedVerifyNotif() {
         height="5px"
       />
       <div className="fixed w-full z-40 top-24 flex justify-center lg:top-36 font-semibold">
-        <div className="bg-secondary w-[80%] flex justify-between items-center rounded-lg py-2 px-4 border-2 border-primary shadow-lg">
+        <div className="bg-secondary lg:w-[80%] flex justify-between items-center rounded-lg lg:py-2 lg:px-4 border-2 border-primary shadow-lg w-3/4 text-xs lg:text-base py-1 px-2">
           <p>Verifikasi email agar dapat melakukan transaksi!</p>
           <button
             onClick={onVerif}
-            className="rounded-lg bg-primary py-1 px-3 text-slate-50 hover:bg-slate-200/30 hover:text-primary duration-100 ease-in-out hover:shadow-lg"
+            className="rounded-lg bg-primary lg:py-1 lg:px-3 text-slate-50 hover:bg-slate-200/30 hover:text-primary duration-100 ease-in-out hover:shadow-lg py-1 px-2"
           >
             Verifikasi Email
           </button>
