@@ -41,7 +41,7 @@ function FindKostCard(props) {
         </div>
         <div className=" bg-slate-100 px-2 py-1 rounded-md w-full">
           <div className="grid grid-cols-1 h-fit w-11/12 gap-1 lg:gap-0">
-            <h2 className="text-sm font-semibold lg:text-lg lg:font-bold">
+            <h2 className="text-sm font-semibold lg:text-lg lg:font-bold line-clamp-2">
               {props?.kost?.name}
             </h2>
             <p className="text-[9px] line-clamp-2 text-justify lg:text-xs">
@@ -55,14 +55,14 @@ function FindKostCard(props) {
               (starCount == undefined ? (
                 <>
                   <StarIcon className="w-4 text-slate-500 lg:w-6" />
-                  <div className="text-[13px] font-semibold flex items-center gap-1 lg:text-base align-middle">
+                  <div className="text-xs font-semibold flex items-center gap-1 lg:text-base align-middle">
                     No reviews
                   </div>
                 </>
               ) : (
                 <>
                   <StarIcon className="w-4 text-contrary lg:w-6" />
-                  <div className="text-[13px] font-semibold flex items-center gap-1 lg:text-base align-middle">
+                  <div className="text-xs font-semibold flex items-center gap-1 lg:text-base align-middle">
                     {starAverage}{" "}
                     <span className="font-normal text-[9px] italic lg:text-xs">
                       {`(${starCount} reviews)`}
@@ -84,7 +84,7 @@ function FindKostCard(props) {
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="lg:flex justify-between items-center gap-2 grid">
           <div className="flex gap-[6px] flex-wrap items-center text-[9px] lg:text-sm lg:gap-2 ">
             {props?.kost?.room_facilities
               .filter((_, index) => index < 3)
@@ -92,14 +92,14 @@ function FindKostCard(props) {
                 return (
                   <div
                     key={indexMap}
-                    className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] px-3"
+                    className=" font-semibold text-primary border-[1px] border-primary rounded-[4px] py-[2px] lg:px-3 px-1"
                   >
                     {val.name}
                   </div>
                 );
               })}
           </div>
-          <div className="w-1/2 text-sm h-fit font-bold self-end text-end lg:text-lg">
+          <div className="lg:w-1/2 w-full text-sm h-fit font-bold self-end lg:text-end lg:text-lg">
             {"Rp" + props?.kost?.month_price.toLocaleString("en-US")}{" "}
             <span className="text-[9px] font-normal lg:text-sm">/bulan</span>
           </div>

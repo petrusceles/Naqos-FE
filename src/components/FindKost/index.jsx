@@ -108,7 +108,7 @@ function FindKost(props) {
               })}
               <button
                 onClick={onLoadMoreClick}
-                className="font-semibold text-xl text-slate-400"
+                className="font-semibold text-sm lg:text-lg text-slate-400"
                 disabled={
                   !kostInfinite?.hasNextPage || kostInfinite?.isFetchingNextPage
                 }

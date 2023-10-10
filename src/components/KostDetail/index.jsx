@@ -52,7 +52,7 @@ function KostDetail(props) {
     props.kost.inside_photos_url,
     props.kost.outside_photos_url
   );
-  console.log(DatePicker)
+  console.log(DatePicker);
 
   let priceTypeAvailable = {};
 
@@ -97,7 +97,7 @@ function KostDetail(props) {
   const user = useUserMutate();
   const navigate = useNavigate();
 
-  const endDatePicker = addDays(new Date(), 40); 
+  const endDatePicker = addDays(new Date(), 40);
   const startDatePicker = addDays(new Date(), 5);
 
   const onSewa = async (e) => {
@@ -313,7 +313,7 @@ function KostDetail(props) {
                 <div className="flex flex-wrap w-full">
                   <div className="flex w-full items-center gap-2 font-bold lg:gap-4 ">
                     <h1 className="text-xl lg:text-3xl">{props.kost.name}</h1>
-                    <div className="text-sm font-semibold  rounded-sm px-3 py-2 self-center lg:text-xl bg-slate-200 lg:rounded-md">
+                    <div className="text-sm font-semibold  rounded-sm px-3 py-2 self-start lg:text-xl bg-slate-200 lg:rounded-md">
                       {props.kost.type.name}
                     </div>
                   </div>
@@ -328,15 +328,15 @@ function KostDetail(props) {
                 </p>
 
                 {/* Kost Rate, Location, Wishlist Button, and Share Button */}
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between w-full gap-2 ">
                   {/* Rating & Location */}
-                  <div className="flex gap-3">
+                  <div className="flex lg:gap-3 gap-1">
                     {/* Rating */}
                     {starCount == undefined ? (
                       <div className="flex gap-1 items-center">
                         <StarIcon className="w-4 text-slate-400 lg:w-6" />
-                        <div className="text-sm font-semibold flex items-center gap-1 lg:text-base align-middle">
-                          No reviews
+                        <div className="text-xs font-semibold flex items-center  lg:text-base align-middle">
+                          <p>No Review</p>
                         </div>
                       </div>
                     ) : (
@@ -353,8 +353,8 @@ function KostDetail(props) {
 
                     {/* Location */}
                     <div className="flex gap-1 items-center">
-                      <MapPinIcon className="w-4 text-primary lg:w-6" />
-                      <div className="text-sm font-medium lg:text-sm">
+                      <MapPinIcon className="w-3 text-primary lg:w-6" />
+                      <div className="text-xs font-medium lg:text-sm">
                         {props.kost.district.split(" ").slice(1).join(" ")}
                       </div>
                     </div>
@@ -362,10 +362,10 @@ function KostDetail(props) {
 
                   {/* Save & Share */}
                   <div className="flex gap-3 justify-end text-[11px] font-medium lg:text-sm lg:font-semibold">
-                    <button className="py-1 px-2 box-border border-2 rounded border-primary flex items-center gap-2">
+                    <div className="lg:py-1 lg:px-2 box-border border-2 rounded border-primary flex items-center gap-2 px-2">
                       <HeartIcon className="w-4 lg:w-6" />
-                      Simpan
-                    </button>
+                      <span>Simpan</span>
+                    </div>
                     <button className="py-1 px-2 box-border border-[2px] rounded border-primary flex items-center gap-2">
                       <ShareIcon className="w-4 lg:w-6" />
                       Bagikan
