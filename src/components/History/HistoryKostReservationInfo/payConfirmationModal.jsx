@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function PayConfirmationModal({ IsPaymentInitiatedState, bookingInfoState }) {
   const createBooking = useCreateBooking();
   const [progressLoading, setProgressLoading] = useState(0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onContinue = async (e) => {
     e.preventDefault();
     try {
@@ -16,7 +16,8 @@ function PayConfirmationModal({ IsPaymentInitiatedState, bookingInfoState }) {
       const response = await createBooking.mutateAsync(
         bookingInfoState?.bookingInfo
       );
-      const bookingId = response?.data?.data?.created_booking?._id
+
+      const bookingId = response?.data?.data?.created_booking?._id;
       navigate(`/history/reservation/payment?booking_id=${bookingId}`);
     } catch (error) {
       console.log(error);

@@ -172,7 +172,7 @@ function HistoryKostReservationPayment() {
                     <div className="overflow-hidden bg-slate-100 rounded-lg w-4/12 max-w-[142px] flex items-center justify-center">
                       <CreditCardIcon className="w-12 h-12 text-primary" />
                     </div>
-                    <div className="w-8/12 flex flex-wrap align-middle items-center">
+                    <div className="w-8/12 flex  flex-wrap align-middle items-center">
                       <p className="font-medium  text-xs w-full lg:text-base">
                         ke rekening
                         <span className="font-semibold text-primary text-base lg:text-lg">
@@ -193,7 +193,7 @@ function HistoryKostReservationPayment() {
                   </div>
 
                   <form
-                    className="flex gap-4"
+                    className="flex gap-4 w-full"
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <input
@@ -204,7 +204,7 @@ function HistoryKostReservationPayment() {
                     />
                     <label
                       htmlFor="proof_photo"
-                      className="flex flex-wrap gap-2 items-center rounded-md px-3 py-2 border-2 border-primary text-sm font-semibold cursor-pointer max-w-[150px] lg:max-w-[180px] lg:text-base lg:border-[3]"
+                      className="flex flex-wrap gap-2 items-center rounded-md px-3 py-2 border-2 border-primary text-sm font-semibold cursor-pointer  lg:max-w-[180px] lg:text-base lg:border-[3]"
                     >
                       {watchProofPhoto == null && (
                         <ArrowUpTrayIcon className="h-5 w-5" />

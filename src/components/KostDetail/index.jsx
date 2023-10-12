@@ -103,9 +103,9 @@ function KostDetail(props) {
   const onSewa = async (e) => {
     e.preventDefault();
     try {
-      await user.mutateAsync();
-
-      if (user?.data?.data?.is_verified) {
+      const responseUser = await user.mutateAsync();
+      console.log(responseUser);
+      if (responseUser?.data?.data?.is_verified) {
         navigate(
           "/history/reservation/info" +
             `?days=${selectedPriceType?.days}&type=${

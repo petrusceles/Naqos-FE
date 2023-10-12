@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import "./index.css";
-import SignUp from "./components/SignUp/index.jsx";
-import SignUpOwnerPage from "./pages/SignUpOwnerPage";
+// import SignUp from "./components/SignUp/index.jsx";
+import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPendingPage from "./pages/ForgotPasswordPendingPage";
 import ForgotPasswordFormPage from "./pages/ForgotPasswordFormPage";
@@ -67,7 +67,7 @@ const App = () => {
                 {/* Login */}
                 <Route path="/login" element={<LoginPage />} />
                 {/* SignUp */}
-                <Route path="/register" element={<SignUp />} />
+                <Route path="/register" element={<SignUpPage />} />
                 {/* Forgot Password */}
                 <Route
                   path="/forgot/pending"
@@ -86,10 +86,7 @@ const App = () => {
                   path="/verif/pending"
                   element={<EmailVerifPendingPage />}
                 />
-                <Route
-                  path="/verif"
-                  element={<EmailVerif />}
-                />
+                <Route path="/verif" element={<EmailVerif />} />
                 <Route
                   path="/verif/failed"
                   element={<EmailVerifFailedPage />}

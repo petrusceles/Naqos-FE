@@ -49,6 +49,6 @@ export const getDifferentProperties = ({compare, main}) => {
 
 export const bahasaToEnglish = {
   bulan:"month",
-  minggu:"week",
+  tahun:"year",
   hari:"day"
 }

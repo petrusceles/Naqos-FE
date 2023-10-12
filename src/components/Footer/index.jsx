@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 function Footer() {
   return (
-    <div className="bg-primary text-white text-sm lg:text-base sticky top-[100vh]">
+    <div className="bg-primary text-white text-sm lg:text-base sticky top-[100vh] ">
       <div className="container px-8">
         <div className="pt-10 pb-8 lg:pb-9 grid grid-cols-2 lg:grid-cols-4">
           <div className="block space-y-5 order-1 lg:order-2 lg:font-bold lg:pl-16 ">

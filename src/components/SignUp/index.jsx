@@ -249,7 +249,7 @@ function SignUp() {
           <p className="lg:text-[16px] text-[14px] text-center text-black font-[600]">
             Sudah punya akun?
           </p>
-          <Link to="/auth/login">
+          <Link to="/login">
             <p className="lg:text-[16px] text-[14px] text-center text-[#0A008A] font-[600]">
               Masuk
             </p>
