@@ -44,6 +44,7 @@ function Login() {
       },
       {
         onSuccess: (res) => {
+          console.log("after login", res);
           setProgressLoading(100);
           queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
           if (res?.data?.data?.user?.role === "tenant") {

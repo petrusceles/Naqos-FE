@@ -50,24 +50,24 @@ export const useAllKostInfinite = ({
 
   const getAllKostInfiniteQuery = useInfiniteQuery({
     queryKey: ["kost", "infinite", keyword, newSearchBy],
-    queryFn:({pageParam = 0}) => get_all_kosts({
-      keyword,
-      limit,
-      sorted_by,
-      sort,
-      search_by: newSearchBy,
-      pageParam
-
-    }),
+    queryFn: ({ pageParam = 0 }) =>
+      get_all_kosts({
+        keyword,
+        limit,
+        sorted_by,
+        sort,
+        search_by: newSearchBy,
+        pageParam,
+      }),
     getNextPageParam: (response) => {
       const nextLimit = response?.data?.data?.next_limit;
       const nextSkip = response?.data?.data?.next_skip;
-      if (nextSkip > nextLimit) return undefined;
+      if (nextSkip >= nextLimit) return undefined;
       return response?.data?.data?.next_skip;
-    }
+    },
   });
 
-  return getAllKostInfiniteQuery
+  return getAllKostInfiniteQuery;
 };
 
 export const useKostDetail = ({ id }) => {

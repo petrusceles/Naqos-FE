@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EmailVerifPendingIcon from "../../../assets/email-verif-pending.png";
 import Logo from "../../../assets/naqos-logo-tag.png";
 function EmailVerifPending() {

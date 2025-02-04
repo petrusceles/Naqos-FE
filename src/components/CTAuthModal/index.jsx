@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useUserRole } from "../../queries/auth.js";
 function CTAuthModal({ setIsModalShow }) {
   const userRole = useUserRole();
+  console.log("MASUK KAH");
   console.log(
     userRole?.data?.data?.data?.roles?.filter(
       (value) => value?.name == "tenant"

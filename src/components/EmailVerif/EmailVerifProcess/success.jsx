@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EmailVerifSuccessIcon from "../../../assets/email-verif-success.svg";
 import Logo from "../../../assets/naqos-logo-tag.png";
+import { Link } from "react-router-dom";
+import { useLogout } from "../../../queries/auth";
 function EmailVerifSuccess() {
+  const logout = useLogout();
+
+  useEffect(() => {
+    logout.mutate();
+  }, []);
   return (
     <div className="container grid grid-cols-1 gap-24">
       <div className="w-full flex justify-center lg:pt-20 pt-10">
@@ -23,9 +30,12 @@ function EmailVerifSuccess() {
             untuk masuk ke akun kamu
           </p>
         </div>
-        <button className="mt-5 w-[90%] lg:w-1/2 rounded-full bg-[#0A008A] capitalize hover:bg-[#E1E0FF] hover:text-[#4D50C5] text-white py-3 lg:text-xl lg:font-semibold">
+        <Link
+          to={"/login"}
+          className="mt-5 w-[90%] lg:w-1/2 rounded-full bg-[#0A008A] capitalize text-center hover:bg-[#E1E0FF] hover:text-[#4D50C5] text-white py-3 lg:text-xl lg:font-semibold"
+        >
           Login
-        </button>
+        </Link>
       </div>
     </div>
   );

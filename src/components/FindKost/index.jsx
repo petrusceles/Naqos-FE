@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import {
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon,
@@ -56,6 +56,7 @@ function FindKost(props) {
 
   return (
     <div className="pt-24 pb-8 lg:pt-36 lg:pb-16">
+      {/* <h1>{kostInfinite}</h1> */}
       <div className="container flex flex-wrap px-8 gap-2 lg:gap-5">
         <div className="w-full flex flex-wrap gap-2 sticky top-0 lg:gap-5">
           <div className="flex relative w-full gap-3 items-center">
